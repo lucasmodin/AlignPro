@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@Repository("") //ALIGNPRO_REPOSITORY_JDBC
+@Repository("ALIGNPRO_REPOSITORY_JDBC")
 @Lazy
 public class AlignProRepository implements IFAlignProRepository {
 
