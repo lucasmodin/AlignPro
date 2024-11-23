@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AlignProService {
 
-    private IFAlignProRepository alignProRepository;
+    private final IFAlignProRepository alignProRepository;
 
     public AlignProService (ApplicationContext context, @Value("${AlignPro.repository.impl}") String impl){
         alignProRepository = (IFAlignProRepository) context.getBean(impl);
