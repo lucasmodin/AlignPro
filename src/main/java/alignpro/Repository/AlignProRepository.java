@@ -8,8 +8,10 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-@Repository("ALIGNPRO_REPOSITORY_JDBC")
+@Repository("") //ALIGNPRO_REPOSITORY_JDBC
 @Lazy
 public class AlignProRepository implements IFAlignProRepository {
 
@@ -34,5 +36,24 @@ public class AlignProRepository implements IFAlignProRepository {
     public void setConn() {
         this.conn = DBConnection.getConnection(dbURL,dbUsername,dbPassword);
     }
+
+    /*
+    @PostConstruct
+    public void h2DBtest(){
+        try{
+            String sqlString = "INSERT INTO employee (EmployeeName) VALUES (?)";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1, "Oskar August");
+            stmt.executeUpdate();
+
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+
+    }
+    */
+
 
 }
