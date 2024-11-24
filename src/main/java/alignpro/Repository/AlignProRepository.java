@@ -2,6 +2,7 @@ package alignpro.Repository;
 
 
 import alignpro.Model.DBConnection;
+import alignpro.Model.Project;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Repository("ALIGNPRO_REPOSITORY_JDBC")
@@ -57,6 +59,39 @@ public class AlignProRepository implements IFAlignProRepository {
         } catch(SQLException e){
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Project getProject(String projectName){
+        Project obj = null;
+
+        try{
+            String sqlString = "SELECT ProjectID, ProjectName, StartDate, Deadline, ProjectDescription FROM Project WHERE ProjectName = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1,projectName);
+
+            ResultSet rls = stmt.executeQuery();
+            if(rls.next()){
+                obj = new Project();
+                obj.setProjectID(rls.getInt("ProjectID"));
+                obj.setProjectName(rls.getString("ProjectName"));
+                obj.setStartDate(rls.getString("StartDate"));
+                obj.setDeadLine(rls.getString("deadline"));
+                obj.setProjectDescription(rls.getString("ProjectDescription"));
+            }
+
+
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+        return obj;
+    }
+
+    @Override
+    public Project getProject(int projectID){
+
     }
 
 }

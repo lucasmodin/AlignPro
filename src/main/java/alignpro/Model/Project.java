@@ -88,16 +88,32 @@ public class Project {
         return startDate;
     }
 
+    public String getStartDateString(){
+        return startDate.toString();
+    }
+
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = LocalDate.parse(startDate);
     }
 
     public LocalDate getDeadLine() {
         return deadLine;
     }
 
+    public String getDeadlineString(){
+        return deadLine.toString();
+    }
+
     public void setDeadLine(LocalDate deadLine) {
         this.deadLine = deadLine;
+    }
+
+    public void setDeadLine(String deadline){
+        this.deadLine = LocalDate.parse(deadline);
     }
 
     public int getTotalTime() {
