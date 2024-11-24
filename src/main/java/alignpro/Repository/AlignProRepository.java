@@ -77,13 +77,12 @@ public class AlignProRepository implements IFAlignProRepository {
                 obj.setProjectID(rls.getInt("ProjectID"));
                 obj.setProjectName(rls.getString("ProjectName"));
                 obj.setStartDate(rls.getString("StartDate"));
-                obj.setDeadLine(rls.getString("deadline"));
+                obj.setDeadLine(rls.getString("Deadline"));
                 obj.setProjectDescription(rls.getString("ProjectDescription"));
             }
 
-
         } catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new RuntimeException("Problem getting your project from the DB based on Projectname" + e.getMessage());
         }
 
         return obj;
@@ -91,7 +90,29 @@ public class AlignProRepository implements IFAlignProRepository {
 
     @Override
     public Project getProject(int projectID){
+        Project obj = null;
 
+        try{
+            String sqlString = "SELECT ProjectID, ProjectName, StartDate, Deadline, ProjectDescription FROM Project WHERE ProjectID = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1,projectID);
+
+            ResultSet rls = stmt.executeQuery();
+            if(rls.next()){
+                obj = new Project();
+                obj.setProjectID(rls.getInt("ProjectID"));
+                obj.setProjectName(rls.getString("ProjectName"));
+                obj.setStartDate(rls.getString("StartDate"));
+                obj.setDeadLine(rls.getString("Deadline"));
+                obj.setProjectDescription(rls.getString("ProjectDescription"));
+            }
+
+        } catch (SQLException e){
+            throw new RuntimeException("Problem getting your project from the DB based on ProjectID" + e.getMessage());
+        }
+
+        return obj;
     }
 
 }

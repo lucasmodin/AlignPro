@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 @ActiveProfiles("h2")
 public class AlignProRepositoryTest {
@@ -25,7 +27,18 @@ public class AlignProRepositoryTest {
 
         alignProRepository.saveProject(objToSave.getProjectName(),objToSave.getStartDateString(),objToSave.getDeadlineString(), objToSave.getProjectDescription());
 
+        Project objToGet = alignProRepository.getProject(4);
 
+        assertEquals(objToSave.getProjectDescription(),objToGet.getProjectDescription());
+    }
+
+    @Test
+    @DirtiesContext
+    void getProject(){
+
+        Project obj = alignProRepository.getProject("Project Kea");
+
+        assertEquals("Project Kea", obj.getProjectName());
     }
 
 }
