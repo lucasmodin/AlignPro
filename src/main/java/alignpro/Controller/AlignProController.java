@@ -31,7 +31,7 @@ public class AlignProController {
     @PostMapping("/saveProject")
     public String saveProject(@ModelAttribute Project newProject){
         alignProService.saveProject(newProject);
-        return "redirect:/AlignPro";
+        return "redirect:/AlignPro/CreateProject";
     }
 
 

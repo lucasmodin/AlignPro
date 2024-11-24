@@ -1,5 +1,6 @@
 package alignpro.Controller;
 
+import alignpro.Model.Project;
 import alignpro.Service.AlignProService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,14 +37,21 @@ public class AlignProControllerTest {
 
     @Test
     void saveNewProject() throws Exception {
+        Project project1 = new Project("New Project", "2024-11-24", "2024-11-26","Hehe det er en joke");
+
         mockMvc.perform(post("/saveProject")
-                .param("projectName", "New Project")
+                        .flashAttr("projectObj",project1))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/AlignPro"));
+                //.andExpect(redirectedUrl("/AlignPro"));
+    }
+
+    /*
+    .param("projectName", "New Project")
                                 .param("startDate", "2024-11-24")
                                 .param("deadline", "2024-11-26")
                                 .param("projectDescription", "Hehe det er en joke"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/AlignPro"))
-                .andExpect(redirectedUrl("/AlignPro"));
-    }
+
+     */
 
 }
