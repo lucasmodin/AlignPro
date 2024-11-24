@@ -37,23 +37,26 @@ public class AlignProRepository implements IFAlignProRepository {
         this.conn = DBConnection.getConnection(dbURL,dbUsername,dbPassword);
     }
 
-    /*
-    @PostConstruct
-    public void h2DBtest(){
+    //Methods to manage project;
+
+    @Override
+    public void saveProject(String projectName, String startDate,String deadLine, String projectDescription){
+
         try{
-            String sqlString = "INSERT INTO employee (EmployeeName) VALUES (?)";
+
+            String sqlString = "INSERT INTO Project (ProjectName, StartDate, Deadline, ProjectDescription) VALUES (?,?,?,?)";
 
             PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setString(1, "Oskar August");
+            stmt.setString(1, projectName);
+            stmt.setString(2, startDate);
+            stmt.setString(3, deadLine);
+            stmt.setString(4, projectDescription);
             stmt.executeUpdate();
 
-        } catch (SQLException e){
+
+        } catch(SQLException e){
             throw new RuntimeException(e);
         }
-
-
     }
-    */
-
 
 }
