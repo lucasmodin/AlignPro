@@ -17,6 +17,7 @@ public class AlignProService {
     }
 
     public void saveProject(Project obj){
+        System.out.println("dos it go into Service Layer");
         alignProRepository.saveProject(obj.getProjectName(), obj.getStartDateString(), obj.getDeadlineString(), obj.getProjectDescription());
     }
 

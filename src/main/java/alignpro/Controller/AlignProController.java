@@ -32,7 +32,7 @@ public class AlignProController {
     public String saveProject(@ModelAttribute Project newProject){
         System.out.println("Is it even connecting");
         alignProService.saveProject(newProject);
-        return "redirect:/AlignPro";
+        return "redirect:";
     }
 
 
