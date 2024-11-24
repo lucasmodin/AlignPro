@@ -30,8 +30,9 @@ public class AlignProController {
 
     @PostMapping("/saveProject")
     public String saveProject(@ModelAttribute Project newProject){
+        System.out.println("Is it even connecting");
         alignProService.saveProject(newProject);
-        return "redirect:/AlignPro/CreateProject";
+        return "redirect:/AlignPro";
     }
 
 
