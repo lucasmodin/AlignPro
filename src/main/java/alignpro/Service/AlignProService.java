@@ -1,5 +1,6 @@
 package alignpro.Service;
 
+import alignpro.Model.Project;
 import alignpro.Repository.IFAlignProRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,4 +15,9 @@ public class AlignProService {
     public AlignProService (ApplicationContext context, @Value("${AlignPro.repository.impl}") String impl){
         alignProRepository = (IFAlignProRepository) context.getBean(impl);
     }
+
+    public void saveProject(Project obj){
+        alignProRepository.saveProject(obj.getProjectName(), obj.getStartDateString(), obj.getDeadlineString(), obj.getProjectDescription());
+    }
+
 }

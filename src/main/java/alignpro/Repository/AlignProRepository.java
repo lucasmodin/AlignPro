@@ -2,6 +2,7 @@ package alignpro.Repository;
 
 
 import alignpro.Model.DBConnection;
+import alignpro.Model.Project;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Repository("ALIGNPRO_REPOSITORY_JDBC")
@@ -37,23 +39,80 @@ public class AlignProRepository implements IFAlignProRepository {
         this.conn = DBConnection.getConnection(dbURL,dbUsername,dbPassword);
     }
 
-    /*
-    @PostConstruct
-    public void h2DBtest(){
+    //Methods to manage project;
+
+    @Override
+    public void saveProject(String projectName, String startDate,String deadLine, String projectDescription){
+
         try{
-            String sqlString = "INSERT INTO employee (EmployeeName) VALUES (?)";
+
+            String sqlString = "INSERT INTO Project (ProjectName, StartDate, Deadline, ProjectDescription) VALUES (?,?,?,?)";
 
             PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setString(1, "Oskar August");
+            stmt.setString(1, projectName);
+            stmt.setString(2, startDate);
+            stmt.setString(3, deadLine);
+            stmt.setString(4, projectDescription);
             stmt.executeUpdate();
 
-        } catch (SQLException e){
+
+        } catch(SQLException e){
             throw new RuntimeException(e);
         }
-
-
     }
-    */
 
+    @Override
+    public Project getProject(String projectName){
+        Project obj = null;
+
+        try{
+            String sqlString = "SELECT ProjectID, ProjectName, StartDate, Deadline, ProjectDescription FROM Project WHERE ProjectName = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1,projectName);
+
+            ResultSet rls = stmt.executeQuery();
+            if(rls.next()){
+                obj = new Project();
+                obj.setProjectID(rls.getInt("ProjectID"));
+                obj.setProjectName(rls.getString("ProjectName"));
+                obj.setStartDate(rls.getString("StartDate"));
+                obj.setDeadLine(rls.getString("Deadline"));
+                obj.setProjectDescription(rls.getString("ProjectDescription"));
+            }
+
+        } catch (SQLException e){
+            throw new RuntimeException("Problem getting your project from the DB based on Projectname" + e.getMessage());
+        }
+
+        return obj;
+    }
+
+    @Override
+    public Project getProject(int projectID){
+        Project obj = null;
+
+        try{
+            String sqlString = "SELECT ProjectID, ProjectName, StartDate, Deadline, ProjectDescription FROM Project WHERE ProjectID = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1,projectID);
+
+            ResultSet rls = stmt.executeQuery();
+            if(rls.next()){
+                obj = new Project();
+                obj.setProjectID(rls.getInt("ProjectID"));
+                obj.setProjectName(rls.getString("ProjectName"));
+                obj.setStartDate(rls.getString("StartDate"));
+                obj.setDeadLine(rls.getString("Deadline"));
+                obj.setProjectDescription(rls.getString("ProjectDescription"));
+            }
+
+        } catch (SQLException e){
+            throw new RuntimeException("Problem getting your project from the DB based on ProjectID" + e.getMessage());
+        }
+
+        return obj;
+    }
 
 }

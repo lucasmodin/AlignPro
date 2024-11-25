@@ -18,12 +18,12 @@ DROP TABLE IF EXISTS Skills;
 DROP TABLE IF EXISTS PMUser;
 
 CREATE TABLE Project (
-	ProjectID INT AUTO_INCREMENT PRIMARY KEY, 
+	ProjectID INT AUTO_INCREMENT PRIMARY KEY,
     ProjectName VARCHAR(100) NOT NULL,
-    StartDate DATE NOT NULL, 
+    StartDate DATE NOT NULL,
     Deadline DATE NOT NULL,
-    TotalSumTime INT, 
-    ProjectDescription VARCHAR(100) NOT NULL     
+    TotalSumTime INT,
+    ProjectDescription VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE SubProject(
@@ -33,7 +33,7 @@ CREATE TABLE SubProject(
     EndDate DATE NOT NULL,
     SumTime INT,
     SubProjectDescription VARCHAR(100) NOT NULL,
-    ProjectID INT, 
+    ProjectID INT,
     CONSTRAINT fk_ProjectID FOREIGN KEY (ProjectID) REFERENCES Project(ProjectID) ON DELETE CASCADE
 );
 
@@ -58,7 +58,7 @@ CREATE TABLE SubTask(
     SubTaskDescription VARCHAR(100) NOT NULL,
     SkillRequirement VARCHAR(100) NOT NULL,
 	TaskID INT,
-    CONSTRAINT fk_TaskID FOREIGN KEY (TaskID) REFERENCES Task(TaskID) ON DELETE CASCADE 
+    CONSTRAINT fk_TaskID FOREIGN KEY (TaskID) REFERENCES Task(TaskID) ON DELETE CASCADE
 );
 
 CREATE TABLE Employee(
@@ -82,33 +82,33 @@ CREATE TABLE SubTask_Employee(
 	SubTaskID INT,
     EmployeeID INT,
     FOREIGN KEY (SubTaskID) REFERENCES SubTask(SubTaskID) ON DELETE CASCADE,
-    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID) ON DELETE CASCADE    
+    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID) ON DELETE CASCADE
 );
 
 CREATE TABLE Task_Employee(
 	TaskID INT,
     EmployeeID INT,
     FOREIGN KEY (TaskID) REFERENCES Task(TaskID) ON DELETE CASCADE,
-    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID) ON DELETE CASCADE    
+    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID) ON DELETE CASCADE
 );
 
 CREATE TABLE Employee_Skill(
     EmployeeID INT,
     SkillID INT,
-    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID) ON DELETE CASCADE, 
+    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID) ON DELETE CASCADE,
     FOREIGN KEY (SkillID) REFERENCES Skills(SkillID) ON DELETE CASCADE
 );
 
 CREATE TABLE PMUser_Project(
 	PMUserID INT,
     ProjectID INT,
-    FOREIGN KEY (PMUserID) REFERENCES PMUser(PMUserID) ON DELETE CASCADE, 
+    FOREIGN KEY (PMUserID) REFERENCES PMUser(PMUserID) ON DELETE CASCADE,
     FOREIGN KEY (ProjectID) REFERENCES Project(ProjectID) ON DELETE CASCADE
 );
 
-INSERT INTO Project  
+INSERT INTO Project
 (ProjectName, StartDate, Deadline, TotalSumTime, ProjectDescription) VALUES ('Project Kea', '2024-11-20', '2024-12-18', 0 ,'This is a project for testing');
-INSERT INTO Project  
+INSERT INTO Project
 (ProjectName, StartDate, Deadline, TotalSumTime, ProjectDescription) VALUES ('Project test2', '2023-09-01', '2025-11-08', 0 ,'Another empty test project');
 INSERT INTO Project
 (ProjectName, StartDate, Deadline, TotalSumTime, ProjectDescription) VALUES ('SQL Script Project', '2024-11-22', '2024-11-23',240 ,'Project about writing SQL Scripts');
@@ -138,16 +138,16 @@ INSERT INTO Task
 
 /* Create 3 Subtask for Task 1 and 1 and 1 */
 INSERT INTO SubTask
-(SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement) VALUES ('Build a gun', '2024-11-23', '2024-11-24', 43, 'Follow the attached instructions on gun building', 'Developer');
+(SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement,TaskID) VALUES ('Build a gun', '2024-11-23', '2024-11-24', 43, 'Follow the attached instructions on gun building', 'Developer',1);
 INSERT INTO SubTask
-(SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement) VALUES ('Finish SQL Scripts', '2024-11-23', '2024-11-23', 600, 'Before we can write Crud codes, we need SQL database set-up for testing', 'Developer');
+(SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement, TaskID) VALUES ('Finish SQL Scripts', '2024-11-23', '2024-11-23', 600, 'Before we can write Crud codes, we need SQL database set-up for testing', 'Developer',1);
 
 /* Creat list of Skills */
 INSERT INTO Skills
 (SkillName) VALUES ('Developer'), ('Cost Controller'), ('Project Manager');
 
 /* Creat 2 Employees */
-INSERT INTO Employee 
+INSERT INTO Employee
 (EmployeeName) VALUES ('Lars Larsen'), ('Kim Møller'), ('Frederik Rosenborg');
 
 /* Give my 3 Employees some skills */
