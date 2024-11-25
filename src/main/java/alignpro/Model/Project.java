@@ -129,7 +129,7 @@ public class Project {
     }
 
     public void setProjectDescription(String projectDescription) {
-        projectDescription = projectDescription;
+        this.projectDescription = projectDescription;
     }
 
 }
