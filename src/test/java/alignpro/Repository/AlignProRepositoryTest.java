@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("h2")
+// NB Tests fail if the following line is not included as the h2 database is not reset between tests
+//@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:h2init.sql")
 public class AlignProRepositoryTest {
 
     @Autowired
@@ -47,6 +50,7 @@ public class AlignProRepositoryTest {
     }
 
     @Test
+    @DirtiesContext
     void editProject(){
 
         //Arrange
@@ -70,8 +74,11 @@ public class AlignProRepositoryTest {
 
     }
 
-    //Test to save and get employee from db ***//
+
+
+    //Test to save and get employee from db
     @Test
+    @DirtiesContext
     void getEmployee(){
 
         Employee objTest = alignProRepository.getEmployee("Lars Larsen");
@@ -81,7 +88,9 @@ public class AlignProRepositoryTest {
 
     }
 
+
     @Test
+    @DirtiesContext
     void getListOfEmployees(){
 
         List<Employee> list = alignProRepository.getListOfEmployees();
@@ -92,6 +101,7 @@ public class AlignProRepositoryTest {
 
     //*** test to save Employee to DB ***//
     @Test
+    @DirtiesContext
     void saveEmployee(){
 
         List<String> listOfSkills = new ArrayList<>();
@@ -109,6 +119,7 @@ public class AlignProRepositoryTest {
 
     //*** test to see if you get skills correctly ***//
     @Test
+    @DirtiesContext
     void getListOfSkills(){
 
         List<String> list = alignProRepository.getListOfSkills();
@@ -118,6 +129,7 @@ public class AlignProRepositoryTest {
     }
 
     @Test
+    @DirtiesContext
     void getSkillsID(){
 
         Map<String, Integer> mapSkills = alignProRepository.getSkillsID();
