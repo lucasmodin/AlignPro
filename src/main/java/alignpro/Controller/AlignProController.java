@@ -83,6 +83,10 @@ public class AlignProController {
 
             if (subProjects.isEmpty()) {
                 dashboardRows.add(new PMDashboardRow(project, null));
+            } else {
+                for (SubProject subProject : subProjects) {
+                    dashboardRows.add(new PMDashboardRow(project, subProject));
+                }
             }
 
         }
