@@ -15,6 +15,11 @@ public class Employee {
         this.employeeName = employeeName;
     }
 
+    public Employee(String employeeName,List<String> skills){
+        this.employeeName = employeeName;
+        this.skills = skills;
+    }
+
     public Employee(int employeeID, String employeeName){
         this.employeeID = employeeID;
         this.employeeName = employeeName;
