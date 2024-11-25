@@ -67,6 +67,16 @@ public class AlignProControllerTest {
     }
 
     @Test
+    void deleteSubProject() throws Exception{
+        int subProjectId = 1;
+
+        mockMvc.perform(post("/deleteSubProject/{subProjectID}", subProjectId))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+
+    }
+
+    @Test
     void editProject() throws Exception {
         int projectId = 1;
         Project dummyProject = new Project(1, "dummy", "2024-11-11", "2024-11-22", "dummy project");
@@ -97,9 +107,11 @@ public class AlignProControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"))
                 .andExpect(view().name("redirect:/"));
-        }
-
     }
+
+
+
+}
 
 
 
