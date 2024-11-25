@@ -41,4 +41,12 @@ public class AlignProRepositoryTest {
         assertEquals("Project Kea", obj.getProjectName());
     }
 
+    @Test
+    void getEmployee(){
+
+    }
+
+    @Test
+    void getListOfEmployees(){}
+
 }

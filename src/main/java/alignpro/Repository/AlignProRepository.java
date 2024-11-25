@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository("ALIGNPRO_REPOSITORY_JDBC")
@@ -150,8 +151,29 @@ public class AlignProRepository implements IFAlignProRepository {
 
     @Override
     public List<Employee> getListOfEmployees(){
+        List<Employee> employeeList = new ArrayList<>();
 
+        try {
 
+            String sqlString = "SELECT * FROM Employee";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            ResultSet rls = stmt.executeQuery();
+
+            while(rls.next()){
+                int employeeID = rls.getInt(1);
+                String employeeName = rls.getString(2);
+
+                Employee obj = new Employee(employeeID,employeeName);
+
+                employeeList.add(obj);
+            }
+
+        } catch (SQLException e){
+            throw new RuntimeException("Could not get list of emplyees" + e.getMessage());
+        }
+
+        return employeeList;
     }
 
 }
