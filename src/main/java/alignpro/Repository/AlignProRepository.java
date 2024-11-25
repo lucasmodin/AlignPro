@@ -14,7 +14,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository("ALIGNPRO_REPOSITORY_JDBC")
 @Lazy
@@ -136,7 +138,27 @@ public class AlignProRepository implements IFAlignProRepository {
         }
     }
 
-    @Override // Not sure this method is necessary
+
+    @Override
+    public void saveEmployee(String employeeName, List<String> skillList){
+        int primaryKeyEmployee;
+
+        try{
+
+            String sqlString = "INSERT INTO Employee (EmployeeName) VALUES ?";
+
+            PreparedStatement stmt
+
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not save employee with a skill list" + e.getMessage());
+        }
+
+
+    }
+
+    @Override // This method should perhaps also have the list of Skills
     public Employee getEmployee(String employeeName){
         Employee employee = null;
 
@@ -191,4 +213,59 @@ public class AlignProRepository implements IFAlignProRepository {
         return employeeList;
     }
 
+
+    /// ***************************** Helper function to get infomration ************************* ///
+
+    @Override
+    public Map<String, Integer> getSkillsID(){
+        Map<String, Integer> pairList = new HashMap<>();
+
+        try{
+
+            String sqlString = "SELECT * FROM Skills";
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+
+            ResultSet rls = stmt.executeQuery();
+
+            while(rls.next()){
+                String skillName = rls.getString("SkillName");
+                int skillID = rls.getInt("SkillID");
+
+                pairList.put(skillName, skillID);
+            }
+
+        } catch (SQLException e){
+            throw new RuntimeException("it failed in helper function getSkillsID" + e.getMessage());
+        }
+
+        return pairList;
+    }
+
+    // *** Thymeleaf functions to get lists from DB *** //
+
+    @Override
+    public List<String> getListOfSkills(){
+        List<String> list = new ArrayList<>();
+
+        try{
+
+            String sqlString = "SELECT SkillName FROM Skills";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            ResultSet rls = stmt.executeQuery();
+
+            while (rls.next()){
+                list.add(rls.getString("SkillName"));
+            }
+
+        } catch (SQLException e){
+            throw new RuntimeException("Could not get list of skills" + e.getMessage());
+        }
+        return list;
+    }
+
+
+
+
 }
+

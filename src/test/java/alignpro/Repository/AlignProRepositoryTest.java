@@ -9,6 +9,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -72,6 +73,26 @@ public class AlignProRepositoryTest {
         Employee obj = alignProRepository.getEmployee("Ego Olsen");
 
         assertEquals("Ego Olsen", obj.getEmployeeName());
+    }
+
+    //*** test to see if you get skills correctly ***//
+    @Test
+    void getListOfSkills(){
+
+        List<String> list = alignProRepository.getListOfSkills();
+
+        assertTrue(list.contains("Developer"));
+        assertTrue(list.contains("Cost Controller"));
+    }
+
+    @Test
+    void getSkillsID(){
+
+        Map<String, Integer> mapSkills = alignProRepository.getSkillsID();
+
+        assertEquals(1,mapSkills.get("Developer"));
+        assertEquals(2,mapSkills.get("Cost Controller"));
+        assertEquals(3,mapSkills.get("Project Manager"));
     }
 
 }
