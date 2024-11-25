@@ -142,9 +142,6 @@ public class AlignProRepository implements IFAlignProRepository {
     }
 
 
-
-}
-
     //Methods to manage employees;
 
     @Override
@@ -314,9 +311,5 @@ public class AlignProRepository implements IFAlignProRepository {
         }
         return list;
     }
-
-
-
-
 }
 
