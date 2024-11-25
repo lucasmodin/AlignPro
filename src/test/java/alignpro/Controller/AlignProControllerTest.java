@@ -45,4 +45,12 @@ public class AlignProControllerTest {
                 .andExpect(redirectedUrl("/"));
     }
 
+    @Test
+    void testCreateNewSubProject() throws Exception {
+        mockMvc.perform(get("/createSubProject"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("obj"))
+                .andExpect(view().name("create-SubProject"));
+    }
+
 }
