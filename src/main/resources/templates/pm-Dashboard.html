@@ -11,23 +11,23 @@
         <th>Project Name</th>
         <th>Project Start Date</th>
         <th>Project Deadline</th>
-        <th>Project Total Time</th>
         <th>SubProject Name</th>
         <th>SubProject Start Date</th>
-        <th>SubProject End Date</th>
-        <th>SubProject Total Time</th>
+        <th>Task Name</th>
+        <th>SubTask Name</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="row : ${dashboardRows}">
-        <td th:text="${row.projectName}"></td>
-        <td th:text="${row.projectStartDate}"></td>
-        <td th:text="${row.projectDeadline}"></td>
-        <td th:text="${row.projectTotalTime}"></td>
-        <td th:text="${row.subProjectName}"></td>
-        <td th:text="${row.subProjectStartDate}"></td>
-        <td th:text="${row.subProjectEndDate}"></td>
-        <td th:text="${row.subProjectTotalTime}"></td>
+        <td th:text="${row.project?.projectName}"></td>
+        <td th:text="${row.project?.startDate}"></td>
+        <td th:text="${row.project?.deadLine}"></td>
+        <td th:text="${row.subProject?.subProjectName ?: 'N/A'}"></td>
+        <td th:text="${row.subProject?.startDate ?: 'N/A'}"></td>
+        <td>
+            <a th:href="@{/edit-project/{projectID}(projectID=${row.project?.projectID})}">Edit Project</a>
+        </td>
     </tr>
     </tbody>
 </table>

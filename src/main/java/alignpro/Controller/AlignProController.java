@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Controller
 @RequestMapping("")
 public class AlignProController {
@@ -78,39 +79,14 @@ public class AlignProController {
         List<Project> projects = alignProService.getAllProjects(pmUserID);
 
         for (Project project : projects) {
-            List<SubProject> subprojects = alignProService.getAllSubProjects(project.getProjectID());
-            if(subprojects.isEmpty()){
-                dashboardRows.add(new PMDashboardRow(
-                        project.getProjectName(),
-                        project.getStartDateString(),
-                        project.getDeadlineString(),
-                        project.getProjectDescription(),
-                        project.getTotalTime(),
-                        null, null, null, null, 0,
-                        null, null, null, null, 0,
-                        null, null, null, null, 0
-                        ));
-            } else {
-                for (SubProject subproject : subprojects) {
-                    dashboardRows.add(new PMDashboardRow(
-                            project.getProjectName(),
-                            project.getStartDateString(),
-                            project.getDeadlineString(),
-                            project.getProjectDescription(),
-                            project.getTotalTime(),
-                            subproject.getSubProjectName(),
-                            subproject.getStartDateString(),
-                            subproject.getEndDateString(),
-                            subproject.getSubProjectDescription(),
-                            subproject.getSumTime(),
-                            null, null, null, null, 0,
-                            null, null, null, null, 0
-                    ));
-                }
+            List<SubProject> subProjects = alignProService.getAllSubProjects(project.getProjectID());
+
+            if (subProjects.isEmpty()) {
+                dashboardRows.add(new PMDashboardRow(project, null));
             }
 
-
         }
+
         model.addAttribute("dashboardRows", dashboardRows);
         return "pm-Dashboard";
         //next is to implement logic for Task and subtask when the classes are made
