@@ -170,8 +170,6 @@ public class AlignProRepository implements IFAlignProRepository {
         } catch (SQLException e) {
             throw new RuntimeException("Could not save employee with a skill list" + e.getMessage());
         }
-
-
     }
 
     @Override // This method should perhaps also have the list of Skills
