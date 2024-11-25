@@ -41,4 +41,28 @@ public class AlignProRepositoryTest {
         assertEquals("Project Kea", obj.getProjectName());
     }
 
+    @Test
+    void editProject(){
+
+        //Arrange
+        Project originalProject = alignProRepository.getProject(1);
+        Project updatedProject = new Project(1, "project edit", "2024-11-24", "2024-11-25", "1-day project");
+
+
+        //Act
+        alignProRepository.editProject(updatedProject, 1);
+
+        //Assert
+        Project fetchedProject = alignProRepository.getProject(1);
+
+        assertNotNull(fetchedProject);
+        assertEquals(updatedProject.getProjectName(),fetchedProject.getProjectName());
+        assertEquals(updatedProject.getStartDateString(),fetchedProject.getStartDateString());
+        assertEquals(updatedProject.getDeadlineString(), fetchedProject.getDeadlineString());
+        assertEquals(updatedProject.getProjectDescription(), fetchedProject.getProjectDescription());
+
+        assertEquals(originalProject.getProjectID(), fetchedProject.getProjectID());
+
+    }
+
 }
