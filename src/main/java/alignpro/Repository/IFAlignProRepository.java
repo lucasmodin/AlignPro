@@ -1,6 +1,7 @@
 package alignpro.Repository;
 
 import alignpro.Model.Project;
+import alignpro.Model.SubProject;
 
 public interface IFAlignProRepository {
 
@@ -11,10 +12,14 @@ public interface IFAlignProRepository {
 
     Project getProject(String projectName);
 
-    Project getProject(int ProjectID);
+    Project getProject(int projectID);
 
     //void editProject();
 
 
     void saveSubProject(String subProjectName, String startDate, String endDate, String subProjectDescription);
+
+    SubProject getSubProject(String subProjectName);
+
+    SubProject getSubProject(int subProjectID);
 }

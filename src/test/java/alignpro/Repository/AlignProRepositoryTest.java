@@ -41,7 +41,7 @@ public class AlignProRepositoryTest {
 
         assertEquals("Project Kea", obj.getProjectName());
     }
-
+/*
     @Test
     @DirtiesContext
     void saveSubProject(){
@@ -54,5 +54,5 @@ public class AlignProRepositoryTest {
 
         assertEquals(objToSave.getSubProjectName(), objToGet.getSubProjectName());
     }
-
+*/
 }

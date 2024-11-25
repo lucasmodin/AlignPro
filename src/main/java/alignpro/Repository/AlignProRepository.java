@@ -3,6 +3,7 @@ package alignpro.Repository;
 
 import alignpro.Model.DBConnection;
 import alignpro.Model.Project;
+import alignpro.Model.SubProject;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -130,6 +131,61 @@ public class AlignProRepository implements IFAlignProRepository {
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
-
     }
+
+    @Override
+    public SubProject getSubProject(String subProjectName){
+        SubProject obj = null;
+
+        try{
+            String sqlString = "SELECT SubProjectID, SubProjectName, StartDate, EndDate, SubProjectDescription FROM Project WHERE SubProjectName = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1, subProjectName);
+
+            ResultSet resultSet = stmt.executeQuery();
+            if(resultSet.next()){
+                obj = new SubProject();
+                obj.setSubProjectID(resultSet.getInt("SubProjectID"));
+                obj.setSubProjectName(resultSet.getString("SubProjectName"));
+                obj.setStartDate(resultSet.getString("StartDate"));
+                obj.setEndDate(resultSet.getString("EndDate"));
+                obj.setSubProjectDescription(resultSet.getString("SubProjectDescription"));
+            }
+
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return obj;
+    }
+
+
+    @Override
+    public SubProject getSubProject(int subProjectID) {
+        SubProject obj = null;
+
+        try {
+            String sqlString = "SELECT SubProjectID, SubProjectName, StartDate, EndDate, SubProjectDescription FROM Project WHERE SubProjectID = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, subProjectID);
+
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                obj = new SubProject();
+                obj.setSubProjectID(resultSet.getInt("SubProjectID"));
+                obj.setSubProjectName(resultSet.getString("SubProjectName"));
+                obj.setStartDate(resultSet.getString("StartDate"));
+                obj.setEndDate(resultSet.getString("EndDate"));
+                obj.setSubProjectDescription(resultSet.getString("SubProjectDescription"));
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return obj;
+    }
+
 }
