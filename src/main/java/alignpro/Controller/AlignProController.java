@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/AlignPro")
+@RequestMapping("")
 public class AlignProController {
 
     private final AlignProService alignProService;
@@ -30,9 +30,8 @@ public class AlignProController {
 
     @PostMapping("/saveProject")
     public String saveProject(@ModelAttribute Project newProject){
-        System.out.println("Is it even connecting");
         alignProService.saveProject(newProject);
-        return "redirect:";
+        return "redirect:/";
     }
 
 
