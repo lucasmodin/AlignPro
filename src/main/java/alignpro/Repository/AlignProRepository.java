@@ -139,8 +139,6 @@ public class AlignProRepository implements IFAlignProRepository {
     public void saveEmployee(String employeeName, List<String> skillList){
         int primaryKeyEmployee = 0;
 
-
-
         try{
 
             String sqlString = "INSERT INTO Employee (EmployeeName) VALUES ?";
@@ -165,6 +163,7 @@ public class AlignProRepository implements IFAlignProRepository {
                     PreparedStatement stmt2 = conn.prepareStatement(sqlString2);
                     stmt2.setInt(1, primaryKeyEmployee);
                     stmt2.setInt(2, pariList.get(skill));
+                    stmt2.executeUpdate();
                 }
             }
 
@@ -199,10 +198,10 @@ public class AlignProRepository implements IFAlignProRepository {
             PreparedStatement stmt2 = conn.prepareStatement(sqlString2);
             stmt2.setInt(1,employee.getEmployeeID());
 
-            ResultSet rls2 = stmt2.getResultSet();
+            ResultSet rls2 = stmt2.executeQuery();
 
             while(rls2.next()){
-                employee.setSkills(rls.getString(1));
+                employee.setSkills(rls2.getString(1));
             }
 
         } catch (SQLException e){

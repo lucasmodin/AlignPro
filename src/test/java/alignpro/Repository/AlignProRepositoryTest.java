@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +53,7 @@ public class AlignProRepositoryTest {
         Employee objTest = alignProRepository.getEmployee("Lars Larsen");
 
         assertEquals(1, objTest.getEmployeeID());
+        assertTrue(objTest.getSkills().contains("Developer"));
 
     }
 
@@ -68,11 +70,17 @@ public class AlignProRepositoryTest {
     @Test
     void saveEmployee(){
 
-        alignProRepository.saveEmployee("Ego Olsen");
+        List<String> listOfSkills = new ArrayList<>();
+        listOfSkills.add("Developer");
+        listOfSkills.add("Cost Controller");
+
+
+        alignProRepository.saveEmployee("Ego Olsen", listOfSkills);
 
         Employee obj = alignProRepository.getEmployee("Ego Olsen");
 
         assertEquals("Ego Olsen", obj.getEmployeeName());
+        assertTrue(obj.getSkills().contains("Cost Controller"));
     }
 
     //*** test to see if you get skills correctly ***//
