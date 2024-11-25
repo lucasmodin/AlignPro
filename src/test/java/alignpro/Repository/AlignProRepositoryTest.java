@@ -1,6 +1,7 @@
 package alignpro.Repository;
 
 import alignpro.Model.Project;
+import alignpro.Model.SubProject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,6 +40,19 @@ public class AlignProRepositoryTest {
         Project obj = alignProRepository.getProject("Project Kea");
 
         assertEquals("Project Kea", obj.getProjectName());
+    }
+
+    @Test
+    @DirtiesContext
+    void saveSubProject(){
+        SubProject objToSave = new SubProject("Test sub-project 1", "2024-11-25","2024-11-26","To test saveProject Method");
+
+        alignProRepository.saveSubProject(objToSave.getSubProjectName(), objToSave.getStartDateString(),
+                objToSave.getEndDateString(), objToSave.getSubProjectDescription());
+
+        SubProject objToGet = alignProRepository.getSubProject(4);
+
+        assertEquals(objToSave.getSubProjectName(), objToGet.getSubProjectName());
     }
 
 }
