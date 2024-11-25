@@ -33,9 +33,9 @@ INSERT INTO Task
 
 /* Create 3 Subtask for Task 1 and 1 and 1 */
 INSERT INTO SubTask
-(SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement) VALUES ('Build a gun', '2024-11-23', '2024-11-24', 43, 'Follow the attached instructions on gun building', 'Developer');
+(SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement, TaskID) VALUES ('Build a gun', '2024-11-23', '2024-11-24', 43, 'Follow the attached instructions on gun building', 'Developer',1);
 INSERT INTO SubTask
-(SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement) VALUES ('Finish SQL Scripts', '2024-11-23', '2024-11-23', 600, 'Before we can write Crud codes, we need SQL database set-up for testing', 'Developer');
+(SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement, TaskID) VALUES ('Finish SQL Scripts', '2024-11-23', '2024-11-23', 600, 'Before we can write Crud codes, we need SQL database set-up for testing', 'Developer',1);
 
 /* Creat list of Skills */
 INSERT INTO Skills

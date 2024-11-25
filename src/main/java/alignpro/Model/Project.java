@@ -9,7 +9,7 @@ public class Project {
     private LocalDate startDate;
     private LocalDate deadLine;
     private int totalTime;
-    private String ProjectDescription;
+    private String projectDescription;
 
 
     // empty constructor
@@ -20,14 +20,14 @@ public class Project {
         this.projectName = projectName;
         this.startDate = LocalDate.parse(startDate);
         this.deadLine = LocalDate.parse(deadLine);
-        this.ProjectDescription = projectDescription;
+        this.projectDescription = projectDescription;
     }
 
     public Project (String projectName, LocalDate startDate,LocalDate deadLine, String projectDescription){
         this.projectName = projectName;
         this.startDate = startDate;
         this.deadLine = deadLine;
-        this.ProjectDescription = projectDescription;
+        this.projectDescription = projectDescription;
     }
 
     //Constructor including projectID
@@ -36,7 +36,7 @@ public class Project {
         this.projectName = projectName;
         this.startDate = LocalDate.parse(startDate);
         this.deadLine = LocalDate.parse(deadLine);
-        this.ProjectDescription = projectDescription;
+        this.projectDescription = projectDescription;
     }
 
     public Project (int projectID, String projectName, LocalDate startDate, LocalDate deadLine, String projectDescription){
@@ -44,7 +44,7 @@ public class Project {
         this.projectName = projectName;
         this.startDate = startDate;
         this.deadLine = deadLine;
-        this.ProjectDescription = projectDescription;
+        this.projectDescription = projectDescription;
     }
 
     //Constructor including projectID, totalTime
@@ -53,7 +53,7 @@ public class Project {
         this.projectName = projectName;
         this.startDate = LocalDate.parse(startDate);
         this.deadLine = LocalDate.parse(deadLine);
-        this.ProjectDescription = projectDescription;
+        this.projectDescription = projectDescription;
         this.totalTime = totalTime;
     }
 
@@ -62,7 +62,7 @@ public class Project {
         this.projectName = projectName;
         this.startDate = startDate;
         this.deadLine = deadLine;
-        this.ProjectDescription = projectDescription;
+        this.projectDescription = projectDescription;
         this.totalTime = totalTime;
     }
 
@@ -125,11 +125,11 @@ public class Project {
     }
 
     public String getProjectDescription() {
-        return ProjectDescription;
+        return projectDescription;
     }
 
     public void setProjectDescription(String projectDescription) {
-        ProjectDescription = projectDescription;
+        projectDescription = projectDescription;
     }
 
 }
