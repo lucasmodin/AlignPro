@@ -2,6 +2,7 @@ package alignpro.Model;
 
 public class PMDashboardRow {
     //project data
+    private int projectID;
     private String projectName;
     private String projectStartDate;
     private String projectDeadline;
@@ -10,24 +11,30 @@ public class PMDashboardRow {
 
 
     //subproject data
+    private int subProjectID;
     private String subProjectName;
     private String subProjectStartDate;
     private String subProjectEndDate;
     private String subProjectDescription;
+    private int fkProjectID;
     private int subProjectTotalTime;
 
     //task data
+    private int taskID;
     private String taskName;
     private String taskStartDate;
     private String taskEndDate;
     private String taskDescription;
+    private int fkSubProjectID;
     private int taskTotalTime;
 
     //subtask data
+    private int subTaskID;
     private String subTaskName;
     private String subTaskStartDate;
     private String subTaskEndDate;
     private String subTaskDescription;
+    private int fkTaskID;
     private int subTaskTotalTime;
 
     public PMDashboardRow() {
