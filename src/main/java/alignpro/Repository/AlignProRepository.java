@@ -216,23 +216,73 @@ public class AlignProRepository implements IFAlignProRepository {
     }
 
 
-
-    public List<Project> getPMDashboardData(int pmUserID) {
+    @Override
+    public List<Project> getProjectsForPMUser(int pmUserID) {
         List<Project> projects = new ArrayList<>();
+        String sql = """
+                SELECT ProjectID, ProjectName, StartDate, Deadline, TotalSumTime, ProjectDescription
+                FROM Project p
+                JOIN PMUser_Project pmup on p.ProjectID = pmup.ProjectID
+                WHERE pmup.PMUserID = ?;
+                """;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, pmUserID);
 
-        String sqlString = "SELECT p.ProjectID, p.ProjectName, p.StartDate AS ProjectStartDate, p.Deadline AS ProjectDeadline, p.ProjectDescription," +
-                "sp.SubProjectID, sp.SubProjectName, sp.StartDate AS SubProjectStartDate, sp.EndDate AS SubProjectEndDate, sp.SubProjectDescription," +
-                "t.TaskID, t.TaskName, t.StartDate AS TaskStartDate, t.EndDate AS TaskEndDate, t.TaskDescription," +
-                "st.SubTaskID, st. SubTaskName, st.StartDate AS SubTaskStartDate, st.EndDate AS SubTaskEndDate, st.SubTaskDescription" +
-                "FROM PMUser_Project pmup" +
-                "JOIN Project p ON pmup.ProjectID = p.ProjectID" +
-                "LEFT JOIN SubProject sp ON p.ProjectID = sp.ProjectID" +
-                "LEFT JOIN Task t ON sp.SubProjectID = t.SubProjectID" +
-                "LEFT JOIN SubTask st ON t.TaskID = st.TaskID" +
-                "WHERE pmup.PMUserID = ?;";
+                    ResultSet rs = stmt.executeQuery();
+                    while (rs.next()) {
+                        Project project = new Project();
+                        project.setProjectID(rs.getInt("ProjectID"));
+                        project.setProjectName(rs.getString("ProjectName"));
+                        project.setStartDate(rs.getString("StartDate"));
+                        project.setDeadLine(rs.getString("Deadline"));
+                        project.setTotalTime(rs.getInt("TotalSumTime"));
+                        project.setProjectDescription(rs.getString("ProjectDescription"));
+                        projects.add(project);
+                    }
 
-        return null;
+
+        } catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return projects;
     }
+
+    @Override
+    public List<SubProject> getSubProjectsForProject(int projectID) {
+        List<SubProject> subProjects = new ArrayList<>();
+        String sql = """
+                SELECT SubprojectID, SubProjectName, StartDate, Deadline, SumTime, ProjectDescription
+                FROM SubProject
+                WHERE ProjectID = ?;
+                """;
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, projectID);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                SubProject subProject = new SubProject();
+                subProject.setSubProjectID(rs.getInt("SubprojectID"));
+                subProject.setSubProjectName(rs.getString("SubProjectName"));
+                subProject.setStartDate(rs.getString("StartDate"));
+                subProject.setEndDate(rs.getString("EndDate"));
+                subProject.setFkProjectID(rs.getInt("ProjectID"));
+                subProject.setSubProjectDescription(rs.getString("SubProjectDescription"));
+                subProjects.add(subProject);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return subProjects;
+    }
+
+
+
+
 
 
 

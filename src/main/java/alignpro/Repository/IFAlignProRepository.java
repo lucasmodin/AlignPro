@@ -3,6 +3,8 @@ package alignpro.Repository;
 import alignpro.Model.Project;
 import alignpro.Model.SubProject;
 
+import java.util.List;
+
 public interface IFAlignProRepository {
 
     void setConn();
@@ -22,4 +24,8 @@ public interface IFAlignProRepository {
     SubProject getSubProject(String subProjectName);
 
     SubProject getSubProject(int subProjectID);
+
+    List<SubProject> getSubProjectsForProject(int projectID);
+
+    List<Project> getProjectsForPMUser(int pmUserID);
 }

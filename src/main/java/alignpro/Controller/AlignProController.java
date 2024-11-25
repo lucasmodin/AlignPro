@@ -1,12 +1,16 @@
 package alignpro.Controller;
 
 
+import alignpro.Model.PMDashboardRow;
 import alignpro.Model.Project;
 import alignpro.Model.SubProject;
 import alignpro.Service.AlignProService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("")
@@ -66,4 +70,39 @@ public class AlignProController {
         alignProService.saveSubProject(newSubProject);
         return "redirect:/";
     }
+
+    //TODO fix endpoint when user/login session is implemented
+    @GetMapping("/pm-dashboard/{pmUserID}")
+    public String getDashboard(@PathVariable("pmUserID") int pmUserID, Model model){
+        List<PMDashboardRow> dashboardRows = new ArrayList<>();
+        List<Project> projects = alignProService.getAllProjects(pmUserID);
+
+        for (Project project : projects) {
+            List<SubProject> subprojects = alignProService.getAllSubProjects(project.getProjectID());
+            if(subprojects.isEmpty()){
+                dashboardRows.add(new PMDashboardRow(
+                        project.getProjectName(),
+                        project.getStartDateString(),
+                        project.getDeadlineString(),
+                        project.getProjectDescription(),
+                        project.getTotalTime(),
+                        null, null, null, null, 0,
+                        null, null, null, null, 0,
+                        null, null, null, null, 0
+                        ));
+            }
+            model.addAttribute(dashboardRows);
+            return "pm-Dashboard";
+        }
+
+
+        //next is to implement logic for Task and subtask when the classes are made
+    }
+
+
+
+
+
+
+
 }

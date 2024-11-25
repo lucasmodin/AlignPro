@@ -7,6 +7,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class AlignProService {
@@ -32,6 +34,14 @@ public class AlignProService {
         } catch (Exception e) {
             throw new RuntimeException("error updating project " + projectID, e);
         }
+    }
+
+    public List<Project> getAllProjects(int pmUserID){
+        return alignProRepository.getProjectsForPMUser(pmUserID);
+    }
+
+    public List<SubProject> getAllSubProjects(int projectID){
+        return alignProRepository.getSubProjectsForProject(projectID);
     }
 
 
