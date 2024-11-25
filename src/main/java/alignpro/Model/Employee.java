@@ -1,9 +1,13 @@
 package alignpro.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Employee {
 
     private int employeeID;
     private String employeeName;
+    private List<String> skills = new ArrayList<>();
 
     public Employee(){}
 
@@ -14,6 +18,12 @@ public class Employee {
     public Employee(int employeeID, String employeeName){
         this.employeeID = employeeID;
         this.employeeName = employeeName;
+    }
+
+    public Employee(int employeeID, String employeeName, List<String> skills){
+        this.employeeID = employeeID;
+        this.employeeName = employeeName;
+        this.skills = skills;
     }
 
     //************************* Setter and getters *******************************//
@@ -34,4 +44,15 @@ public class Employee {
         this.employeeName = employeeName;
     }
 
+    public void setSkills(String skill){
+        skills.add(skill);
+    }
+
+    public void setSkills(List<String> skill){
+        this.skills = skill;
+    }
+
+    public List<String> getSkills(){
+        return skills;
+    }
 }

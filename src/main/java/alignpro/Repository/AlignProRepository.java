@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -138,18 +135,38 @@ public class AlignProRepository implements IFAlignProRepository {
         }
     }
 
-
     @Override
     public void saveEmployee(String employeeName, List<String> skillList){
-        int primaryKeyEmployee;
+        int primaryKeyEmployee = 0;
+
+
 
         try{
 
             String sqlString = "INSERT INTO Employee (EmployeeName) VALUES ?";
 
-            PreparedStatement stmt
+            PreparedStatement stmt = conn.prepareStatement(sqlString, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, employeeName);
+            stmt.executeUpdate();
 
+            ResultSet returnedPrimaryKey = stmt.getGeneratedKeys();
 
+            if (returnedPrimaryKey.next()){
+                primaryKeyEmployee = returnedPrimaryKey.getInt(1);
+            }
+
+            Map<String, Integer> pariList = getSkillsID();
+
+            if (!skillList.isEmpty()){
+                for (String skill : skillList ){
+
+                    String sqlString2 = "INSERT INTO Employee_Skill (EmployeeID, SkillID) VALUES (?, ?)";
+
+                    PreparedStatement stmt2 = conn.prepareStatement(sqlString2);
+                    stmt2.setInt(1, primaryKeyEmployee);
+                    stmt2.setInt(2, pariList.get(skill));
+                }
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException("Could not save employee with a skill list" + e.getMessage());
@@ -177,6 +194,16 @@ public class AlignProRepository implements IFAlignProRepository {
                 employee.setEmployeeName(rls.getString(2));
             }
 
+            String sqlString2 = "SELECT Skills.SkillName from Employee_Skill JOIN Skills on Employee_Skill.SkillID = Skills.SkillID WHERE Employee_Skill.EmployeeID = ?";
+
+            PreparedStatement stmt2 = conn.prepareStatement(sqlString2);
+            stmt2.setInt(1,employee.getEmployeeID());
+
+            ResultSet rls2 = stmt2.getResultSet();
+
+            while(rls2.next()){
+                employee.setSkills(rls.getString(1));
+            }
 
         } catch (SQLException e){
             throw new RuntimeException("Get an employee is not working" + e.getMessage());
