@@ -220,7 +220,7 @@ public class AlignProRepository implements IFAlignProRepository {
     public List<Project> getProjectsForPMUser(int pmUserID) {
         List<Project> projects = new ArrayList<>();
         String sql = """
-                SELECT ProjectID, ProjectName, StartDate, Deadline, TotalSumTime, ProjectDescription
+                SELECT p.ProjectID AS ProjectID, p.ProjectName AS ProjectName, p.StartDate AS StartDate, p.Deadline AS Deadline, p.TotalSumTime AS TotalSumTime, p.ProjectDescription AS ProjectDescription
                 FROM Project p
                 JOIN PMUser_Project pmup on p.ProjectID = pmup.ProjectID
                 WHERE pmup.PMUserID = ?;
@@ -253,7 +253,7 @@ public class AlignProRepository implements IFAlignProRepository {
     public List<SubProject> getSubProjectsForProject(int projectID) {
         List<SubProject> subProjects = new ArrayList<>();
         String sql = """
-                SELECT SubprojectID, SubProjectName, StartDate, Deadline, SumTime, ProjectDescription
+                SELECT SubprojectID, SubProjectName, StartDate, EndDate, SumTime, SubProjectDescription, ProjectID
                 FROM SubProject
                 WHERE ProjectID = ?;
                 """;

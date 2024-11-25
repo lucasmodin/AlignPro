@@ -90,12 +90,29 @@ public class AlignProController {
                         null, null, null, null, 0,
                         null, null, null, null, 0
                         ));
+            } else {
+                for (SubProject subproject : subprojects) {
+                    dashboardRows.add(new PMDashboardRow(
+                            project.getProjectName(),
+                            project.getStartDateString(),
+                            project.getDeadlineString(),
+                            project.getProjectDescription(),
+                            project.getTotalTime(),
+                            subproject.getSubProjectName(),
+                            subproject.getStartDateString(),
+                            subproject.getEndDateString(),
+                            subproject.getSubProjectDescription(),
+                            subproject.getSumTime(),
+                            null, null, null, null, 0,
+                            null, null, null, null, 0
+                    ));
+                }
             }
-            model.addAttribute(dashboardRows);
-            return "pm-Dashboard";
+
+
         }
-
-
+        model.addAttribute("dashboardRows", dashboardRows);
+        return "pm-Dashboard";
         //next is to implement logic for Task and subtask when the classes are made
     }
 
