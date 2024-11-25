@@ -216,6 +216,18 @@ public class AlignProRepository implements IFAlignProRepository {
     }
 
 
+    public void deleteSubProject(int subProjectID){
+        try{
+            String sqlString = "DELETE FROM SubProject WHERE SubProjectID = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, subProjectID);
+            stmt.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 
     public List<Project> getPMDashboardData(int pmUserID) {
         List<Project> projects = new ArrayList<>();

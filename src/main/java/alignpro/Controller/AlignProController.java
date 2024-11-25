@@ -66,4 +66,10 @@ public class AlignProController {
         alignProService.saveSubProject(newSubProject);
         return "redirect:/";
     }
+
+    @PostMapping("/deleteSubProject/{subProjectID}")
+    public String deleteSubProject(@PathVariable("subProjectID") int subProjectID){
+        alignProService.deleteSubProject(subProjectID);
+        return "redirect:/";
+    }
 }

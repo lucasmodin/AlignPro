@@ -49,7 +49,9 @@ public class AlignProService {
 
 
 
-
+    public void deleteSubProject(int subProjectID){
+        alignProRepository.deleteSubProject(subProjectID);
+    }
 
 
     public Project getProject(int projectID){
@@ -60,4 +62,11 @@ public class AlignProService {
         return alignProRepository.getProject(projectName);
     }
 
+    public SubProject getSubProject(String subProjectName){
+        return alignProRepository.getSubProject(subProjectName);
+    }
+
+    public SubProject getSubProject(int subProjectID){
+        return alignProRepository.getSubProject(subProjectID);
+    }
 }

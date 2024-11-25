@@ -22,4 +22,6 @@ public interface IFAlignProRepository {
     SubProject getSubProject(String subProjectName);
 
     SubProject getSubProject(int subProjectID);
+
+    void deleteSubProject(int subProjectID);
 }
