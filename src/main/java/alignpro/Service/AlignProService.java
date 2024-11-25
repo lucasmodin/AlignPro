@@ -27,7 +27,11 @@ public class AlignProService {
 
     //*** methods to handle employees and skills ***//
     public void saveEmployee(Employee obj){
-        alignProRepository.saveEmployee(obj.getEmployeeName());
+        alignProRepository.saveEmployee(obj.getEmployeeName(),obj.getSkills());
+    }
+
+    public List<String> getListOfSkills(){
+        return alignProRepository.getListOfSkills();
     }
 
     public List<Employee> getListOfEmployees(){
