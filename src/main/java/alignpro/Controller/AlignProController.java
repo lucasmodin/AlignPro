@@ -2,6 +2,7 @@ package alignpro.Controller;
 
 
 import alignpro.Model.Project;
+import alignpro.Model.SubProject;
 import alignpro.Service.AlignProService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,5 +35,17 @@ public class AlignProController {
         return "redirect:/";
     }
 
+    @GetMapping("/createSubProject")
+    public String createSubProject(Model model){
+        SubProject obj = new SubProject();
+        model.addAttribute("obj", obj);
+        return "create-SubProject";
+    }
+
+    @PostMapping("/saveSubProject")
+    public String saveSubProject(@ModelAttribute SubProject newSubProject){
+        alignProService.saveSubProject(newSubProject);
+        return "redirect:/";
+    }
 
 }
