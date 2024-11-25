@@ -15,4 +15,5 @@ public interface IFAlignProRepository {
 
     void editProject(Project project, int projectID);
 
+    void deleteProject(int ProjectID);
 }

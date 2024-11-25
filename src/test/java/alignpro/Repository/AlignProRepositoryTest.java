@@ -62,7 +62,15 @@ public class AlignProRepositoryTest {
         assertEquals(updatedProject.getProjectDescription(), fetchedProject.getProjectDescription());
 
         assertEquals(originalProject.getProjectID(), fetchedProject.getProjectID());
+    }
 
+    @Test
+    void deleteProejct(){
+        alignProRepository.deleteProject(1);
+
+        Project objTest = alignProRepository.getProject(1);
+
+        //assertFalse();
     }
 
 }
