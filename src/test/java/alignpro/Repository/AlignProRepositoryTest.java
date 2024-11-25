@@ -24,7 +24,7 @@ public class AlignProRepositoryTest {
     @DirtiesContext
     void saveProject(){
 
-        Project objToSave = new Project("Test project 1", "2024-11-24","2024-11-25","To test saveProject Method");
+        Project objToSave = new Project("Test project 1", "2024-11-24", "2024-11-25", "To test saveProject Method");
 
         alignProRepository.saveProject(objToSave.getProjectName(),objToSave.getStartDateString(),objToSave.getDeadlineString(), objToSave.getProjectDescription());
 
@@ -41,7 +41,7 @@ public class AlignProRepositoryTest {
 
         assertEquals("Project Kea", obj.getProjectName());
     }
-/*
+
     @Test
     @DirtiesContext
     void saveSubProject(){
@@ -54,5 +54,14 @@ public class AlignProRepositoryTest {
 
         assertEquals(objToSave.getSubProjectName(), objToGet.getSubProjectName());
     }
-*/
+
+    @Test
+    @DirtiesContext
+    void getSubProject(){
+
+        SubProject obj = alignProRepository.getSubProject("Scipting all the time");
+
+        assertEquals("Scipting all the time", obj.getSubProjectName());
+    }
+
 }

@@ -138,7 +138,7 @@ public class AlignProRepository implements IFAlignProRepository {
         SubProject obj = null;
 
         try{
-            String sqlString = "SELECT SubProjectID, SubProjectName, StartDate, EndDate, SubProjectDescription FROM Project WHERE SubProjectName = ?";
+            String sqlString = "SELECT SubProjectID, SubProjectName, StartDate, EndDate, SubProjectDescription FROM SubProject WHERE SubProjectName = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sqlString);
             stmt.setString(1, subProjectName);
@@ -166,7 +166,7 @@ public class AlignProRepository implements IFAlignProRepository {
         SubProject obj = null;
 
         try {
-            String sqlString = "SELECT SubProjectID, SubProjectName, StartDate, EndDate, SubProjectDescription FROM Project WHERE SubProjectID = ?";
+            String sqlString = "SELECT SubProjectID, SubProjectName, StartDate, EndDate, SubProjectDescription FROM SubProject WHERE SubProjectID = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sqlString);
             stmt.setInt(1, subProjectID);
