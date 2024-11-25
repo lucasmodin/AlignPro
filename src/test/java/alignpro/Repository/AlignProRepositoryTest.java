@@ -1,11 +1,14 @@
 package alignpro.Repository;
 
+import alignpro.Model.Employee;
 import alignpro.Model.Project;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,12 +44,34 @@ public class AlignProRepositoryTest {
         assertEquals("Project Kea", obj.getProjectName());
     }
 
+    //Test to save and get employee from db ***//
     @Test
     void getEmployee(){
+
+        Employee objTest = alignProRepository.getEmployee("Lars Larsen");
+
+        assertEquals(1, objTest.getEmployeeID());
 
     }
 
     @Test
-    void getListOfEmployees(){}
+    void getListOfEmployees(){
+
+        List<Employee> list = alignProRepository.getListOfEmployees();
+
+        assertEquals(3,list.size());
+        assertEquals("Kim Møller", list.get(1).getEmployeeName());
+    }
+
+    //*** test to save Employee to DB ***//
+    @Test
+    void saveEmployee(){
+
+        alignProRepository.saveEmployee("Ego Olsen");
+
+        Employee obj = alignProRepository.getEmployee("Ego Olsen");
+
+        assertEquals("Ego Olsen", obj.getEmployeeName());
+    }
 
 }

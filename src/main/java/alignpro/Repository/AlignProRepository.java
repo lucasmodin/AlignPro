@@ -121,6 +121,21 @@ public class AlignProRepository implements IFAlignProRepository {
 
     //Methods to manage employees;
 
+    @Override
+    public void saveEmployee(String employeeName){
+        try{
+            String sqlString = "INSERT INTO Employee (EmployeeName) VALUES ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1,employeeName);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e){
+            throw new RuntimeException("Could not save employee" + e.getMessage());
+        }
+    }
+
     @Override // Not sure this method is necessary
     public Employee getEmployee(String employeeName){
         Employee employee = null;

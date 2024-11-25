@@ -20,9 +20,7 @@ public interface IFAlignProRepository {
 
     // Methods to manage Employees
 
-    Employee getEmployee();
-
-    // Not sure this method is necessary
+    void saveEmployee(String employeeName);
     Employee getEmployee(String employeeName);
 
     List<Employee> getListOfEmployees();
