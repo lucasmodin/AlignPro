@@ -29,7 +29,7 @@ public class AlignProControllerTest {
 
     @Test
     void testCreateNewProject() throws Exception {
-        mockMvc.perform(get("/AlignPro/CreateProject"))
+        mockMvc.perform(get("/CreateProject"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("obj"))
                 .andExpect(view().name("create-Project"));
@@ -42,16 +42,7 @@ public class AlignProControllerTest {
         mockMvc.perform(post("/saveProject")
                         .flashAttr("projectObj",project1))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/AlignPro"));
-                //.andExpect(redirectedUrl("/AlignPro"));
+                .andExpect(redirectedUrl("/"));
     }
-
-    /*
-    .param("projectName", "New Project")
-                                .param("startDate", "2024-11-24")
-                                .param("deadline", "2024-11-26")
-                                .param("projectDescription", "Hehe det er en joke"))
-
-     */
 
 }
