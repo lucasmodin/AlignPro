@@ -1,6 +1,7 @@
 package alignpro.Controller;
 
 import alignpro.Model.Project;
+import alignpro.Model.SubProject;
 import alignpro.Service.AlignProService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +54,14 @@ public class AlignProControllerTest {
                 .andExpect(view().name("create-SubProject"));
     }
 
+    @Test
+    void saveNewSubProject() throws Exception {
+        SubProject subProject = new SubProject("make crud functions", "2024-11-25", "2024-11-26", "make all crud now!");
+
+        mockMvc.perform(post("/saveSubProject").
+                flashAttr("subProject", subProject))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+
+    }
 }
