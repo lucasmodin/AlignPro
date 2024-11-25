@@ -6,10 +6,7 @@ import alignpro.Model.Project;
 import alignpro.Service.AlignProService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +31,28 @@ public class AlignProController {
     @PostMapping("/saveProject")
     public String saveProject(@ModelAttribute Project newProject){
         alignProService.saveProject(newProject);
+        return "redirect:/";
+    }
+
+    @GetMapping("/edit-project/{projectId}")
+    public String editProject(@PathVariable ("projectId") int projectId, Model model) {
+        Project project = alignProService.getProject(projectId);
+        if (project != null) {
+            model.addAttribute("project", project);
+            return "edit-project";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    @PostMapping("/updateProject")
+    public String updateProject(@RequestParam("projectId") int projectId,
+                                @RequestParam("projectName") String projectName,
+                                @RequestParam("projectDescription") String projectDescription,
+                                @RequestParam("startDate") String startDate,
+                                @RequestParam("deadLine") String deadLine) {
+        Project project = new Project(projectId, projectName, startDate, deadLine, projectDescription);
+        alignProService.editProject(project, project.getProjectID());
         return "redirect:/";
     }
 

@@ -118,6 +118,33 @@ public class AlignProRepository implements IFAlignProRepository {
     }
 
 
+
+
+
+    @Override
+    public void editProject(Project project, int projectID) {
+        String sqlString = "UPDATE Project SET ProjectName = ?, StartDate = ?, Deadline = ?, ProjectDescription = ? WHERE ProjectID = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1, project.getProjectName());
+            stmt.setString(2, project.getStartDateString());
+            stmt.setString(3, project.getDeadlineString());
+            stmt.setString(4, project.getProjectDescription());
+            stmt.setInt(5, projectID);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Problem updating your project from the DB based on ProjectID" + e.getMessage());
+        }
+
+    }
+
+
+
+}
+
     //Methods to manage employees;
 
     @Override

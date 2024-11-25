@@ -17,7 +17,7 @@ public interface IFAlignProRepository {
 
     Project getProject(int ProjectID);
 
-    //void editProject();
+    void editProject(Project project, int projectID);
 
     // Methods to manage Employees
 

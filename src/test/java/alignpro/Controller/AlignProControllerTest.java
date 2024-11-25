@@ -29,6 +29,8 @@ public class AlignProControllerTest {
 
     @MockBean
     private AlignProService service;
+    @Autowired
+    private AlignProService alignProService;
 
 
     @Test
@@ -49,6 +51,38 @@ public class AlignProControllerTest {
                 .andExpect(redirectedUrl("/"));
     }
 
+    @Test
+    void editProject() throws Exception {
+        int projectId = 1;
+        Project dummyProject = new Project(1,"dummy", "2024-11-11", "2024-11-22", "dummy project");
+        when(alignProService.getProject(1)).thenReturn(dummyProject);
+        mockMvc.perform(get("/edit-project/{projectId}", projectId))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("project", dummyProject))
+                .andExpect(view().name("edit-project"));
+        }
+
+
+    //TODO
+    //when we build more functionality and a dashboard for the PM, we need to change the redirects
+    @Test
+    void updateProject() throws Exception {
+        int projectId = 1;
+        String projectName = "dummy project";
+        String startDate = "2024-11-11";
+        String deadline = "2024-11-22";
+        String projectDescription = "dummy project";
+
+        mockMvc.perform(post("/updateProject")
+                .param("projectId", String.valueOf(projectId))
+                .param("projectName",projectName)
+                .param("startDate", startDate)
+                .param("deadLine", deadline)
+                .param("projectDescription",projectDescription))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"))
+                .andExpect(view().name("redirect:/"));
+        }
     @Test
     void testCreateNewEmployee() throws Exception {
         mockMvc.perform(get("/CreateEmployee"))
@@ -73,3 +107,14 @@ public class AlignProControllerTest {
                 .andExpect(redirectedUrl("/"));
     }
 }
+
+
+
+}
+
+
+
+
+
+
+
