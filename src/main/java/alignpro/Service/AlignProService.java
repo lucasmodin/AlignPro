@@ -20,4 +20,38 @@ public class AlignProService {
         alignProRepository.saveProject(obj.getProjectName(), obj.getStartDateString(), obj.getDeadlineString(), obj.getProjectDescription());
     }
 
+    public void editProject(Project project, int projectID){
+        try {
+            alignProRepository.editProject(project, projectID);
+        } catch (Exception e) {
+            throw new RuntimeException("error updating project " + projectID, e);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public Project getProject(int projectID){
+        return alignProRepository.getProject(projectID);
+    }
+
+    public Project getProject(String projectName){
+        return alignProRepository.getProject(projectName);
+    }
+
 }

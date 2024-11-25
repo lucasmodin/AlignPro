@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main>
+  <form th:action="@{/updateProject}" th:object="${project}" method="post">
+    <input type="hidden" name="projectId" th:value="${project.projectID}">
+    <h1>Edit project</h1>
+    <section class="input-field">
+      <label for="projectName">Edit Project Name</label>
+      <input type="text" id="projectName" name="projectName" th:field="*{projectName}" required>
+      <br><br>
+
+      <label for="projectDescription">Edit Project Description:</label>
+      <textarea id="projectDescription" name="projectDescription" th:field="*{projectDescription}" required></textarea>
+      <br><br>
+
+      <label for="startDate">Edit Start Date:</label>
+      <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required>
+      <br><br>
+
+      <label for="deadLine">Edit Deadline:</label>
+      <input type="date" id="deadLine" name="deadLine" th:field="*{deadLine}" required>
+      <br><br>
+
+      <button type="submit">Finish</button>
+    </section>
+  </form>
+
+
+
+</main>
+
+</body>
+</html>
