@@ -1,6 +1,9 @@
 package alignpro.Repository;
 
+import alignpro.Model.Employee;
 import alignpro.Model.Project;
+
+import java.util.List;
 
 public interface IFAlignProRepository {
 
@@ -14,5 +17,14 @@ public interface IFAlignProRepository {
     Project getProject(int ProjectID);
 
     //void editProject();
+
+    // Methods to manage Employees
+
+    Employee getEmployee();
+
+    // Not sure this method is necessary
+    Employee getEmployee(String employeeName);
+
+    List<Employee> getListOfEmployees();
 
 }

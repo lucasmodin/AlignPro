@@ -2,6 +2,7 @@ package alignpro.Repository;
 
 
 import alignpro.Model.DBConnection;
+import alignpro.Model.Employee;
 import alignpro.Model.Project;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository("ALIGNPRO_REPOSITORY_JDBC")
 @Lazy
@@ -113,6 +115,43 @@ public class AlignProRepository implements IFAlignProRepository {
         }
 
         return obj;
+    }
+
+
+    //Methods to manage employees;
+
+    @Override // Not sure this method is necessary
+    public Employee getEmployee(String employeeName){
+        Employee employee = null;
+
+        try{
+
+            String sqlString = "SELECT * FROM Employee WHERE EmployeeName = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1,employeeName);
+
+            ResultSet rls = stmt.executeQuery();
+
+            if(rls.next()){
+                employee = new Employee();
+                employee.setEmployeeID(rls.getInt(1));
+                employee.setEmployeeName(rls.getString(2));
+            }
+
+
+        } catch (SQLException e){
+            throw new RuntimeException("Get an employee is not working" + e.getMessage());
+        }
+
+        return employee;
+
+    }
+
+    @Override
+    public List<Employee> getListOfEmployees(){
+
+
     }
 
 }
