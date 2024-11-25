@@ -17,7 +17,7 @@ public interface IFAlignProRepository {
     //void editProject();
 
 
-    void saveSubProject(String subProjectName, String startDate, String endDate, String subProjectDescription);
+    void saveSubProject(String subProjectName, String startDate, String endDate, String subProjectDescription, int projectID);
 
     SubProject getSubProject(String subProjectName);
 

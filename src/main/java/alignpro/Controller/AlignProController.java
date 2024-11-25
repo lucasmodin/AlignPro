@@ -47,6 +47,4 @@ public class AlignProController {
         alignProService.saveSubProject(newSubProject);
         return "redirect:/";
     }
-
-
 }

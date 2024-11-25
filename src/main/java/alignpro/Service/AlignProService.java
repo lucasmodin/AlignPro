@@ -23,7 +23,7 @@ public class AlignProService {
 
     public void saveSubProject(SubProject obj){
         alignProRepository.saveSubProject(obj.getSubProjectName(), obj.getStartDateString(),
-                obj.getEndDateString(), obj.getSubProjectDescription());
+                obj.getEndDateString(), obj.getSubProjectDescription(), obj.getFkProjectID());
     }
 
 }

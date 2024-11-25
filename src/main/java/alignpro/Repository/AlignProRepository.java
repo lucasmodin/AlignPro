@@ -117,15 +117,16 @@ public class AlignProRepository implements IFAlignProRepository {
     }
 
     @Override
-    public void saveSubProject(String subProjectName, String startDate, String endDate, String subProjectDescription){
+    public void saveSubProject(String subProjectName, String startDate, String endDate, String subProjectDescription, int projectID){
 
         try{
-            String sqlString = "INSERT INTO SubProject (SubProjectName, StartDate, EndDate, SubProjectDescription) VALUES (?, ?, ?, ?)";
+            String sqlString = "INSERT INTO SubProject (SubProjectName, StartDate, EndDate, SubProjectDescription, ProjectID) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sqlString);
             stmt.setString(1, subProjectName);
             stmt.setString(2, startDate);
             stmt.setString(3, endDate);
             stmt.setString(4, subProjectDescription);
+            stmt.setInt(5, projectID);
             stmt.executeUpdate();
 
         }catch (SQLException e){
