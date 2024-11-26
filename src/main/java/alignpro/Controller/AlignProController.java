@@ -59,9 +59,10 @@ public class AlignProController {
         return "redirect:/";
     }
 
-    @GetMapping("/createSubProject")
-    public String createSubProject(Model model){
+    @GetMapping("/createSubProject/{projectID}")
+    public String createSubProject(@PathVariable("projectID") int projectID, Model model){
         SubProject obj = new SubProject();
+        obj.setFkProjectID(projectID);
         model.addAttribute("obj", obj);
         return "create-SubProject";
     }

@@ -28,6 +28,9 @@
         <td>
             <a th:href="@{/edit-project/{projectID}(projectID=${row.project?.projectID})}">Edit Project</a>
         </td>
+        <td>
+            <a th:href="@{/createSubProject/{projectID}(projectID=${row.project?.projectID})}">Create sub-project</a>
+        </td>
     </tr>
     </tbody>
 </table>

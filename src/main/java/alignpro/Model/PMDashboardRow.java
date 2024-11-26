@@ -1,5 +1,7 @@
 package alignpro.Model;
 
+
+//wrapper DTO - is more tightly coupled to the model than the more flatter DTO structure, but is more simple
 public class PMDashboardRow {
     private Project project;
     private SubProject subProject;
