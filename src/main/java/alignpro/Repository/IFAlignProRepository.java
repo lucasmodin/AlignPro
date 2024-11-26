@@ -52,7 +52,7 @@ public interface IFAlignProRepository {
 
     void deleteProject(int ProjectID);
 
-//    void saveTask(String taskName, String startDate, String endDate, int estimatedTime,
-//                         String taskDescription, String skillRequirement, int subProjectID);
+    void saveTask(String taskName, String startDate, String endDate, int estimatedTime,
+                         String taskDescription, String skillRequirement, int subProjectID);
 
 }

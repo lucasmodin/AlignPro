@@ -9,23 +9,23 @@
 <main>
     <form th:action="@{/saveSubProject}" th:object="${obj}" method="post">
         <input type="hidden" th:field="*{fkProjectID}">
-        <label for="projectName">Project Name</label>
-        <input type="text" id="projectName" name="projectName" th:field="*{subProjectName}" required>
+        <label for="subProjectName">Sub-Project Name</label>
+        <input type="text" id="subProjectName" name="subProjectName" th:field="*{subProjectName}" required>
         <br><br>
 
-        <label for="projectDescription">Project Description:</label>
-        <textarea id="projectDescription" name="projectDescription" th:field="*{subProjectDescription}" required></textarea>
+        <label for="subProjectDescription">Sub-Project Description:</label>
+        <textarea id="subProjectDescription" name="subProjectDescription" th:field="*{subProjectDescription}" required></textarea>
         <br><br>
 
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required>
         <br><br>
 
-        <label for="deadLine">Deadline:</label>
-        <input type="date" id="deadLine" name="deadLine" th:field="*{endDate}" required>
+        <label for="EndDate">Enddate:</label>
+        <input type="date" id="EndDate" name="EndDate" th:field="*{endDate}" required>
         <br><br>
 
-        <button type="submit">Create Project</button>
+        <button type="submit">Create Sub-Project</button>
 
 
     </form>

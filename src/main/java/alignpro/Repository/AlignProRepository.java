@@ -140,26 +140,26 @@ public class AlignProRepository implements IFAlignProRepository {
         }
     }
 
-//    @Override
-//    public void saveTask(String taskName, String startDate, String endDate, int estimatedTime,
-//                String taskDescription, String skillRequirement, int subProjectID){
-//        String sqlString = "INSERT INTO Task (TaskName, StartDate, EndDate, EstimatedTime, TaskDescription, SkillRequirement, SubProjectID) VALUES (?, ?, ?, ?, ?, ?, ?)";
-//
-//        try {
-//            PreparedStatement stmt = conn.prepareStatement(sqlString);
-//            stmt.setString(1, taskName);
-//            stmt.setString(2, startDate);
-//            stmt.setString(3, endDate);
-//            stmt.setInt(4, estimatedTime);
-//            stmt.setString(5, taskDescription);
-//            stmt.setString(6, skillRequirement);
-//            stmt.setInt(7, subProjectID);
-//            stmt.executeUpdate();
-//
-//        }catch (SQLException e){
-//            throw new RuntimeException(e);
-//        }
-//    }
+    @Override
+    public void saveTask(String taskName, String startDate, String endDate, int estimatedTime,
+                String taskDescription, String skillRequirement, int subProjectID){
+        String sqlString = "INSERT INTO Task (TaskName, StartDate, EndDate, EstimatedTime, TaskDescription, SkillRequirement, SubProjectID) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1, taskName);
+            stmt.setString(2, startDate);
+            stmt.setString(3, endDate);
+            stmt.setInt(4, estimatedTime);
+            stmt.setString(5, taskDescription);
+            stmt.setString(6, skillRequirement);
+            stmt.setInt(7, subProjectID);
+            stmt.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public SubProject getSubProject(String subProjectName){

@@ -32,10 +32,10 @@ public class AlignProService {
                 obj.getEndDateString(), obj.getSubProjectDescription(), obj.getFkProjectID());
     }
 
-//    public void saveTask(Task obj){
-//        alignProRepository.saveTask(obj.getTaskName(), obj.getStartDateString(), obj.getEndDateString(),
-//                obj.getEstimatedTime(), obj.getTaskDescription(), obj.getSkillRequirement(), obj.getSubProjectID());
-//    }
+    public void saveTask(Task obj){
+        alignProRepository.saveTask(obj.getTaskName(), obj.getStartDateString(), obj.getEndDateString(),
+                obj.getEstimatedTime(), obj.getTaskDescription(), obj.getSkillRequirement(), obj.getSubProjectID());
+    }
 
     public void editProject(Project project, int projectID){
         try {
