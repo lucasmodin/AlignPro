@@ -124,6 +124,7 @@ public class AlignProController {
         return "redirect:/";
     }
 
+
     @GetMapping("/createTask/{subProjectID}")
     public String createTask(@PathVariable("subProjectID") int subProjectID, Model model){
         Task obj = new Task();

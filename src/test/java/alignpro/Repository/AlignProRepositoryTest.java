@@ -50,20 +50,21 @@ public class AlignProRepositoryTest {
         assertEquals("Project Kea", obj.getProjectName());
     }
 
-    /*
+
     @Test
     @DirtiesContext
     void saveSubProject(){
         SubProject objToSave = new SubProject("Test sub-project 1", "2024-11-25","2024-11-26","To test saveSubProject Method");
 
         alignProRepository.saveSubProject(objToSave.getSubProjectName(), objToSave.getStartDateString(),
-                objToSave.getEndDateString(), objToSave.getSubProjectDescription());
+                objToSave.getEndDateString(), objToSave.getSubProjectDescription(), 1);
 
         SubProject objToGet = alignProRepository.getSubProject(4);
 
         assertEquals(objToSave.getSubProjectName(), objToGet.getSubProjectName());
     }
-*/
+
+
     @Test
     @DirtiesContext
     void getSubProject(){

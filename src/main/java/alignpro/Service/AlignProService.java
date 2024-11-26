@@ -53,6 +53,10 @@ public class AlignProService {
         return alignProRepository.getSubProjectsForProject(projectID);
     }
 
+    public List<Task> getAllTasks(int subPorjectID){
+        return alignProRepository.getTaskForSubProject(subPorjectID);
+    }
+
 
 
 
