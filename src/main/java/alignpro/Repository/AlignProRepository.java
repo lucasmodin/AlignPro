@@ -256,23 +256,6 @@ public class AlignProRepository implements IFAlignProRepository {
         }
     }
 
-    public List<Project> getPMDashboardData(int pmUserID) {
-        List<Project> projects = new ArrayList<>();
-
-        String sqlString = "SELECT p.ProjectID, p.ProjectName, p.StartDate AS ProjectStartDate, p.Deadline AS ProjectDeadline, p.ProjectDescription," +
-                "sp.SubProjectID, sp.SubProjectName, sp.StartDate AS SubProjectStartDate, sp.EndDate AS SubProjectEndDate, sp.SubProjectDescription," +
-                "t.TaskID, t.TaskName, t.StartDate AS TaskStartDate, t.EndDate AS TaskEndDate, t.TaskDescription," +
-                "st.SubTaskID, st. SubTaskName, st.StartDate AS SubTaskStartDate, st.EndDate AS SubTaskEndDate, st.SubTaskDescription" +
-                "FROM PMUser_Project pmup" +
-                "JOIN Project p ON pmup.ProjectID = p.ProjectID" +
-                "LEFT JOIN SubProject sp ON p.ProjectID = sp.ProjectID" +
-                "LEFT JOIN Task t ON sp.SubProjectID = t.SubProjectID" +
-                "LEFT JOIN SubTask st ON t.TaskID = st.TaskID" +
-                "WHERE pmup.PMUserID = ?;";
-
-        return null;
-    }
-
 
     @Override
     public void deleteProject(int ProjectID){
