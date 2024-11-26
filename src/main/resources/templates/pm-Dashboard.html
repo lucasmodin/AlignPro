@@ -31,6 +31,11 @@
         <td>
             <a th:href="@{/createSubProject/{projectID}(projectID=${row.project?.projectID})}">Create sub-project</a>
         </td>
+        <td>
+            <form th:action="@{/deleteSubProject/{subProjectID}(subProjectID=${row.subProject?.getSubProjectID()})}" method="post">
+                <button type="submit">Delete sub-project</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>
