@@ -1,5 +1,6 @@
 package alignpro.Controller;
 
+import alignpro.Model.Employee;
 import alignpro.Model.Project;
 import alignpro.Model.SubProject;
 import alignpro.Service.AlignProService;
@@ -10,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -98,8 +102,31 @@ public class AlignProControllerTest {
                 .andExpect(redirectedUrl("/"))
                 .andExpect(view().name("redirect:/"));
         }
-
+    @Test
+    void testCreateNewEmployee() throws Exception {
+        mockMvc.perform(get("/CreateEmployee"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("employeeObj"))
+                .andExpect(model().attributeExists("listOfSkills"))
+                .andExpect(view().name("create-Employee"));
     }
+
+    @Test
+    void saveNewEmployee() throws Exception {
+        List<String> listOfSkills = new ArrayList<>();
+        listOfSkills.add("Developer");
+        listOfSkills.add("Cost Controller");
+
+
+        Employee employeeObj = new Employee("Egon Olsen", listOfSkills);
+
+
+        mockMvc.perform(post("/saveEmployee")
+                .flashAttr("employeeObj", employeeObj))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+    }
+}
 
 
 

@@ -1,5 +1,6 @@
 package alignpro.Service;
 
+import alignpro.Model.Employee;
 import alignpro.Model.Project;
 import alignpro.Model.SubProject;
 import alignpro.Repository.IFAlignProRepository;
@@ -19,6 +20,7 @@ public class AlignProService {
         alignProRepository = (IFAlignProRepository) context.getBean(impl);
     }
 
+    //*** methods to handle Projects ***//
     public void saveProject(Project obj){
         alignProRepository.saveProject(obj.getProjectName(), obj.getStartDateString(), obj.getDeadlineString(), obj.getProjectDescription());
     }
@@ -68,6 +70,20 @@ public class AlignProService {
 
     public Project getProject(String projectName){
         return alignProRepository.getProject(projectName);
+    }
+
+
+    //*** methods to handle employees and skills ***//
+    public void saveEmployee(Employee obj){
+        alignProRepository.saveEmployee(obj.getEmployeeName(),obj.getSkills());
+    }
+
+    public List<String> getListOfSkills(){
+        return alignProRepository.getListOfSkills();
+    }
+
+    public List<Employee> getListOfEmployees(){
+        return alignProRepository.getListOfEmployees();
     }
 
 }

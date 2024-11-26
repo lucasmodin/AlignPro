@@ -2,6 +2,7 @@ package alignpro.Controller;
 
 
 import alignpro.Model.PMDashboardRow;
+import alignpro.Model.Employee;
 import alignpro.Model.Project;
 import alignpro.Model.SubProject;
 import alignpro.Service.AlignProService;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import java.util.List;
 
 @Controller
 @RequestMapping("")
@@ -59,6 +62,20 @@ public class AlignProController {
         return "redirect:/";
     }
 
+    @GetMapping("/CreateEmployee")
+    public String createEmployee(Model model){
+        Employee employee = new Employee();
+        List<String> listOfSkills = alignProService.getListOfSkills();
+        model.addAttribute("employeeObj", employee);
+        model.addAttribute("listOfSkills", listOfSkills);
+        return "create-Employee";
+    }
+
+    @PostMapping("/saveEmployee")
+    public String saveEmployee(@ModelAttribute Employee newEmployee){
+        alignProService.saveEmployee(newEmployee);
+        return "redirect:/";
+    }
     @GetMapping("/createSubProject/{projectID}")
     public String createSubProject(@PathVariable("projectID") int projectID, Model model){
         SubProject obj = new SubProject();
