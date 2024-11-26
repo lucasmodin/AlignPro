@@ -106,6 +106,19 @@ public class AlignProControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
     }
+
+    @Test
+    void testDeleteProject() throws Exception {
+        int projectID = 1;
+
+        mockMvc.perform(post("/delete-project/{projectID}", projectID))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/"))
+                .andExpect(redirectedUrl("/"));
+    }
+
+
+
 }
 
 

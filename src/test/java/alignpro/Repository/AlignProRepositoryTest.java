@@ -74,12 +74,18 @@ public class AlignProRepositoryTest {
     }
 
     @Test
+    @DirtiesContext
     void deleteProejct(){
-        alignProRepository.deleteProject(1);
 
         Project objTest = alignProRepository.getProject(1);
 
-        //assertFalse();
+        assertTrue(objTest.getProjectName().equals("Project Kea"));
+
+        alignProRepository.deleteProject(1);
+
+        Project objTest2 = alignProRepository.getProject(1);
+
+        assertNull(objTest2);
     }
 
 
@@ -146,5 +152,7 @@ public class AlignProRepositoryTest {
         assertEquals(2,mapSkills.get("Cost Controller"));
         assertEquals(3,mapSkills.get("Project Manager"));
     }
+
+
 
 }
