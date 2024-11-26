@@ -170,4 +170,10 @@ public class AlignProController {
         alignProService.deleteSubProject(subProjectID);
         return "redirect:/";
     }
+
+    @PostMapping("/deleteTask/{taskID}")
+    public String deleteTask(@PathVariable("taskID") int taskID){
+        alignProService.deleteTask(taskID);
+        return "redirect:/";
+    }
 }

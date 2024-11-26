@@ -101,6 +101,9 @@ public class AlignProService {
         alignProRepository.deleteSubProject(subProjectID);
     }
 
+    public void deleteTask(int taskID){
+        alignProRepository.deleteTask(taskID);
+    }
 
     public Project getProject(int projectID){
         return alignProRepository.getProject(projectID);
