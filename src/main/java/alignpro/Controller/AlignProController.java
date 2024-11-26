@@ -153,18 +153,6 @@ public class AlignProController {
 
 
 
-
-
-
-
-    @GetMapping("/createSubProject")
-    public String createSubProject(Model model){
-        SubProject obj = new SubProject();
-        model.addAttribute("obj", obj);
-        return "create-SubProject";
-    }
-
-
     @PostMapping("/deleteSubProject/{subProjectID}")
     public String deleteSubProject(@PathVariable("subProjectID") int subProjectID){
         alignProService.deleteSubProject(subProjectID);
