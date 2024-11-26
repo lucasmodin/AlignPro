@@ -64,6 +64,33 @@ public class AlignProService {
 
 
 
+    public void editSubProject(SubProject subProject, int subProjectID){
+        try {
+            alignProRepository.editSubProject(subProject, subProjectID);
+        }catch (Exception e){
+            throw new RuntimeException("error updating project " + subProjectID, e);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void deleteSubProject(int subProjectID){
+        alignProRepository.deleteSubProject(subProjectID);
+    }
+
+
     public Project getProject(int projectID){
         return alignProRepository.getProject(projectID);
     }
@@ -89,4 +116,11 @@ public class AlignProService {
         return alignProRepository.getListOfEmployees();
     }
 
+    public SubProject getSubProject(String subProjectName){
+        return alignProRepository.getSubProject(subProjectName);
+    }
+
+    public SubProject getSubProject(int subProjectID){
+        return alignProRepository.getSubProject(subProjectID);
+    }
 }

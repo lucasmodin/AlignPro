@@ -5,8 +5,6 @@ import alignpro.Model.Project;
 import alignpro.Model.SubProject;
 
 import java.util.List;
-
-import java.util.List;
 import java.util.Map;
 
 public interface IFAlignProRepository {
@@ -22,6 +20,19 @@ public interface IFAlignProRepository {
 
     void editProject(Project project, int projectID);
 
+    List<SubProject> getSubProjectsForProject(int projectID);
+
+    List<Project> getProjectsForPMUser(int pmUserID);
+
+    void saveSubProject(String subProjectName, String startDate, String endDate, String subProjectDescription, int projectID);
+
+    SubProject getSubProject(String subProjectName);
+
+    SubProject getSubProject(int subProjectID);
+
+    void deleteSubProject(int subProjectID);
+
+    void editSubProject(SubProject subProject, int subProjectID);
     // Methods to manage Employees
 
     void saveEmployee(String employeeName);
@@ -38,15 +49,5 @@ public interface IFAlignProRepository {
 
     List<String> getListOfSkills();
 
-
-    void saveSubProject(String subProjectName, String startDate, String endDate, String subProjectDescription, int projectID);
-
-    SubProject getSubProject(String subProjectName);
-
-    SubProject getSubProject(int subProjectID);
-
-    List<SubProject> getSubProjectsForProject(int projectID);
-
-    List<Project> getProjectsForPMUser(int pmUserID);
     void deleteProject(int ProjectID);
 }

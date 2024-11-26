@@ -222,6 +222,59 @@ public class AlignProRepository implements IFAlignProRepository {
     }
 
     @Override
+    public void editSubProject(SubProject subProject, int subProjectID){
+        String sqlString = "UPDATE SubProject SET SubProjectName = ?, StartDate = ?," +
+                " EndDate = ?, SubProjectDescription = ? WHERE SubProjectID = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1, subProject.getSubProjectName());
+            stmt.setString(2, subProject.getStartDateString());
+            stmt.setString(3, subProject.getEndDateString());
+            stmt.setString(4, subProject.getSubProjectDescription());
+            //stmt.setInt(5, subProject.getFkProjectID());
+            stmt.setInt(5, subProjectID);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e){
+            throw new RuntimeException("Problem updating your sub-project from the DB based on subProjectID/ProjectID" + e.getMessage());
+        }
+    }
+
+
+    public void deleteSubProject(int subProjectID){
+        try{
+            String sqlString = "DELETE FROM SubProject WHERE SubProjectID = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, subProjectID);
+            stmt.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Project> getPMDashboardData(int pmUserID) {
+        List<Project> projects = new ArrayList<>();
+
+        String sqlString = "SELECT p.ProjectID, p.ProjectName, p.StartDate AS ProjectStartDate, p.Deadline AS ProjectDeadline, p.ProjectDescription," +
+                "sp.SubProjectID, sp.SubProjectName, sp.StartDate AS SubProjectStartDate, sp.EndDate AS SubProjectEndDate, sp.SubProjectDescription," +
+                "t.TaskID, t.TaskName, t.StartDate AS TaskStartDate, t.EndDate AS TaskEndDate, t.TaskDescription," +
+                "st.SubTaskID, st. SubTaskName, st.StartDate AS SubTaskStartDate, st.EndDate AS SubTaskEndDate, st.SubTaskDescription" +
+                "FROM PMUser_Project pmup" +
+                "JOIN Project p ON pmup.ProjectID = p.ProjectID" +
+                "LEFT JOIN SubProject sp ON p.ProjectID = sp.ProjectID" +
+                "LEFT JOIN Task t ON sp.SubProjectID = t.SubProjectID" +
+                "LEFT JOIN SubTask st ON t.TaskID = st.TaskID" +
+                "WHERE pmup.PMUserID = ?;";
+
+        return null;
+    }
+
+
+    @Override
     public void deleteProject(int ProjectID){
         String sqlString = "DELETE FROM Project WHERE ProjectID = ?";
 
@@ -329,7 +382,7 @@ public class AlignProRepository implements IFAlignProRepository {
 
         return employee;
 
-    }
+}
 
     @Override
     public List<Employee> getListOfEmployees(){

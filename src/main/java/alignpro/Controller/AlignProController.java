@@ -40,6 +40,31 @@ public class AlignProController {
         return "redirect:/";
     }
 
+    @GetMapping("/edit-subproject/{subProjectID}")
+    public String editSubProject(@PathVariable("subProjectID") int subProjectID, Model model){
+        SubProject subProject = alignProService.getSubProject(subProjectID);
+        if(subProject != null){
+            model.addAttribute("subProject", subProject);
+            return "edit-SubProject";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    @PostMapping("/updateSubProject")
+    public String updateSubProject(@RequestParam("subProjectID") int subProjectID,
+                                   @RequestParam("subProjectName") String subProjectName,
+                                   @RequestParam("startDate") String startDate,
+                                   @RequestParam("endDate") String endDate,
+                                   @RequestParam("subProjectDescription") String subProjectDescription/*,
+                                   @RequestParam("fkProjectID") int fkProjectID*/){
+        SubProject subProject = new SubProject(subProjectID, subProjectName, startDate
+                , endDate, subProjectDescription);
+        alignProService.editSubProject(subProject, subProject.getSubProjectID());
+
+        return "redirect:/";
+    }
+
     @GetMapping("/edit-project/{projectId}")
     public String editProject(@PathVariable ("projectId") int projectId, Model model) {
         Project project = alignProService.getProject(projectId);
@@ -132,4 +157,17 @@ public class AlignProController {
 
 
 
+    @GetMapping("/createSubProject")
+    public String createSubProject(Model model){
+        SubProject obj = new SubProject();
+        model.addAttribute("obj", obj);
+        return "create-SubProject";
+    }
+
+
+    @PostMapping("/deleteSubProject/{subProjectID}")
+    public String deleteSubProject(@PathVariable("subProjectID") int subProjectID){
+        alignProService.deleteSubProject(subProjectID);
+        return "redirect:/";
+    }
 }
