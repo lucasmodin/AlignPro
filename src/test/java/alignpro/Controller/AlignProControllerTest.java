@@ -1,5 +1,6 @@
 package alignpro.Controller;
 
+import alignpro.Model.Employee;
 import alignpro.Model.Project;
 import alignpro.Model.SubProject;
 import alignpro.Service.AlignProService;
@@ -10,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -79,13 +83,13 @@ public class AlignProControllerTest {
     @Test
     void editProject() throws Exception {
         int projectId = 1;
-        Project dummyProject = new Project(1, "dummy", "2024-11-11", "2024-11-22", "dummy project");
+        Project dummyProject = new Project(1,"dummy", "2024-11-11", "2024-11-22", "dummy project");
         when(alignProService.getProject(1)).thenReturn(dummyProject);
         mockMvc.perform(get("/edit-project/{projectId}", projectId))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("project", dummyProject))
                 .andExpect(view().name("edit-project"));
-    }
+        }
 
 
     //TODO
@@ -99,24 +103,52 @@ public class AlignProControllerTest {
         String projectDescription = "dummy project";
 
         mockMvc.perform(post("/updateProject")
-                        .param("projectId", String.valueOf(projectId))
-                        .param("projectName", projectName)
-                        .param("startDate", startDate)
-                        .param("deadLine", deadline)
-                        .param("projectDescription", projectDescription))
+                .param("projectId", String.valueOf(projectId))
+                .param("projectName",projectName)
+                .param("startDate", startDate)
+                .param("deadLine", deadline)
+                .param("projectDescription",projectDescription))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"))
                 .andExpect(view().name("redirect:/"));
+        }
+    @Test
+    void testCreateNewEmployee() throws Exception {
+        mockMvc.perform(get("/CreateEmployee"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("employeeObj"))
+                .andExpect(model().attributeExists("listOfSkills"))
+                .andExpect(view().name("create-Employee"));
+    }
+
+    @Test
+    void saveNewEmployee() throws Exception {
+        List<String> listOfSkills = new ArrayList<>();
+        listOfSkills.add("Developer");
+        listOfSkills.add("Cost Controller");
+
+        Employee employeeObj = new Employee("Egon Olsen", listOfSkills);
+
+
+        mockMvc.perform(post("/saveEmployee")
+                .flashAttr("employeeObj", employeeObj))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+    }
+
+    @Test
+    void testDeleteProject() throws Exception {
+        int projectID = 1;
+
+        mockMvc.perform(post("/delete-project/{projectID}", projectID))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/"))
+                .andExpect(redirectedUrl("/"));
     }
 
 
 
 }
-
-
-
-
-
 
 
 

@@ -1,12 +1,15 @@
 package alignpro.Controller;
 
 
+import alignpro.Model.Employee;
 import alignpro.Model.Project;
 import alignpro.Model.SubProject;
 import alignpro.Service.AlignProService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("")
@@ -76,6 +79,33 @@ public class AlignProController {
                                 @RequestParam("deadLine") String deadLine) {
         Project project = new Project(projectId, projectName, startDate, deadLine, projectDescription);
         alignProService.editProject(project, project.getProjectID());
+        return "redirect:/";
+    }
+
+    @PostMapping("/delete-project/{projectID}")
+    public String deleteProject(@PathVariable("projectID") int projectID){
+        Project projectToDelete = alignProService.getProject(projectID);
+        if(projectToDelete != null){
+            alignProService.deleteProject(projectID);
+            return "redirect:/";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+
+    @GetMapping("/CreateEmployee")
+    public String createEmployee(Model model){
+        Employee employee = new Employee();
+        List<String> listOfSkills = alignProService.getListOfSkills();
+        model.addAttribute("employeeObj", employee);
+        model.addAttribute("listOfSkills", listOfSkills);
+        return "create-Employee";
+    }
+
+    @PostMapping("/saveEmployee")
+    public String saveEmployee(@ModelAttribute Employee newEmployee){
+        alignProService.saveEmployee(newEmployee);
         return "redirect:/";
     }
 

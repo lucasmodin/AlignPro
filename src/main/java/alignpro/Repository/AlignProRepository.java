@@ -2,6 +2,7 @@ package alignpro.Repository;
 
 
 import alignpro.Model.DBConnection;
+import alignpro.Model.Employee;
 import alignpro.Model.Project;
 import alignpro.Model.SubProject;
 import jakarta.annotation.PostConstruct;
@@ -9,6 +10,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -268,6 +274,193 @@ public class AlignProRepository implements IFAlignProRepository {
     }
 
 
+    @Override
+    public void deleteProject(int ProjectID){
+        String sqlString = "DELETE FROM Project WHERE ProjectID = ?";
 
+        try{
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1,ProjectID);
+            stmt.executeUpdate();
+
+        } catch (SQLException e){
+            throw new RuntimeException("Not deleting project from DB" + e.getMessage());
+        }
+
+
+    }
+
+
+    //Methods to manage employees;
+
+    @Override
+    public void saveEmployee(String employeeName){
+        try{
+            String sqlString = "INSERT INTO Employee (EmployeeName) VALUES ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1,employeeName);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e){
+            throw new RuntimeException("Could not save employee" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void saveEmployee(String employeeName, List<String> skillList){
+        int primaryKeyEmployee = 0;
+
+        try{
+
+            String sqlString = "INSERT INTO Employee (EmployeeName) VALUES ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, employeeName);
+            stmt.executeUpdate();
+
+            ResultSet returnedPrimaryKey = stmt.getGeneratedKeys();
+
+            if (returnedPrimaryKey.next()){
+                primaryKeyEmployee = returnedPrimaryKey.getInt(1);
+            }
+
+            Map<String, Integer> pariList = getSkillsID();
+
+            if (!skillList.isEmpty()){
+                for (String skill : skillList ){
+
+                    String sqlString2 = "INSERT INTO Employee_Skill (EmployeeID, SkillID) VALUES (?, ?)";
+
+                    PreparedStatement stmt2 = conn.prepareStatement(sqlString2);
+                    stmt2.setInt(1, primaryKeyEmployee);
+                    stmt2.setInt(2, pariList.get(skill));
+                    stmt2.executeUpdate();
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not save employee with a skill list" + e.getMessage());
+        }
+    }
+
+    @Override // This method should perhaps also have the list of Skills
+    public Employee getEmployee(String employeeName){
+        Employee employee = null;
+
+        try{
+
+            String sqlString = "SELECT * FROM Employee WHERE EmployeeName = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1,employeeName);
+
+            ResultSet rls = stmt.executeQuery();
+
+            if(rls.next()){
+                employee = new Employee();
+                employee.setEmployeeID(rls.getInt(1));
+                employee.setEmployeeName(rls.getString(2));
+            }
+
+            String sqlString2 = "SELECT Skills.SkillName from Employee_Skill JOIN Skills on Employee_Skill.SkillID = Skills.SkillID WHERE Employee_Skill.EmployeeID = ?";
+
+            PreparedStatement stmt2 = conn.prepareStatement(sqlString2);
+            stmt2.setInt(1,employee.getEmployeeID());
+
+            ResultSet rls2 = stmt2.executeQuery();
+
+            while(rls2.next()){
+                employee.setSkills(rls2.getString(1));
+            }
+
+        } catch (SQLException e){
+            throw new RuntimeException("Get an employee is not working" + e.getMessage());
+        }
+
+        return employee;
 
 }
+
+    @Override
+    public List<Employee> getListOfEmployees(){
+        List<String> employeeListName = new ArrayList<>();
+        List<Employee> employeeList = new ArrayList<>();
+
+        try {
+
+            String sqlString = "SELECT EmployeeName FROM Employee";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            ResultSet rls = stmt.executeQuery();
+
+            while(rls.next()){
+                String employeeName = rls.getString(1);
+                employeeListName.add(employeeName);
+            }
+
+            for (String employeeName: employeeListName){
+                employeeList.add(getEmployee(employeeName));
+            }
+
+        } catch (SQLException e){
+            throw new RuntimeException("Could not get list of emplyees" + e.getMessage());
+        }
+
+        return employeeList;
+    }
+
+
+    /// ***************************** Helper function to get infomration ************************* ///
+
+    @Override
+    public Map<String, Integer> getSkillsID(){
+        Map<String, Integer> pairList = new HashMap<>();
+
+        try{
+
+            String sqlString = "SELECT * FROM Skills";
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+
+            ResultSet rls = stmt.executeQuery();
+
+            while(rls.next()){
+                String skillName = rls.getString("SkillName");
+                int skillID = rls.getInt("SkillID");
+
+                pairList.put(skillName, skillID);
+            }
+
+        } catch (SQLException e){
+            throw new RuntimeException("it failed in helper function getSkillsID" + e.getMessage());
+        }
+
+        return pairList;
+    }
+
+    // *** Thymeleaf functions to get lists from DB *** //
+
+    @Override
+    public List<String> getListOfSkills(){
+        List<String> list = new ArrayList<>();
+
+        try{
+
+            String sqlString = "SELECT SkillName FROM Skills";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            ResultSet rls = stmt.executeQuery();
+
+            while (rls.next()){
+                list.add(rls.getString("SkillName"));
+            }
+
+        } catch (SQLException e){
+            throw new RuntimeException("Could not get list of skills" + e.getMessage());
+        }
+        return list;
+    }
+}
+
