@@ -35,4 +35,5 @@ public interface IFAlignProRepository {
 
     List<String> getListOfSkills();
 
+    void deleteProject(int ProjectID);
 }

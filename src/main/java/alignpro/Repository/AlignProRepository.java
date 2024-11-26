@@ -117,10 +117,6 @@ public class AlignProRepository implements IFAlignProRepository {
         return obj;
     }
 
-
-
-
-
     @Override
     public void editProject(Project project, int projectID) {
         String sqlString = "UPDATE Project SET ProjectName = ?, StartDate = ?, Deadline = ?, ProjectDescription = ? WHERE ProjectID = ?";
@@ -138,6 +134,23 @@ public class AlignProRepository implements IFAlignProRepository {
         } catch (SQLException e) {
             throw new RuntimeException("Problem updating your project from the DB based on ProjectID" + e.getMessage());
         }
+
+    }
+
+    @Override
+    public void deleteProject(int ProjectID){
+        String sqlString = "DELETE FROM Project WHERE ProjectID = ?";
+
+        try{
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1,ProjectID);
+            stmt.executeUpdate();
+
+        } catch (SQLException e){
+            throw new RuntimeException("Not deleting project from DB" + e.getMessage());
+        }
+
 
     }
 

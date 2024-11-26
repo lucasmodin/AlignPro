@@ -71,7 +71,21 @@ public class AlignProRepositoryTest {
         assertEquals(updatedProject.getProjectDescription(), fetchedProject.getProjectDescription());
 
         assertEquals(originalProject.getProjectID(), fetchedProject.getProjectID());
+    }
 
+    @Test
+    @DirtiesContext
+    void deleteProejct(){
+
+        Project objTest = alignProRepository.getProject(1);
+
+        assertTrue(objTest.getProjectName().equals("Project Kea"));
+
+        alignProRepository.deleteProject(1);
+
+        Project objTest2 = alignProRepository.getProject(1);
+
+        assertNull(objTest2);
     }
 
 
@@ -138,5 +152,7 @@ public class AlignProRepositoryTest {
         assertEquals(2,mapSkills.get("Cost Controller"));
         assertEquals(3,mapSkills.get("Project Manager"));
     }
+
+
 
 }
