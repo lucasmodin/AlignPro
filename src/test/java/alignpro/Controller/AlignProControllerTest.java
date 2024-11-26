@@ -54,7 +54,8 @@ public class AlignProControllerTest {
 
     @Test
     void testCreateNewSubProject() throws Exception {
-        mockMvc.perform(get("/createSubProject/{projectID}"))
+        int projectID = 1;
+        mockMvc.perform(get("/createSubProject/{projectID}", projectID))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("obj"))
                 .andExpect(view().name("create-SubProject"));
@@ -125,6 +126,15 @@ public class AlignProControllerTest {
                 .flashAttr("employeeObj", employeeObj))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
+    }
+
+    @Test
+    void getPMDashboard() throws Exception {
+        int pmUserID = 1;
+        mockMvc.perform(get("/pm-dashboard/{pmUserID}", pmUserID))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("dashboardRows"))
+                .andExpect(view().name("pm-Dashboard"));
     }
 }
 
