@@ -109,6 +109,15 @@ public class SubProject {
         this.fkProjectID = fkProjectID;
     }
 
+    public SubProject(int subProjectID, String subProjectName, String startDate,
+                      String endDate, String subProjectDescription) {
+        this.subProjectID = subProjectID;
+        this.subProjectName = subProjectName;
+        this.startDate = LocalDate.parse(startDate);
+        this.endDate = LocalDate.parse(endDate);
+        this.subProjectDescription = subProjectDescription;
+    }
+
     //************************* Setter and getters *******************************//
     public int getSubProjectID() {
         return subProjectID;

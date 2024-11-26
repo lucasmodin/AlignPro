@@ -48,10 +48,10 @@ public class AlignProController {
                                    @RequestParam("subProjectName") String subProjectName,
                                    @RequestParam("startDate") String startDate,
                                    @RequestParam("endDate") String endDate,
-                                   @RequestParam("subProjectDescription") String subProjectDescription,
-                                   @RequestParam("fkProjectID") int fkProjectID){
+                                   @RequestParam("subProjectDescription") String subProjectDescription/*,
+                                   @RequestParam("fkProjectID") int fkProjectID*/){
         SubProject subProject = new SubProject(subProjectID, subProjectName, startDate
-                , endDate, subProjectDescription, fkProjectID);
+                , endDate, subProjectDescription);
         alignProService.editSubProject(subProject, subProject.getSubProjectID());
 
         return "redirect:/";
