@@ -31,6 +31,10 @@
     </section>
   </form>
 
+  <form th:action="@{/delete-project/{projectID}(projectID=${project.getProjectID()})}" method="post">
+    <button type="submit">Delete</button>
+  </form>
+
 
 
 </main>

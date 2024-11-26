@@ -72,6 +72,9 @@ public class AlignProService {
         return alignProRepository.getProject(projectName);
     }
 
+    public void deleteProject(int projectID){
+        alignProRepository.deleteProject(projectID);
+    }
 
     //*** methods to handle employees and skills ***//
     public void saveEmployee(Employee obj){

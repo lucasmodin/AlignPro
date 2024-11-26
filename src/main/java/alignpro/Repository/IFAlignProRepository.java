@@ -48,4 +48,5 @@ public interface IFAlignProRepository {
     List<SubProject> getSubProjectsForProject(int projectID);
 
     List<Project> getProjectsForPMUser(int pmUserID);
+    void deleteProject(int ProjectID);
 }

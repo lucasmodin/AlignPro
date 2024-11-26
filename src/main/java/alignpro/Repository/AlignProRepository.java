@@ -221,6 +221,23 @@ public class AlignProRepository implements IFAlignProRepository {
 
     }
 
+    @Override
+    public void deleteProject(int ProjectID){
+        String sqlString = "DELETE FROM Project WHERE ProjectID = ?";
+
+        try{
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1,ProjectID);
+            stmt.executeUpdate();
+
+        } catch (SQLException e){
+            throw new RuntimeException("Not deleting project from DB" + e.getMessage());
+        }
+
+
+    }
+
 
     //Methods to manage employees;
 

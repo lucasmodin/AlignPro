@@ -62,6 +62,18 @@ public class AlignProController {
         return "redirect:/";
     }
 
+    @PostMapping("/delete-project/{projectID}")
+    public String deleteProject(@PathVariable("projectID") int projectID){
+        Project projectToDelete = alignProService.getProject(projectID);
+        if(projectToDelete != null){
+            alignProService.deleteProject(projectID);
+            return "redirect:/";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+
     @GetMapping("/CreateEmployee")
     public String createEmployee(Model model){
         Employee employee = new Employee();
