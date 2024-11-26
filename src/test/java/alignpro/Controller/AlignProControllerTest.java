@@ -50,7 +50,7 @@ public class AlignProControllerTest {
 
     @Test
     void testCreateNewSubProject() throws Exception {
-        mockMvc.perform(get("/createSubProject"))
+        mockMvc.perform(get("/createSubProject/{projectID}"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("obj"))
                 .andExpect(view().name("create-SubProject"));
