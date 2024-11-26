@@ -1,10 +1,7 @@
 package alignpro.Controller;
 
 
-import alignpro.Model.PMDashboardRow;
-import alignpro.Model.Employee;
-import alignpro.Model.Project;
-import alignpro.Model.SubProject;
+import alignpro.Model.*;
 import alignpro.Service.AlignProService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -126,6 +123,20 @@ public class AlignProController {
         alignProService.saveSubProject(newSubProject);
         return "redirect:/";
     }
+
+//    @GetMapping("/createTask/{subProjectID}")
+//    public String createTask(@PathVariable("subProjectID") int subProjectID, Model model){
+//        Task obj = new Task();
+//        obj.setSubProjectID(subProjectID);
+//        model.addAttribute("obj", obj);
+//        return "create-Task";
+//    }
+//
+//    @PostMapping("/saveTask")
+//    public String saveTask(@ModelAttribute Task newTask){
+//        alignProService.saveTask(newTask);
+//        return "redirect:/";
+//    }
 
     //TODO fix endpoint when user/login session is implemented
     @GetMapping("/pm-dashboard/{pmUserID}")

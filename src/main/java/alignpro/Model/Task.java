@@ -10,10 +10,40 @@ public class Task {
     private LocalDate endDate;
     private int estimatedTime;
     private String taskDescription;
-    private ArrayList<String> skillRequirement;
+    private String skillRequirement;
     private int subProjectID;
 
 
+    //************************* Constructors *******************************//
+    public Task(){
+    }
+
+    public Task(String taskName, String startDate, String endDate, int estimatedTime,
+             String taskDescription, String skillRequirement, int subProjectID){
+        this.taskName = taskName;
+        this.startDate = LocalDate.parse(startDate);
+        this.endDate = LocalDate.parse(endDate);
+        this.estimatedTime = estimatedTime;
+        this.taskDescription = taskDescription;
+        this.skillRequirement = skillRequirement;
+        this.subProjectID = subProjectID;
+    }
+
+    public Task(String taskName, LocalDate startDate, LocalDate endDate, int estimatedTime,
+                String taskDescription, String skillRequirement, int subProjectID){
+        this.taskName = taskName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.estimatedTime = estimatedTime;
+        this.taskDescription = taskDescription;
+        this.skillRequirement = skillRequirement;
+        this.subProjectID = subProjectID;
+    }
+
+
+
+
+    //************************* Setter and getters *******************************//
     public int getTaskID() {
         return taskID;
     }
@@ -78,11 +108,11 @@ public class Task {
         this.taskDescription = taskDescription;
     }
 
-    public ArrayList<String> getSkillRequirement() {
+    public String getSkillRequirement() {
         return skillRequirement;
     }
 
-    public void setSkillRequirement(ArrayList<String> skillRequirement) {
+    public void setSkillRequirement(String skillRequirement) {
         this.skillRequirement = skillRequirement;
     }
 
