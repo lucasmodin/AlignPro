@@ -2,6 +2,7 @@ package alignpro.Controller;
 
 import alignpro.Model.Employee;
 import alignpro.Model.Project;
+import alignpro.Model.SubProject;
 import alignpro.Service.AlignProService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,35 @@ public class AlignProControllerTest {
     }
 
     @Test
+    void testCreateNewSubProject() throws Exception {
+        int projectID = 1;
+        mockMvc.perform(get("/createSubProject/{projectID}", projectID))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("obj"))
+                .andExpect(view().name("create-SubProject"));
+    }
+
+    @Test
+    void saveNewSubProject() throws Exception {
+        SubProject subProject = new SubProject("make crud functions", "2024-11-25", "2024-11-26", "make all crud now!");
+
+        mockMvc.perform(post("/saveSubProject").
+                        flashAttr("subProject", subProject))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+    }
+
+    @Test
+    void deleteSubProject() throws Exception{
+        int subProjectId = 1;
+
+        mockMvc.perform(post("/deleteSubProject/{subProjectID}", subProjectId))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+
+    }
+
+    @Test
     void editProject() throws Exception {
         int projectId = 1;
         Project dummyProject = new Project(1,"dummy", "2024-11-11", "2024-11-22", "dummy project");
@@ -98,6 +128,7 @@ public class AlignProControllerTest {
         listOfSkills.add("Developer");
         listOfSkills.add("Cost Controller");
 
+
         Employee employeeObj = new Employee("Egon Olsen", listOfSkills);
 
 
@@ -105,6 +136,15 @@ public class AlignProControllerTest {
                 .flashAttr("employeeObj", employeeObj))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
+    }
+
+    @Test
+    void getPMDashboard() throws Exception {
+        int pmUserID = 1;
+        mockMvc.perform(get("/pm-dashboard/{pmUserID}", pmUserID))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("dashboardRows"))
+                .andExpect(view().name("pm-Dashboard"));
     }
 
     @Test
@@ -120,6 +160,7 @@ public class AlignProControllerTest {
 
 
 }
+
 
 
 

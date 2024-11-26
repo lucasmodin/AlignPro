@@ -2,6 +2,7 @@ package alignpro.Repository;
 
 import alignpro.Model.Employee;
 import alignpro.Model.Project;
+import alignpro.Model.SubProject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,7 +32,7 @@ public class AlignProRepositoryTest {
     @DirtiesContext
     void saveProject(){
 
-        Project objToSave = new Project("Test project 1", "2024-11-24","2024-11-25","To test saveProject Method");
+        Project objToSave = new Project("Test project 1", "2024-11-24", "2024-11-25", "To test saveProject Method");
 
         alignProRepository.saveProject(objToSave.getProjectName(),objToSave.getStartDateString(),objToSave.getDeadlineString(), objToSave.getProjectDescription());
 
@@ -47,6 +48,43 @@ public class AlignProRepositoryTest {
         Project obj = alignProRepository.getProject("Project Kea");
 
         assertEquals("Project Kea", obj.getProjectName());
+    }
+
+    /*
+    @Test
+    @DirtiesContext
+    void saveSubProject(){
+        SubProject objToSave = new SubProject("Test sub-project 1", "2024-11-25","2024-11-26","To test saveSubProject Method");
+
+        alignProRepository.saveSubProject(objToSave.getSubProjectName(), objToSave.getStartDateString(),
+                objToSave.getEndDateString(), objToSave.getSubProjectDescription());
+
+        SubProject objToGet = alignProRepository.getSubProject(4);
+
+        assertEquals(objToSave.getSubProjectName(), objToGet.getSubProjectName());
+    }
+*/
+    @Test
+    @DirtiesContext
+    void getSubProject(){
+
+        SubProject obj = alignProRepository.getSubProject("Scipting all the time");
+
+        assertEquals("Scipting all the time", obj.getSubProjectName());
+    }
+
+    @Test
+    @DirtiesContext
+    void deleteSubProject(){
+        SubProject objToSave = new SubProject("Test sub-project 1", "2024-11-25", "2024-11-26", "To test deleteSubProject Method");
+
+        alignProRepository.saveSubProject(objToSave.getSubProjectName(), objToSave.getStartDateString(),
+                objToSave.getEndDateString(), objToSave.getSubProjectDescription(), 1);
+
+        alignProRepository.deleteSubProject(4);
+        SubProject objToGet = alignProRepository.getSubProject(4);
+
+        assertNull(objToGet);
     }
 
     @Test

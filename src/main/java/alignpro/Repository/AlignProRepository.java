@@ -4,6 +4,7 @@ package alignpro.Repository;
 import alignpro.Model.DBConnection;
 import alignpro.Model.Employee;
 import alignpro.Model.Project;
+import alignpro.Model.SubProject;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -14,6 +15,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository("ALIGNPRO_REPOSITORY_JDBC")
 @Lazy
@@ -118,6 +125,83 @@ public class AlignProRepository implements IFAlignProRepository {
     }
 
     @Override
+    public void saveSubProject(String subProjectName, String startDate, String endDate, String subProjectDescription, int projectID){
+
+        try{
+            String sqlString = "INSERT INTO SubProject (SubProjectName, StartDate, EndDate, SubProjectDescription, ProjectID) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1, subProjectName);
+            stmt.setString(2, startDate);
+            stmt.setString(3, endDate);
+            stmt.setString(4, subProjectDescription);
+            stmt.setInt(5, projectID);
+            stmt.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public SubProject getSubProject(String subProjectName){
+        SubProject obj = null;
+
+        try{
+            String sqlString = "SELECT SubProjectID, SubProjectName, StartDate, EndDate, SubProjectDescription FROM SubProject WHERE SubProjectName = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1, subProjectName);
+
+            ResultSet resultSet = stmt.executeQuery();
+            if(resultSet.next()){
+                obj = new SubProject();
+                obj.setSubProjectID(resultSet.getInt("SubProjectID"));
+                obj.setSubProjectName(resultSet.getString("SubProjectName"));
+                obj.setStartDate(resultSet.getString("StartDate"));
+                obj.setEndDate(resultSet.getString("EndDate"));
+                obj.setSubProjectDescription(resultSet.getString("SubProjectDescription"));
+            }
+
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return obj;
+    }
+
+
+    @Override
+    public SubProject getSubProject(int subProjectID) {
+        SubProject obj = null;
+
+        try {
+            String sqlString = "SELECT SubProjectID, SubProjectName, StartDate, EndDate, SubProjectDescription FROM SubProject WHERE SubProjectID = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, subProjectID);
+
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                obj = new SubProject();
+                obj.setSubProjectID(resultSet.getInt("SubProjectID"));
+                obj.setSubProjectName(resultSet.getString("SubProjectName"));
+                obj.setStartDate(resultSet.getString("StartDate"));
+                obj.setEndDate(resultSet.getString("EndDate"));
+                obj.setSubProjectDescription(resultSet.getString("SubProjectDescription"));
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return obj;
+    }
+
+
+
+
+
+    @Override
     public void editProject(Project project, int projectID) {
         String sqlString = "UPDATE Project SET ProjectName = ?, StartDate = ?, Deadline = ?, ProjectDescription = ? WHERE ProjectID = ?";
 
@@ -136,6 +220,42 @@ public class AlignProRepository implements IFAlignProRepository {
         }
 
     }
+
+    @Override
+    public void editSubProject(SubProject subProject, int subProjectID){
+        String sqlString = "UPDATE SubProject SET SubProjectName = ?, StartDate = ?," +
+                " EndDate = ?, SubProjectDescription = ? WHERE SubProjectID = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1, subProject.getSubProjectName());
+            stmt.setString(2, subProject.getStartDateString());
+            stmt.setString(3, subProject.getEndDateString());
+            stmt.setString(4, subProject.getSubProjectDescription());
+            //stmt.setInt(5, subProject.getFkProjectID());
+            stmt.setInt(5, subProjectID);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e){
+            throw new RuntimeException("Problem updating your sub-project from the DB based on subProjectID/ProjectID" + e.getMessage());
+        }
+    }
+
+
+    public void deleteSubProject(int subProjectID){
+        try{
+            String sqlString = "DELETE FROM SubProject WHERE SubProjectID = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, subProjectID);
+            stmt.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Override
     public void deleteProject(int ProjectID){
@@ -245,7 +365,7 @@ public class AlignProRepository implements IFAlignProRepository {
 
         return employee;
 
-    }
+}
 
     @Override
     public List<Employee> getListOfEmployees(){
@@ -325,5 +445,74 @@ public class AlignProRepository implements IFAlignProRepository {
         }
         return list;
     }
+
+    @Override
+    public List<Project> getProjectsForPMUser(int pmUserID) {
+        List<Project> projects = new ArrayList<>();
+        String sql = """
+                SELECT p.ProjectID AS ProjectID, p.ProjectName AS ProjectName, p.StartDate AS StartDate, p.Deadline AS Deadline, p.TotalSumTime AS TotalSumTime, p.ProjectDescription AS ProjectDescription
+                FROM Project p
+                JOIN PMUser_Project pmup on p.ProjectID = pmup.ProjectID
+                WHERE pmup.PMUserID = ?;
+                """;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, pmUserID);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Project project = new Project();
+                project.setProjectID(rs.getInt("ProjectID"));
+                project.setProjectName(rs.getString("ProjectName"));
+                project.setStartDate(rs.getString("StartDate"));
+                project.setDeadLine(rs.getString("Deadline"));
+                project.setTotalTime(rs.getInt("TotalSumTime"));
+                project.setProjectDescription(rs.getString("ProjectDescription"));
+                projects.add(project);
+            }
+
+
+        } catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return projects;
+    }
+
+    @Override
+    public List<SubProject> getSubProjectsForProject(int projectID) {
+        List<SubProject> subProjects = new ArrayList<>();
+        String sql = """
+                SELECT SubprojectID, SubProjectName, StartDate, EndDate, SumTime, SubProjectDescription, ProjectID
+                FROM SubProject
+                WHERE ProjectID = ?;
+                """;
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, projectID);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                SubProject subProject = new SubProject();
+                subProject.setSubProjectID(rs.getInt("SubprojectID"));
+                subProject.setSubProjectName(rs.getString("SubProjectName"));
+                subProject.setStartDate(rs.getString("StartDate"));
+                subProject.setEndDate(rs.getString("EndDate"));
+                subProject.setFkProjectID(rs.getInt("ProjectID"));
+                subProject.setSubProjectDescription(rs.getString("SubProjectDescription"));
+                subProjects.add(subProject);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return subProjects;
+    }
+
+
+
+
+
 }
 

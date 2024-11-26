@@ -2,6 +2,7 @@ package alignpro.Service;
 
 import alignpro.Model.Employee;
 import alignpro.Model.Project;
+import alignpro.Model.SubProject;
 import alignpro.Repository.IFAlignProRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,11 @@ public class AlignProService {
         alignProRepository.saveProject(obj.getProjectName(), obj.getStartDateString(), obj.getDeadlineString(), obj.getProjectDescription());
     }
 
+    public void saveSubProject(SubProject obj){
+        alignProRepository.saveSubProject(obj.getSubProjectName(), obj.getStartDateString(),
+                obj.getEndDateString(), obj.getSubProjectDescription(), obj.getFkProjectID());
+    }
+
     public void editProject(Project project, int projectID){
         try {
             alignProRepository.editProject(project, projectID);
@@ -31,6 +37,59 @@ public class AlignProService {
             throw new RuntimeException("error updating project " + projectID, e);
         }
     }
+
+    public List<Project> getAllProjects(int pmUserID){
+        return alignProRepository.getProjectsForPMUser(pmUserID);
+    }
+
+    public List<SubProject> getAllSubProjects(int projectID){
+        return alignProRepository.getSubProjectsForProject(projectID);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void editSubProject(SubProject subProject, int subProjectID){
+        try {
+            alignProRepository.editSubProject(subProject, subProjectID);
+        }catch (Exception e){
+            throw new RuntimeException("error updating project " + subProjectID, e);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void deleteSubProject(int subProjectID){
+        alignProRepository.deleteSubProject(subProjectID);
+    }
+
 
     public Project getProject(int projectID){
         return alignProRepository.getProject(projectID);
@@ -57,4 +116,11 @@ public class AlignProService {
         return alignProRepository.getListOfEmployees();
     }
 
+    public SubProject getSubProject(String subProjectName){
+        return alignProRepository.getSubProject(subProjectName);
+    }
+
+    public SubProject getSubProject(int subProjectID){
+        return alignProRepository.getSubProject(subProjectID);
+    }
 }
