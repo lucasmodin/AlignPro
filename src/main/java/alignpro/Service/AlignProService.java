@@ -34,6 +34,13 @@ public class AlignProService {
         }
     }
 
+    public void editSubProject(SubProject subProject, int subProjectID){
+        try {
+            alignProRepository.editSubProject(subProject, subProjectID);
+        }catch (Exception e){
+            throw new RuntimeException("error updating project " + subProjectID, e);
+        }
+    }
 
 
 

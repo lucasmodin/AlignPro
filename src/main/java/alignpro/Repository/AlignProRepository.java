@@ -215,6 +215,27 @@ public class AlignProRepository implements IFAlignProRepository {
 
     }
 
+    @Override
+    public void editSubProject(SubProject subProject, int subProjectID){
+        String sqlString = "UPDATE SubProject SET SubProjectID = ?, SubProjectName = ?, StartDate = ?," +
+                " EndDate = ?, SubProjectDescription = ?, ProjectID = ? WHERE SubProjectID = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, subProjectID);
+            stmt.setString(2, subProject.getSubProjectName());
+            stmt.setString(3, subProject.getStartDateString());
+            stmt.setString(4, subProject.getEndDateString());
+            stmt.setString(5, subProject.getSubProjectDescription());
+            stmt.setInt(6, subProject.getFkProjectID());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e){
+            throw new RuntimeException("Problem updating your sub-project from the DB based on subProjectID/ProjectID" + e.getMessage());
+        }
+    }
+
 
     public void deleteSubProject(int subProjectID){
         try{
