@@ -92,6 +92,35 @@ public class AlignProControllerTest {
                 .andExpect(view().name("edit-project"));
         }
 
+    @Test
+    void editSubProject() throws Exception{
+        int subProjectID = 1;
+        SubProject dummyProject = new SubProject(1,"dummy", "2024-11-11", "2024-11-22", "dummy project");
+        when(alignProService.getSubProject(1)).thenReturn(dummyProject);
+        mockMvc.perform(get("/edit-subproject/{subProjectID}", subProjectID))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("subProject", dummyProject))
+                .andExpect(view().name("edit-SubProject"));
+    }
+
+    @Test
+    void updateSubProject() throws Exception{
+        int subProjectID = 1;
+        String subProjectName = "dummy project";
+        String startDate = "2024-11-11";
+        String endDate = "2024-11-22";
+        String subProjectDescription = "dummy project";
+
+        mockMvc.perform(post("/updateSubProject")
+                        .param("subProjectID", String.valueOf(subProjectID))
+                        .param("subProjectName",subProjectName)
+                        .param("startDate", startDate)
+                        .param("endDate", endDate)
+                        .param("subProjectDescription",subProjectDescription))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"))
+                .andExpect(view().name("redirect:/"));
+    }
 
     //TODO
     //when we build more functionality and a dashboard for the PM, we need to change the redirects
