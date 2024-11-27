@@ -133,6 +133,10 @@ public class AlignProService {
         alignProRepository.saveEmployee(obj.getEmployeeName(),obj.getSkills());
     }
 
+    public Employee getEmployee(int employeeID){
+        return alignProRepository.getEmployee(employeeID);
+    }
+
     public List<String> getListOfSkills(){
         return alignProRepository.getListOfSkills();
     }

@@ -458,8 +458,44 @@ public class AlignProRepository implements IFAlignProRepository {
         }
 
         return employee;
-
 }
+
+    @Override
+    public Employee getEmployee(int employeeID){
+        Employee employee = null;
+
+        try{
+
+            String sqlString = "SELECT * FROM Employee WHERE employeeID = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1,employeeID);
+
+            ResultSet rls = stmt.executeQuery();
+
+            if(rls.next()){
+                employee = new Employee();
+                employee.setEmployeeID(rls.getInt(1));
+                employee.setEmployeeName(rls.getString(2));
+            }
+
+            String sqlString2 = "SELECT Skills.SkillName from Employee_Skill JOIN Skills on Employee_Skill.SkillID = Skills.SkillID WHERE Employee_Skill.EmployeeID = ?";
+
+            PreparedStatement stmt2 = conn.prepareStatement(sqlString2);
+            stmt2.setInt(1,employee.getEmployeeID());
+
+            ResultSet rls2 = stmt2.executeQuery();
+
+            while(rls2.next()){
+                employee.setSkills(rls2.getString(1));
+            }
+
+        } catch (SQLException e){
+            throw new RuntimeException("Get an employee is not working" + e.getMessage());
+        }
+
+        return employee;
+    }
 
     @Override
     public List<Employee> getListOfEmployees(){

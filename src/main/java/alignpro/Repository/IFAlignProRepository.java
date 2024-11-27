@@ -49,6 +49,8 @@ public interface IFAlignProRepository {
 
     Employee getEmployee(String employeeName);
 
+    Employee getEmployee(int employeeID);
+
     List<Employee> getListOfEmployees();
 
     /// ***************************** Helper function to get infomration ************************* ///
