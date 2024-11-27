@@ -38,6 +38,9 @@ public interface IFAlignProRepository {
     void editSubProject(SubProject subProject, int subProjectID);
 
     void editTask(Task task, int taskID);
+
+    void editSubTask(SubTask subTask, int subTaskID);
+
     // Methods to manage Employees
 
     void saveEmployee(String employeeName);

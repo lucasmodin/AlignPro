@@ -296,7 +296,6 @@ public class AlignProRepository implements IFAlignProRepository {
             stmt.setString(2, subProject.getStartDateString());
             stmt.setString(3, subProject.getEndDateString());
             stmt.setString(4, subProject.getSubProjectDescription());
-            //stmt.setInt(5, subProject.getFkProjectID());
             stmt.setInt(5, subProjectID);
 
             stmt.executeUpdate();
@@ -306,6 +305,26 @@ public class AlignProRepository implements IFAlignProRepository {
         }
     }
 
+    public void editSubTask(SubTask subTask, int subTaskID){
+        String sqlString = "UPDATE SubTask SET SubTaskName = ?, StartDate = ?," +
+                " EndDate = ?, EstimatedTime = ?, SubTaskDescription = ?, SkillRequirement = ? WHERE SubTaskID = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1, subTask.getSubTaskName());
+            stmt.setString(2, subTask.getStartDateString());
+            stmt.setString(3, subTask.getEndDateString());
+            stmt.setInt(4, subTask.getTime());
+            stmt.setString(5, subTask.getSubTaskDescription());
+            stmt.setString(6, subTask.getSkillRequirement());
+            stmt.setInt(7, subTaskID);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e){
+            throw new RuntimeException("Problem updating your sub-task from the DB based on subTaskID/TaskID" + e.getMessage());
+        }
+    }
 
     public void deleteSubProject(int subProjectID){
         try{

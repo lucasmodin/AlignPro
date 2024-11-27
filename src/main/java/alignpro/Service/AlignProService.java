@@ -88,6 +88,10 @@ public class AlignProService {
         }
     }
 
+    public void editSubTask(SubTask subTask, int subTaskID){
+        alignProRepository.editSubTask(subTask, subTaskID);
+    }
+
     public void saveSubTask(SubTask subTask) {
         alignProRepository.saveSubTask(subTask.getSubTaskName(), subTask.getStartDateString(), subTask.getEndDateString(),
                 subTask.getTime(), subTask.getSubTaskDescription(), subTask.getSkillRequirement(), subTask.getTaskID());

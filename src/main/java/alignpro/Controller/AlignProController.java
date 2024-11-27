@@ -47,7 +47,19 @@ public class AlignProController {
         } else {
             return "redirect:/";
         }
+    }
 
+    @PostMapping("/updateSubTask")
+    public String updateSubTask(@RequestParam("subTaskID") int subTaskID,
+                                @RequestParam("subTaskName") String subTaskName,
+                                @RequestParam("subTaskDescription") String subTaskDescription,
+                                @RequestParam("startDate") String startDate,
+                                @RequestParam("endDate") String endDate,
+                                @RequestParam("time") int time,
+                                @RequestParam("skillRequirement") String skillRequirement){
+        SubTask subTask = new SubTask(subTaskID, subTaskName, subTaskDescription, startDate, endDate, time, skillRequirement);
+        alignProService.editSubTask(subTask, subTask.getSubTaskID());
+        return "redirect:/";
     }
 
     @GetMapping("/edit-task/{taskID}")
