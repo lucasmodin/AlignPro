@@ -62,6 +62,17 @@ public class SubTask {
         this.taskID = taskID;
     }
 
+    public SubTask(int subTaskID, String subTaskName, String subTaskDescription,
+                   String startDate, String endDate, int time, String skillRequirement) {
+        this.subTaskID = subTaskID;
+        this.subTaskName = subTaskName;
+        this.subTaskDescription = subTaskDescription;
+        this.startDate = LocalDate.parse(startDate);
+        this.endDate = LocalDate.parse(endDate);
+        this.time = time;
+        this.skillRequirement = skillRequirement;
+    }
+
 
     //************************* Setter and getters *******************************//
 

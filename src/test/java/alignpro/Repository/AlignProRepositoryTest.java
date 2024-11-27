@@ -71,9 +71,9 @@ public class AlignProRepositoryTest {
     @DirtiesContext
     void getSubProject(){
 
-        SubProject obj = alignProRepository.getSubProject("Scipting all the time");
+        SubProject obj = alignProRepository.getSubProject("Workd day and night");
 
-        assertEquals("Scipting all the time", obj.getSubProjectName());
+        assertEquals("Workd day and night", obj.getSubProjectName());
     }
 
     @Test
@@ -273,6 +273,29 @@ public class AlignProRepositoryTest {
     void getSubTask() {
         SubTask objToGet = alignProRepository.getSubTask(1);
         assertEquals(objToGet.getSubTaskName(),"Build a gun");
+    }
+
+    @Test
+    @DirtiesContext
+    void editSubTask() {
+        //Arrange
+        SubTask originalSubTask = alignProRepository.getSubTask(1);
+        SubTask updatedSubTask = new SubTask(1, "SubTask 2", "task task doooo", "2025-11-25", "2025-11-25", 5, "java");
+
+
+        //Act
+        alignProRepository.editSubTask(updatedSubTask, 1);
+
+        //Assert
+        SubTask fetchedProject = alignProRepository.getSubTask(1);
+
+        assertNotNull(fetchedProject);
+        assertEquals(updatedSubTask.getSubTaskName(),fetchedProject.getSubTaskName());
+        assertEquals(updatedSubTask.getStartDateString(),fetchedProject.getStartDateString());
+        assertEquals(updatedSubTask.getEndDateString(), fetchedProject.getEndDateString());
+        assertEquals(updatedSubTask.getSubTaskDescription(), fetchedProject.getSubTaskDescription());
+
+        assertEquals(originalSubTask.getSubTaskID(), fetchedProject.getSubTaskID());
     }
 
 

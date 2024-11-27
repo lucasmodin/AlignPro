@@ -38,6 +38,30 @@ public class AlignProController {
         return "redirect:/";
     }
 
+    @GetMapping("/edit-subTask/{subTaskID}")
+    public String editSubTask(@PathVariable("subTaskID") int subTaskID, Model model){
+        SubTask obj = alignProService.getSubTask(subTaskID);
+        if(obj != null){
+            model.addAttribute("obj", obj);
+            return "edit-SubTask";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    @PostMapping("/updateSubTask")
+    public String updateSubTask(@RequestParam("subTaskID") int subTaskID,
+                                @RequestParam("subTaskName") String subTaskName,
+                                @RequestParam("subTaskDescription") String subTaskDescription,
+                                @RequestParam("startDate") String startDate,
+                                @RequestParam("endDate") String endDate,
+                                @RequestParam("time") int time,
+                                @RequestParam("skillRequirement") String skillRequirement){
+        SubTask subTask = new SubTask(subTaskID, subTaskName, subTaskDescription, startDate, endDate, time, skillRequirement);
+        alignProService.editSubTask(subTask, subTask.getSubTaskID());
+        return "redirect:/";
+    }
+
     @GetMapping("/edit-task/{taskID}")
     public String editTask(@PathVariable("taskID") int taskID, Model model){
         Task task = alignProService.getTask(taskID);

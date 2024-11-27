@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main>
+    <form th:action="@{/updateSubTask}" th:object="${obj}" method="post">
+        <input type="hidden" name="subTaskID" th:value="${obj.subTaskID}">
+        <input type="hidden" name="taskID" th:value="${obj.taskID}">
+        <h1>Edit Sub-Task</h1>
+        <section class="input-field">
+            <label for="subTaskName">Edit Sub-Task Name</label>
+            <input type="text" id="subTaskName" name="subTaskName" th:field="*{subTaskName}" required>
+            <br><br>
+
+            <label for="subTaskDescription">Edit Sub-Task Description:</label>
+            <textarea id="subTaskDescription" name="subTaskDescription" th:field="*{subTaskDescription}" required></textarea>
+            <br><br>
+
+            <label for="startDate">Edit Start Date:</label>
+            <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required>
+            <br><br>
+
+            <label for="endDate">Edit endDate:</label>
+            <input type="date" id="endDate" name="endDate" th:field="*{endDate}" required>
+            <br><br>
+
+            <label for="time">Estimated Time:</label>
+            <input type="text" id="time" name="time" th:field="*{time}" required>
+            <br><br>
+
+            <label for="skillRequirement">skill Requirements:</label>
+            <input type="text" id="skillRequirement" name="skillRequirement" th:field="*{skillRequirement}" required>
+            <br><br>
+
+            <button type="submit">Finish</button>
+        </section>
+    </form>
+</main>
+</body>
+</html>
