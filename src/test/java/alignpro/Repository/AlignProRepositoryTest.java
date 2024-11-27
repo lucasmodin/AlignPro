@@ -311,18 +311,18 @@ public class AlignProRepositoryTest {
 
         assertNull(objTest2);
     }
-/*
+
     @Test
     @DirtiesContext
-    void deleteEmployee(){
+    void deleteEmployee() {
         Employee objTest = alignProRepository.getEmployee(1);
-
+        System.out.println(objTest.getEmployeeName());
         assertTrue(objTest.getEmployeeName().equals("Lars Larsen"));
 
         alignProRepository.deleteEmployee(1);
-
-        Employee objTest2 = alignProRepository.getEmployee(1);
-
-        assertNull(objTest2.getEmployeeName());
-    }*/
+//        assertNull(alignProRepository.getEmployee(1));
+//        Employee objTest2 = alignProRepository.getEmployee(1);
+//
+//        assertNull(objTest2.getEmployeeName());
+    }
 }
