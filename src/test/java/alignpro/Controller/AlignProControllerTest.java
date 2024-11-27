@@ -139,6 +139,15 @@ public class AlignProControllerTest {
     }
 
     @Test
+    void deleteEmployee() throws Exception{
+        int employeeID = 1;
+
+        mockMvc.perform(post("/deleteEmployee/{employeeID}", employeeID))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+    }
+
+    @Test
     void editProject() throws Exception {
         int projectId = 1;
         Project dummyProject = new Project(1,"dummy", "2024-11-11", "2024-11-22", "dummy project");
