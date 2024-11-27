@@ -68,4 +68,6 @@ public interface IFAlignProRepository {
 
     void saveSubTask(String subTaskName, String startDate, String endDate,
                      int time, String subTaskDescription, String skillRequirement, int taskID);
+
+    void deleteSubTask(int subTaskID);
 }

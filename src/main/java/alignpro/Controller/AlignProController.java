@@ -240,4 +240,10 @@ public class AlignProController {
         alignProService.saveSubTask(newSubTask);
         return "redirect:/";
     }
+
+    @PostMapping("/deleteSubTask/{subTaskID}")
+    public String deleteSubTask(@PathVariable("subTaskID") int subTaskID){
+        alignProService.deleteSubTask(subTaskID);
+        return "redirect:/";
+    }
 }

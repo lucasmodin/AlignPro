@@ -691,6 +691,24 @@ public class AlignProRepository implements IFAlignProRepository {
 
     }
 
+    @Override
+    public void deleteSubTask(int subTaskID) {
+        String sqlString =
+                "DELETE FROM SubTask WHERE SubTaskID = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, subTaskID);
+            stmt.executeUpdate();
+
+        } catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
 
 
 

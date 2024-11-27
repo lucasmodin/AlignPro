@@ -298,6 +298,19 @@ public class AlignProRepositoryTest {
         assertEquals(originalSubTask.getSubTaskID(), fetchedProject.getSubTaskID());
     }
 
+    @Test
+    void testDeleteSubTask(){
+        SubTask objTest = alignProRepository.getSubTask(1);
+
+        assertTrue(objTest.getSubTaskName().equals("Build a gun"));
+
+        alignProRepository.deleteSubTask(1);
+
+        SubTask objTest2 = alignProRepository.getSubTask(1);
+
+        assertNull(objTest2);
+    }
+
 
 
 }
