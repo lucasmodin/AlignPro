@@ -150,6 +150,40 @@ public class AlignProControllerTest {
         }
 
     @Test
+    void editSubTask() throws Exception{
+        int subTaskID = 1;
+        SubTask dummyProject = new SubTask(1, "SubTask 2", "task task doooo", "2025-11-25", "2025-11-25", 5, "java");
+        when(alignProService.getSubTask(1)).thenReturn(dummyProject);
+        mockMvc.perform(get("/edit-subTask/{subTaskID}", subTaskID))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("obj", dummyProject))
+                .andExpect(view().name("edit-SubTask"));
+    }
+
+    @Test
+    void updateSubTask() throws Exception{
+        int subTaskID = 1;
+        String subTaskName = "SubTask 2";
+        String subTaskDescription = "task task doooo";
+        String startDate = "2025-11-25";
+        String endDate = "2025-11-25";
+        int time = 5;
+        String skillRequirement = "java";
+
+        mockMvc.perform(post("/updateSubTask")
+                        .param("subTaskID", String.valueOf(subTaskID))
+                        .param("subTaskName", subTaskName)
+                        .param("subTaskDescription", subTaskDescription)
+                        .param("startDate", startDate)
+                        .param("endDate", endDate)
+                        .param("time", String.valueOf(time))
+                        .param("skillRequirement", skillRequirement))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"))
+                .andExpect(view().name("redirect:/"));
+    }
+
+    @Test
     void editSubProject() throws Exception{
         int subProjectID = 1;
         SubProject dummySubProject = new SubProject(1,"dummy", "2024-11-11", "2024-11-22", "dummy project");
