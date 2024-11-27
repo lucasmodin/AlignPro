@@ -621,7 +621,27 @@ public class AlignProRepository implements IFAlignProRepository {
 
     @Override
     public SubTask getSubTask(int subTaskID){
+        String sqlString =
+                "SELECT SubTaskID, SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement FROM SubTask WHERE SubTaskID = ?";
         SubTask subTask = null;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, subTaskID);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                subTask = new SubTask();
+                subTask.setSubTaskID(rs.getInt("SubTaskID"));
+                subTask.setSubTaskName(rs.getString("SubTaskName"));
+                subTask.setStartDate(rs.getString("StartDate"));
+                subTask.setEndDate(rs.getString("EndDate"));
+                subTask.setTime(rs.getInt("EstimatedTime"));
+                subTask.setSubTaskDescription(rs.getString("SubTaskDescription"));
+                subTask.setSkillRequirement(rs.getString("SkillRequirement"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return subTask;
     }
 

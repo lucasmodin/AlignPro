@@ -3,6 +3,7 @@ package alignpro.Repository;
 import alignpro.Model.Employee;
 import alignpro.Model.Project;
 import alignpro.Model.SubProject;
+import alignpro.Model.SubTask;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -190,6 +191,29 @@ public class AlignProRepositoryTest {
         assertEquals(1,mapSkills.get("Developer"));
         assertEquals(2,mapSkills.get("Cost Controller"));
         assertEquals(3,mapSkills.get("Project Manager"));
+    }
+
+    @Test
+    @DirtiesContext
+    void saveSubTask(){
+
+        SubTask objToSave = new SubTask("sub project test", "please go through test", "2024-11-11", "2024-11-22", 50,"coding", 1);
+
+
+        alignProRepository.saveSubTask(objToSave.getSubTaskName(), objToSave.getStartDateString(), objToSave.getEndDateString(), 50, objToSave.getSubTaskDescription(), objToSave.getSkillRequirement(), objToSave.getTaskID());
+
+        SubTask objToGet = alignProRepository.getSubTask(3);
+
+        assertEquals(objToSave.getSubTaskName(),objToGet.getSubTaskName());
+
+
+    }
+
+    @Test
+    @DirtiesContext
+    void getSubTask() {
+        SubTask objToGet = alignProRepository.getSubTask(1);
+        assertEquals(objToGet.getSubTaskName(),"Build a gun");
     }
 
 
