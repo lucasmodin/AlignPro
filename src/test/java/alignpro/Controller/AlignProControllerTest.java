@@ -3,6 +3,7 @@ package alignpro.Controller;
 import alignpro.Model.Employee;
 import alignpro.Model.Project;
 import alignpro.Model.SubProject;
+import alignpro.Model.Task;
 import alignpro.Service.AlignProService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,6 @@ public class AlignProControllerTest {
     @Test
     void saveNewProject() throws Exception {
         Project project1 = new Project("New Project", "2024-11-24", "2024-11-26","Hehe det er en joke");
-
         mockMvc.perform(post("/saveProject")
                         .flashAttr("projectObj",project1))
                 .andExpect(status().is3xxRedirection())
@@ -72,13 +72,30 @@ public class AlignProControllerTest {
     }
 
     @Test
+    void createTask() throws Exception{
+        int subProjectID = 1;
+        mockMvc.perform(get("/createTask/{subProjectID}", subProjectID))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("obj"))
+                .andExpect(view().name("create-Task"));
+    }
+
+    @Test
+    void saveTask() throws Exception{
+        Task task1 = new Task("Task 1", "2024-11-24", "2024-11-26", 2, "task task must do", "java", 1);
+        mockMvc.perform(post("/saveTask")
+                        .flashAttr("task1",task1))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+    }
+
+    @Test
     void deleteSubProject() throws Exception{
         int subProjectId = 1;
 
         mockMvc.perform(post("/deleteSubProject/{subProjectID}", subProjectId))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
-
     }
 
     @Test
@@ -92,6 +109,35 @@ public class AlignProControllerTest {
                 .andExpect(view().name("edit-project"));
         }
 
+    @Test
+    void editSubProject() throws Exception{
+        int subProjectID = 1;
+        SubProject dummyProject = new SubProject(1,"dummy", "2024-11-11", "2024-11-22", "dummy project");
+        when(alignProService.getSubProject(1)).thenReturn(dummyProject);
+        mockMvc.perform(get("/edit-subproject/{subProjectID}", subProjectID))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("subProject", dummyProject))
+                .andExpect(view().name("edit-SubProject"));
+    }
+
+    @Test
+    void updateSubProject() throws Exception{
+        int subProjectID = 1;
+        String subProjectName = "dummy project";
+        String startDate = "2024-11-11";
+        String endDate = "2024-11-22";
+        String subProjectDescription = "dummy project";
+
+        mockMvc.perform(post("/updateSubProject")
+                        .param("subProjectID", String.valueOf(subProjectID))
+                        .param("subProjectName",subProjectName)
+                        .param("startDate", startDate)
+                        .param("endDate", endDate)
+                        .param("subProjectDescription",subProjectDescription))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"))
+                .andExpect(view().name("redirect:/"));
+    }
 
     //TODO
     //when we build more functionality and a dashboard for the PM, we need to change the redirects

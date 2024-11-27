@@ -12,11 +12,11 @@
         <input type="hidden" name="fkProjectID" th:value="${subProject.fkProjectID}">
         <h1>Edit project</h1>
         <section class="input-field">
-            <label for="subProjectName">Edit Project Name</label>
+            <label for="subProjectName">Edit Sub-Project Name</label>
             <input type="text" id="subProjectName" name="subProjectName" th:field="*{subProjectName}" required>
             <br><br>
 
-            <label for="subProjectDescription">Edit Project Description:</label>
+            <label for="subProjectDescription">Edit Sub-Project Description:</label>
             <textarea id="subProjectDescription" name="subProjectDescription" th:field="*{subProjectDescription}" required></textarea>
             <br><br>
 
@@ -24,7 +24,7 @@
             <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required>
             <br><br>
 
-            <label for="endDate">Edit Deadline:</label>
+            <label for="endDate">Edit endDate:</label>
             <input type="date" id="endDate" name="endDate" th:field="*{endDate}" required>
             <br><br>
 

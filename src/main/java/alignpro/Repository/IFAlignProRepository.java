@@ -3,7 +3,9 @@ package alignpro.Repository;
 import alignpro.Model.Employee;
 import alignpro.Model.Project;
 import alignpro.Model.SubProject;
+import alignpro.Model.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +25,8 @@ public interface IFAlignProRepository {
     List<SubProject> getSubProjectsForProject(int projectID);
 
     List<Project> getProjectsForPMUser(int pmUserID);
+
+    List<Task> getTaskForSubProject(int subProjectID);
 
     void saveSubProject(String subProjectName, String startDate, String endDate, String subProjectDescription, int projectID);
 
@@ -50,4 +54,8 @@ public interface IFAlignProRepository {
     List<String> getListOfSkills();
 
     void deleteProject(int ProjectID);
+
+    void saveTask(String taskName, String startDate, String endDate, int estimatedTime,
+                         String taskDescription, String skillRequirement, int subProjectID);
+
 }

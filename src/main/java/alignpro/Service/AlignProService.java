@@ -3,6 +3,7 @@ package alignpro.Service;
 import alignpro.Model.Employee;
 import alignpro.Model.Project;
 import alignpro.Model.SubProject;
+import alignpro.Model.Task;
 import alignpro.Repository.IFAlignProRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,12 +23,18 @@ public class AlignProService {
 
     //*** methods to handle Projects ***//
     public void saveProject(Project obj){
-        alignProRepository.saveProject(obj.getProjectName(), obj.getStartDateString(), obj.getDeadlineString(), obj.getProjectDescription());
+        alignProRepository.saveProject(obj.getProjectName(), obj.getStartDateString(),
+                obj.getDeadlineString(), obj.getProjectDescription());
     }
 
     public void saveSubProject(SubProject obj){
         alignProRepository.saveSubProject(obj.getSubProjectName(), obj.getStartDateString(),
                 obj.getEndDateString(), obj.getSubProjectDescription(), obj.getFkProjectID());
+    }
+
+    public void saveTask(Task obj){
+        alignProRepository.saveTask(obj.getTaskName(), obj.getStartDateString(), obj.getEndDateString(),
+                obj.getEstimatedTime(), obj.getTaskDescription(), obj.getSkillRequirement(), obj.getSubProjectID());
     }
 
     public void editProject(Project project, int projectID){
@@ -44,6 +51,10 @@ public class AlignProService {
 
     public List<SubProject> getAllSubProjects(int projectID){
         return alignProRepository.getSubProjectsForProject(projectID);
+    }
+
+    public List<Task> getAllTasks(int subPorjectID){
+        return alignProRepository.getTaskForSubProject(subPorjectID);
     }
 
 

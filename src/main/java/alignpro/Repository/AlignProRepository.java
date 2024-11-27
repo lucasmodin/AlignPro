@@ -1,10 +1,7 @@
 package alignpro.Repository;
 
 
-import alignpro.Model.DBConnection;
-import alignpro.Model.Employee;
-import alignpro.Model.Project;
-import alignpro.Model.SubProject;
+import alignpro.Model.*;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -125,7 +122,8 @@ public class AlignProRepository implements IFAlignProRepository {
     }
 
     @Override
-    public void saveSubProject(String subProjectName, String startDate, String endDate, String subProjectDescription, int projectID){
+    public void saveSubProject(String subProjectName, String startDate, String endDate,
+                               String subProjectDescription, int projectID){
 
         try{
             String sqlString = "INSERT INTO SubProject (SubProjectName, StartDate, EndDate, SubProjectDescription, ProjectID) VALUES (?, ?, ?, ?, ?)";
@@ -135,6 +133,27 @@ public class AlignProRepository implements IFAlignProRepository {
             stmt.setString(3, endDate);
             stmt.setString(4, subProjectDescription);
             stmt.setInt(5, projectID);
+            stmt.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void saveTask(String taskName, String startDate, String endDate, int estimatedTime,
+                String taskDescription, String skillRequirement, int subProjectID){
+        String sqlString = "INSERT INTO Task (TaskName, StartDate, EndDate, EstimatedTime, TaskDescription, SkillRequirement, SubProjectID) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1, taskName);
+            stmt.setString(2, startDate);
+            stmt.setString(3, endDate);
+            stmt.setInt(4, estimatedTime);
+            stmt.setString(5, taskDescription);
+            stmt.setString(6, skillRequirement);
+            stmt.setInt(7, subProjectID);
             stmt.executeUpdate();
 
         }catch (SQLException e){
@@ -510,6 +529,38 @@ public class AlignProRepository implements IFAlignProRepository {
         return subProjects;
     }
 
+
+    @Override
+    public List<Task> getTaskForSubProject(int subProjectID){
+        List<Task> tasks = new ArrayList<>();
+        String sqlString = """
+                SELECT TaskID, TaskName, StartDate, EndDate, EstimatedTime, TaskDescription, SkillRequirement, SubProjectID
+                FROM Task
+                WHERE SubProjectID = ?;
+                """;
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, subProjectID);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Task task = new Task();
+                task.setTaskID(rs.getInt("TaskID"));
+                task.setTaskName(rs.getString("TaskName"));
+                task.setStartDateString(rs.getString("StartDate"));
+                task.setEndDateString(rs.getString("EndDate"));
+                task.setEstimatedTime(rs.getInt("EstimatedTime"));
+                task.setTaskDescription(rs.getString("TaskDescription"));
+                task.setSkillRequirement(rs.getString("SkillRequirement"));
+                task.setSubProjectID(rs.getInt("SubProjectID"));
+                tasks.add(task);
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        return tasks;
+    }
 
 
 
