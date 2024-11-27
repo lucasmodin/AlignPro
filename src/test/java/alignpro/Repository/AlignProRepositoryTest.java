@@ -299,6 +299,7 @@ public class AlignProRepositoryTest {
     }
 
     @Test
+    @DirtiesContext
     void testDeleteSubTask(){
         SubTask objTest = alignProRepository.getSubTask(1);
 
@@ -310,7 +311,18 @@ public class AlignProRepositoryTest {
 
         assertNull(objTest2);
     }
+/*
+    @Test
+    @DirtiesContext
+    void deleteEmployee(){
+        Employee objTest = alignProRepository.getEmployee(1);
 
+        assertTrue(objTest.getEmployeeName().equals("Lars Larsen"));
 
+        alignProRepository.deleteEmployee(1);
 
+        Employee objTest2 = alignProRepository.getEmployee(1);
+
+        assertNull(objTest2.getEmployeeName());
+    }*/
 }
