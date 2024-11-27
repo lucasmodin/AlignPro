@@ -7,7 +7,7 @@
 <body>
 
 <main>
-  <form th:action="@{/updateProject}" th:object="${project}" method="post">
+  <form th:action="@{/projects/updateProject}" th:object="${project}" method="post">
     <input type="hidden" name="projectId" th:value="${project.projectID}">
     <h1>Edit project</h1>
     <section class="input-field">
@@ -31,7 +31,7 @@
     </section>
   </form>
 
-  <form th:action="@{/delete-project/{projectID}(projectID=${project.getProjectID()})}" method="post">
+  <form th:action="@{/projects/delete-project/{projectID}(projectID=${project.getProjectID()})}" method="post">
     <button type="submit">Delete</button>
   </form>
 
