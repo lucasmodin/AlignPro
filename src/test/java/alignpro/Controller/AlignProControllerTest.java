@@ -90,6 +90,49 @@ public class AlignProControllerTest {
     }
 
     @Test
+    void deleteTask() throws Exception{
+        int taskID = 1;
+
+        mockMvc.perform(post("/deleteTask/{taskID}", taskID))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+    }
+
+    @Test
+    void editTask() throws Exception{
+        int taskID = 1;
+        Task dummmyTask = new Task("Task 2", "2025-11-25", "2025-11-25", 5, "task task doooo", "java", 1);
+        when(alignProService.getTask(1)).thenReturn(dummmyTask);
+        mockMvc.perform(get("/edit-task/{taskID}", taskID))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("task", dummmyTask))
+                .andExpect(view().name("edit-Task"));
+    }
+
+    @Test
+    void updateTask() throws Exception{
+        int taskID = 1;
+        String taskName = "Task 2";
+        String startDate = "2025-11-25";
+        String endDate = "2025-11-25";
+        int estimatedTime = 5;
+        String taskDescription = "task task doooo";
+        String skillRequirement = "java";
+
+        mockMvc.perform(post("/updateTask")
+                        .param("taskID", String.valueOf(taskID))
+                        .param("taskName", taskName)
+                        .param("startDate", startDate)
+                        .param("endDate", endDate)
+                        .param("estimatedTime", String.valueOf(estimatedTime))
+                        .param("taskDescription", taskDescription)
+                        .param("skillRequirement", skillRequirement))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"))
+                .andExpect(view().name("redirect:/"));
+    }
+
+    @Test
     void deleteSubProject() throws Exception{
         int subProjectId = 1;
 
@@ -112,11 +155,11 @@ public class AlignProControllerTest {
     @Test
     void editSubProject() throws Exception{
         int subProjectID = 1;
-        SubProject dummyProject = new SubProject(1,"dummy", "2024-11-11", "2024-11-22", "dummy project");
-        when(alignProService.getSubProject(1)).thenReturn(dummyProject);
+        SubProject dummySubProject = new SubProject(1,"dummy", "2024-11-11", "2024-11-22", "dummy project");
+        when(alignProService.getSubProject(1)).thenReturn(dummySubProject);
         mockMvc.perform(get("/edit-subproject/{subProjectID}", subProjectID))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("subProject", dummyProject))
+                .andExpect(model().attribute("subProject", dummySubProject))
                 .andExpect(view().name("edit-SubProject"));
     }
 
