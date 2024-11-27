@@ -1,5 +1,6 @@
 package alignpro.Service;
 
+import alignpro.Model.Task;
 import alignpro.Repository.ITaskRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -12,5 +13,26 @@ public class TaskService {
 
     public TaskService(ApplicationContext context, @Value("${task.repository.impl}") String impl) {
         taskRepository = (ITaskRepository) context.getBean(impl);
+    }
+
+    public void saveTask(Task obj){
+        taskRepository.saveTask(obj.getTaskName(), obj.getStartDateString(), obj.getEndDateString(),
+                obj.getEstimatedTime(), obj.getTaskDescription(), obj.getSkillRequirement(), obj.getSubProjectID());
+    }
+
+    public void editTask(Task task, int taskID){
+        try{
+            taskRepository.editTask(task, taskID);
+        }catch (Exception e){
+            throw new RuntimeException("error updating task" + taskID, e);
+        }
+    }
+
+    public Task getTask(int taskID){
+        return taskRepository.getTask(taskID);
+    }
+
+    public void deleteTask(int taskID){
+        taskRepository.deleteTask(taskID);
     }
 }

@@ -10,14 +10,7 @@ public interface IFAlignProRepository {
 
     void setConn();
 
-    //Methods to manage project;
-    void saveProject(String projectName, String startDate,String deadLine, String projectDescription);
-
-    Project getProject(String projectName);
-
-    Project getProject(int projectID);
-
-    void editProject(Project project, int projectID);
+    //pm dashboard methods
 
     List<SubProject> getSubProjectsForProject(int projectID);
 
@@ -25,21 +18,10 @@ public interface IFAlignProRepository {
 
     List<Task> getTaskForSubProject(int subProjectID);
 
-    void saveSubProject(String subProjectName, String startDate, String endDate, String subProjectDescription, int projectID);
 
-    SubProject getSubProject(String subProjectName);
 
-    SubProject getSubProject(int subProjectID);
 
-    Task getTask(int taskID);
 
-    void deleteSubProject(int subProjectID);
-
-    void editSubProject(SubProject subProject, int subProjectID);
-
-    void editTask(Task task, int taskID);
-
-    void editSubTask(SubTask subTask, int subTaskID);
 
     // Methods to manage Employees
 
@@ -57,17 +39,5 @@ public interface IFAlignProRepository {
 
     List<String> getListOfSkills();
 
-    void deleteProject(int ProjectID);
 
-    void deleteTask(int taskID);
-
-    void saveTask(String taskName, String startDate, String endDate, int estimatedTime,
-                         String taskDescription, String skillRequirement, int subProjectID);
-
-    SubTask getSubTask(int subTaskID);
-
-    void saveSubTask(String subTaskName, String startDate, String endDate,
-                     int time, String subTaskDescription, String skillRequirement, int taskID);
-
-    void deleteSubTask(int subTaskID);
 }
