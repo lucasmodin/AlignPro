@@ -34,9 +34,13 @@ public interface IFAlignProRepository {
 
     SubProject getSubProject(int subProjectID);
 
+    Task getTask(int taskID);
+
     void deleteSubProject(int subProjectID);
 
     void editSubProject(SubProject subProject, int subProjectID);
+
+    void editTask(Task task, int taskID);
     // Methods to manage Employees
 
     void saveEmployee(String employeeName);

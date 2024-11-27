@@ -216,13 +216,58 @@ public class AlignProRepository implements IFAlignProRepository {
         return obj;
     }
 
+    @Override
+    public Task getTask(int taskID){
+        Task task = null;
 
+        String sqlString = "SELECT TaskID, TaskName, StartDate, EndDate, EstimatedTime, TaskDescription, SkillRequirement FROM Task WHERE TaskID = ?";
 
+        try{
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, taskID);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                task = new Task();
+                task.setTaskID(rs.getInt(1));
+                task.setTaskName(rs.getString(2));
+                task.setStartDateString(rs.getString(3));
+                task.setEndDateString(rs.getString(4));
+                task.setEstimatedTime(rs.getInt(5));
+                task.setTaskDescription(rs.getString(6));
+                task.setSkillRequirement(rs.getString(7));
+            }
 
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        return task;
+    }
+
+    @Override
+    public void editTask(Task task, int taskID){
+        String sqlString = "UPDATE Task SET TaskName = ?, StartDate = ?, EndDate = ?," +
+                " EstimatedTime = ?, TaskDescription = ?, SkillRequirement = ? WHERE TaskID = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1, task.getTaskName());
+            stmt.setString(2, task.getStartDateString());
+            stmt.setString(3, task.getEndDateString());
+            stmt.setInt(4, task.getEstimatedTime());
+            stmt.setString(5, task.getTaskDescription());
+            stmt.setString(6, task.getSkillRequirement());
+            stmt.setInt(7, taskID);
+            stmt.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException("Problem updating your task from the DB based on taskID" + e.getMessage());
+        }
+    }
 
     @Override
     public void editProject(Project project, int projectID) {
-        String sqlString = "UPDATE Project SET ProjectName = ?, StartDate = ?, Deadline = ?, ProjectDescription = ? WHERE ProjectID = ?";
+        String sqlString = "UPDATE Project SET ProjectName = ?, StartDate = ?, Deadline = ?," +
+                " ProjectDescription = ? WHERE ProjectID = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sqlString);

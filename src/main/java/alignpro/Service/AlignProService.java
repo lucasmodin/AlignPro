@@ -79,11 +79,17 @@ public class AlignProService {
         try {
             alignProRepository.editSubProject(subProject, subProjectID);
         }catch (Exception e){
-            throw new RuntimeException("error updating project " + subProjectID, e);
+            throw new RuntimeException("error updating subproject " + subProjectID, e);
         }
     }
 
-
+    public void editTask(Task task, int taskID){
+        try{
+            alignProRepository.editTask(task, taskID);
+        }catch (Exception e){
+            throw new RuntimeException("error updating task" + taskID, e);
+        }
+    }
 
 
 
@@ -136,5 +142,9 @@ public class AlignProService {
 
     public SubProject getSubProject(int subProjectID){
         return alignProRepository.getSubProject(subProjectID);
+    }
+
+    public Task getTask(int taskID){
+        return alignProRepository.getTask(taskID);
     }
 }
