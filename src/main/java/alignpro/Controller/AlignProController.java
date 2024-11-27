@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,31 @@ public class AlignProController {
     @PostMapping("/saveProject")
     public String saveProject(@ModelAttribute Project newProject){
         alignProService.saveProject(newProject);
+        return "redirect:/";
+    }
+
+    @GetMapping("/edit-task/{taskID}")
+    public String editTask(@PathVariable("taskID") int taskID, Model model){
+        Task task = alignProService.getTask(taskID);
+        if(task != null){
+            model.addAttribute("task", task);
+            return "edit-Task";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    @PostMapping("/updateTask")
+    public String updateTask(@RequestParam("taskID") int taskID,
+                             @RequestParam("taskName") String taskName,
+                             @RequestParam("startDate") String startDate,
+                             @RequestParam("endDate") String endDate,
+                             @RequestParam("estimatedTime") int estimatedTime,
+                             @RequestParam("taskDescription") String taskDescription,
+                             @RequestParam("skillRequirement") String skillRequirement){
+        Task task = new Task(taskID, taskName, startDate, endDate,
+                estimatedTime, taskDescription, skillRequirement);
+        alignProService.editTask(task, task.getTaskID());
         return "redirect:/";
     }
 

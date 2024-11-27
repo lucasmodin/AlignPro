@@ -40,7 +40,16 @@ public class Task {
         this.subProjectID = subProjectID;
     }
 
-
+    public Task(int taskID, String taskName, String startDate, String endDate,
+                int estimatedTime, String taskDescription, String skillRequirement) {
+        this.taskID = taskID;
+        this.taskName = taskName;
+        this.startDate = LocalDate.parse(startDate);
+        this.endDate = LocalDate.parse(endDate);
+        this.estimatedTime = estimatedTime;
+        this.taskDescription = taskDescription;
+        this.skillRequirement = skillRequirement;
+    }
 
 
     //************************* Setter and getters *******************************//
