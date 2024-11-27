@@ -289,10 +289,21 @@ public class AlignProRepository implements IFAlignProRepository {
         } catch (SQLException e){
             throw new RuntimeException("Not deleting project from DB" + e.getMessage());
         }
-
-
     }
 
+    @Override
+    public void deleteTask(int taskID){
+        String sqlString = "DELETE FROM Task WHERE TaskID = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, taskID);
+            stmt.executeUpdate();
+
+        }catch(SQLException e){
+            throw new RuntimeException("Not deleting task from DB" + e.getMessage());
+        }
+    }
 
     //Methods to manage employees;
 
