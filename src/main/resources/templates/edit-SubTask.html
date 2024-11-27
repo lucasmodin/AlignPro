@@ -39,6 +39,9 @@
             <button type="submit">Finish</button>
         </section>
     </form>
+    <form th:action="@{/deleteSubTask/{subTaskID}(subTaskID=${obj.subTaskID})}" method="post">
+        <button type="submit">Delete</button>
+    </form>
 </main>
 </body>
 </html>

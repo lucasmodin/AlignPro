@@ -296,6 +296,14 @@ public class AlignProControllerTest {
                 .andExpect(view().name("redirect:/"));
     }
 
+    @Test
+    void deleteSubTask() throws Exception{
+        int subTaskID = 1;
+        mockMvc.perform(post("/deleteSubTask/{subTaskID}", subTaskID))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+    }
+
 }
 
 
