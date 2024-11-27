@@ -1,9 +1,6 @@
 package alignpro.Repository;
 
-import alignpro.Model.Employee;
-import alignpro.Model.Project;
-import alignpro.Model.SubProject;
-import alignpro.Model.Task;
+import alignpro.Model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,4 +61,8 @@ public interface IFAlignProRepository {
     void saveTask(String taskName, String startDate, String endDate, int estimatedTime,
                          String taskDescription, String skillRequirement, int subProjectID);
 
+    SubTask getSubTask(int subTaskID);
+
+    void saveSubTask(String subTaskName, String startDate, String endDate,
+                     int time, String subTaskDescription, String skillRequirement, int taskID);
 }

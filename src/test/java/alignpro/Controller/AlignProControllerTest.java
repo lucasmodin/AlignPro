@@ -1,9 +1,6 @@
 package alignpro.Controller;
 
-import alignpro.Model.Employee;
-import alignpro.Model.Project;
-import alignpro.Model.SubProject;
-import alignpro.Model.Task;
+import alignpro.Model.*;
 import alignpro.Service.AlignProService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -247,6 +244,23 @@ public class AlignProControllerTest {
     }
 
 
+    @Test
+    void createSubTask() throws Exception{
+        int taskID = 1;
+        mockMvc.perform(get("/createSubTask/{taskID}", taskID))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("obj"))
+                .andExpect(view().name("create-SubTask"));
+    }
+
+    @Test
+    void saveSubTask() throws Exception{
+        SubTask subTask = new SubTask();
+        mockMvc.perform(post("/saveSubTask", subTask))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"))
+                .andExpect(view().name("redirect:/"));
+    }
 
 }
 

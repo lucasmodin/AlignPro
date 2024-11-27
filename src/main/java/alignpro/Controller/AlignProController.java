@@ -202,4 +202,18 @@ public class AlignProController {
         alignProService.deleteTask(taskID);
         return "redirect:/";
     }
+
+    @GetMapping("/createSubTask/{taskID}")
+    public String createSubTask(@PathVariable("taskID") int taskID, Model model) {
+        SubTask obj = new SubTask();
+        obj.setTaskID(taskID);
+        model.addAttribute("obj", obj);
+        return "create-SubTask";
+    }
+
+    @PostMapping("/saveSubTask")
+    public String saveSubTask(@ModelAttribute SubTask newSubTask){
+        alignProService.saveSubTask(newSubTask);
+        return "redirect:/";
+    }
 }
