@@ -3,6 +3,7 @@ package alignpro.Repository;
 import alignpro.Model.Employee;
 import alignpro.Model.Project;
 import alignpro.Model.SubProject;
+import alignpro.Model.Task;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -86,6 +87,64 @@ public class AlignProRepositoryTest {
         SubProject objToGet = alignProRepository.getSubProject(4);
 
         assertNull(objToGet);
+    }
+
+    @Test
+    @DirtiesContext
+    void getTask(){
+        Task task = alignProRepository.getTask(1);
+
+        assertEquals("RandomTask 42" ,task.getTaskName());
+    }
+
+    @Test
+    @DirtiesContext
+    void editTask(){
+
+        //Arrange
+        Task originalTask = alignProRepository.getTask(1);
+        Task updatedTask = new Task("task 1", "2024-11-25", "2024-11-26", 5, "to be destroyed", "java", 1);
+
+
+        //Act
+        alignProRepository.editTask(updatedTask, 1);
+
+        //Assert
+        Task fetchedProject = alignProRepository.getTask(1);
+
+        assertNotNull(fetchedProject);
+        assertEquals(updatedTask.getTaskName(),fetchedProject.getTaskName());
+        assertEquals(updatedTask.getStartDateString(),fetchedProject.getStartDateString());
+        assertEquals(updatedTask.getEndDateString(), fetchedProject.getEndDateString());
+        assertEquals(updatedTask.getTaskDescription(), fetchedProject.getTaskDescription());
+
+        assertEquals(originalTask.getTaskID(), fetchedProject.getTaskID());
+    }
+
+    @Test
+    @DirtiesContext
+    void saveTask(){
+        Task objToSave = new Task("task 1", "2024-11-25", "2024-11-26", 5, "to be destroyed", "java", 1);
+
+        alignProRepository.saveTask(objToSave.getTaskName(), objToSave.getStartDateString(),
+                objToSave.getEndDateString(), objToSave.getEstimatedTime(),
+                objToSave.getTaskDescription(), objToSave.getSkillRequirement(), 1);
+
+        Task objToGet = alignProRepository.getTask(3);
+
+        assertEquals(objToSave.getTaskName(), objToGet.getTaskName());
+    }
+
+    @Test
+    @DirtiesContext
+    void deleteTask(){
+        Task task = new Task("task 1", "2024-11-25", "2024-11-26", 5, "to be destroyed", "java", 1);
+        task.setTaskID(1);
+
+        alignProRepository.deleteTask(1);
+        Task taskExpected = alignProRepository.getTask(1);
+
+        assertNull(taskExpected);
     }
 
     @Test
