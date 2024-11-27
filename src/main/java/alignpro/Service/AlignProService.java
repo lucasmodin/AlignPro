@@ -1,9 +1,6 @@
 package alignpro.Service;
 
-import alignpro.Model.Employee;
-import alignpro.Model.Project;
-import alignpro.Model.SubProject;
-import alignpro.Model.Task;
+import alignpro.Model.*;
 import alignpro.Repository.IFAlignProRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.beans.factory.annotation.Value;
@@ -91,6 +88,10 @@ public class AlignProService {
         }
     }
 
+    public void saveSubTask(SubTask subTask) {
+        alignProRepository.saveSubTask(subTask.getSubTaskName(), subTask.getStartDateString(), subTask.getEndDateString(),
+                subTask.getTime(), subTask.getSubTaskDescription(), subTask.getSkillRequirement(), subTask.getTaskID());
+    }
 
 
 

@@ -619,6 +619,42 @@ public class AlignProRepository implements IFAlignProRepository {
     }
 
 
+    @Override
+    public SubTask getSubTask(int subTaskID){
+        SubTask subTask = null;
+        return subTask;
+    }
+
+    @Override
+    public void saveSubTask(String subTaskName, String startDate, String endDate,
+                            int time, String subTaskDescription, String skillRequirement, int taskID) {
+
+        String sqlString =
+                "INSERT INTO SubTask (SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement, TaskID) VALUES (?, ?, ?, ?, ?, ?, ?);";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1, subTaskName);
+            stmt.setString(2, startDate);
+            stmt.setString(3, endDate);
+            stmt.setInt(4, time);
+            stmt.setString(5, subTaskDescription);
+            stmt.setString(6, skillRequirement);
+            stmt.setInt(7, taskID);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+    }
+
+
+
+
 
 
 }
