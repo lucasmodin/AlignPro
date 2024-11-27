@@ -38,6 +38,18 @@ public class AlignProController {
         return "redirect:/";
     }
 
+    @GetMapping("/edit-subTask/{subTaskID}")
+    public String editSubTask(@PathVariable("subTaskID") int subTaskID, Model model){
+        SubTask obj = alignProService.getSubTask(subTaskID);
+        if(obj != null){
+            model.addAttribute("obj", obj);
+            return "edit-SubTask";
+        } else {
+            return "redirect:/";
+        }
+
+    }
+
     @GetMapping("/edit-task/{taskID}")
     public String editTask(@PathVariable("taskID") int taskID, Model model){
         Task task = alignProService.getTask(taskID);

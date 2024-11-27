@@ -71,9 +71,9 @@ public class AlignProRepositoryTest {
     @DirtiesContext
     void getSubProject(){
 
-        SubProject obj = alignProRepository.getSubProject("Scipting all the time");
+        SubProject obj = alignProRepository.getSubProject("Workd day and night");
 
-        assertEquals("Scipting all the time", obj.getSubProjectName());
+        assertEquals("Workd day and night", obj.getSubProjectName());
     }
 
     @Test

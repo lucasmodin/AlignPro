@@ -50,8 +50,8 @@ public class AlignProService {
         return alignProRepository.getSubProjectsForProject(projectID);
     }
 
-    public List<Task> getAllTasks(int subPorjectID){
-        return alignProRepository.getTaskForSubProject(subPorjectID);
+    public List<Task> getAllTasks(int subProjectID){
+        return alignProRepository.getTaskForSubProject(subProjectID);
     }
 
 
@@ -148,4 +148,9 @@ public class AlignProService {
     public Task getTask(int taskID){
         return alignProRepository.getTask(taskID);
     }
+
+    public SubTask getSubTask(int subTaskID){
+        return alignProRepository.getSubTask(subTaskID);
+    }
+
 }
