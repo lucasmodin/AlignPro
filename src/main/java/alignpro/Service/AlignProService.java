@@ -165,4 +165,8 @@ public class AlignProService {
         alignProRepository.deleteSubTask(subTaskID);
     }
 
+    public void deleteEmployee(int employeeID){
+        alignProRepository.deleteEmployee(employeeID);
+    }
+
 }

@@ -369,6 +369,19 @@ public class AlignProRepository implements IFAlignProRepository {
         }
     }
 
+    public void deleteEmployee(int employeeID){
+        String sqlString = "DELETE FROM Employee WHERE EmployeeID = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, employeeID);
+            stmt.executeUpdate();
+
+        }catch(SQLException e){
+            throw new RuntimeException("Not deleting task from DB" + e.getMessage());
+        }
+    }
+
     //Methods to manage employees;
 
     @Override

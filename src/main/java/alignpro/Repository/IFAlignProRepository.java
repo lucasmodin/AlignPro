@@ -51,6 +51,8 @@ public interface IFAlignProRepository {
 
     Employee getEmployee(int employeeID);
 
+    void deleteEmployee(int employeeID);
+
     List<Employee> getListOfEmployees();
 
     /// ***************************** Helper function to get infomration ************************* ///
