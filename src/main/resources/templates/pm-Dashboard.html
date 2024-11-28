@@ -26,16 +26,16 @@
         <td th:text="${row.subProject?.subProjectName ?: 'N/A'}"></td>
         <td th:text="${row.subProject?.startDate ?: 'N/A'}"></td>
         <td>
-            <a th:href="@{/edit-project/{projectID}(projectID=${row.project?.projectID})}">Edit Project</a>
+            <a th:href="@{/projects/edit-project/{projectID}(projectID=${row.project?.projectID})}">Edit Project</a>
         </td>
         <td>
-            <a th:href="@{/createSubProject/{projectID}(projectID=${row.project?.projectID})}">Create sub-project</a>
+            <a th:href="@{/subProjects/createSubProject/{projectID}(projectID=${row.project?.projectID})}">Create sub-project</a>
         </td>
         <td>
-            <a th:href="@{/edit-subproject/{subProjectID}(subProjectID=${row.subProject?.subProjectID})}">Edit Subproject</a>
+            <a th:href="@{/subProjects/edit-subproject/{subProjectID}(subProjectID=${row.subProject?.subProjectID})}">Edit Subproject</a>
         </td>
         <td>
-            <form th:action="@{/deleteSubProject/{subProjectID}(subProjectID=${row.subProject?.getSubProjectID()})}" method="post">
+            <form th:action="@{/subProjects/deleteSubProject/{subProjectID}(subProjectID=${row.subProject?.getSubProjectID()})}" method="post">
                 <button type="submit">Delete sub-project</button>
             </form>
         </td>

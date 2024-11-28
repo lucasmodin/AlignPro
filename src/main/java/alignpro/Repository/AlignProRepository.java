@@ -2,6 +2,10 @@ package alignpro.Repository;
 
 
 import alignpro.Model.*;
+import alignpro.Model.Projects.Project;
+import alignpro.Model.Projects.SubProject;
+import alignpro.Model.Projects.Task;
+import alignpro.Repository.Interfaces.IFAlignProRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -16,8 +20,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Repository("ALIGNPRO_REPOSITORY_JDBC")
 @Lazy
@@ -43,330 +45,6 @@ public class AlignProRepository implements IFAlignProRepository {
     @Override
     public void setConn() {
         this.conn = DBConnection.getConnection(dbURL,dbUsername,dbPassword);
-    }
-
-    //Methods to manage project;
-
-    @Override
-    public void saveProject(String projectName, String startDate,String deadLine, String projectDescription){
-
-        try{
-
-            String sqlString = "INSERT INTO Project (ProjectName, StartDate, Deadline, ProjectDescription) VALUES (?,?,?,?)";
-
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setString(1, projectName);
-            stmt.setString(2, startDate);
-            stmt.setString(3, deadLine);
-            stmt.setString(4, projectDescription);
-            stmt.executeUpdate();
-
-
-        } catch(SQLException e){
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public Project getProject(String projectName){
-        Project obj = null;
-
-        try{
-            String sqlString = "SELECT ProjectID, ProjectName, StartDate, Deadline, ProjectDescription FROM Project WHERE ProjectName = ?";
-
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setString(1,projectName);
-
-            ResultSet rls = stmt.executeQuery();
-            if(rls.next()){
-                obj = new Project();
-                obj.setProjectID(rls.getInt("ProjectID"));
-                obj.setProjectName(rls.getString("ProjectName"));
-                obj.setStartDate(rls.getString("StartDate"));
-                obj.setDeadLine(rls.getString("Deadline"));
-                obj.setProjectDescription(rls.getString("ProjectDescription"));
-            }
-
-        } catch (SQLException e){
-            throw new RuntimeException("Problem getting your project from the DB based on Projectname" + e.getMessage());
-        }
-
-        return obj;
-    }
-
-    @Override
-    public Project getProject(int projectID){
-        Project obj = null;
-
-        try{
-            String sqlString = "SELECT ProjectID, ProjectName, StartDate, Deadline, ProjectDescription FROM Project WHERE ProjectID = ?";
-
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setInt(1,projectID);
-
-            ResultSet rls = stmt.executeQuery();
-            if(rls.next()){
-                obj = new Project();
-                obj.setProjectID(rls.getInt("ProjectID"));
-                obj.setProjectName(rls.getString("ProjectName"));
-                obj.setStartDate(rls.getString("StartDate"));
-                obj.setDeadLine(rls.getString("Deadline"));
-                obj.setProjectDescription(rls.getString("ProjectDescription"));
-            }
-
-        } catch (SQLException e){
-            throw new RuntimeException("Problem getting your project from the DB based on ProjectID" + e.getMessage());
-        }
-
-        return obj;
-    }
-
-    @Override
-    public void saveSubProject(String subProjectName, String startDate, String endDate,
-                               String subProjectDescription, int projectID){
-
-        try{
-            String sqlString = "INSERT INTO SubProject (SubProjectName, StartDate, EndDate, SubProjectDescription, ProjectID) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setString(1, subProjectName);
-            stmt.setString(2, startDate);
-            stmt.setString(3, endDate);
-            stmt.setString(4, subProjectDescription);
-            stmt.setInt(5, projectID);
-            stmt.executeUpdate();
-
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void saveTask(String taskName, String startDate, String endDate, int estimatedTime,
-                String taskDescription, String skillRequirement, int subProjectID){
-        String sqlString = "INSERT INTO Task (TaskName, StartDate, EndDate, EstimatedTime, TaskDescription, SkillRequirement, SubProjectID) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setString(1, taskName);
-            stmt.setString(2, startDate);
-            stmt.setString(3, endDate);
-            stmt.setInt(4, estimatedTime);
-            stmt.setString(5, taskDescription);
-            stmt.setString(6, skillRequirement);
-            stmt.setInt(7, subProjectID);
-            stmt.executeUpdate();
-
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public SubProject getSubProject(String subProjectName){
-        SubProject obj = null;
-
-        try{
-            String sqlString = "SELECT SubProjectID, SubProjectName, StartDate, EndDate, SubProjectDescription FROM SubProject WHERE SubProjectName = ?";
-
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setString(1, subProjectName);
-
-            ResultSet resultSet = stmt.executeQuery();
-            if(resultSet.next()){
-                obj = new SubProject();
-                obj.setSubProjectID(resultSet.getInt("SubProjectID"));
-                obj.setSubProjectName(resultSet.getString("SubProjectName"));
-                obj.setStartDate(resultSet.getString("StartDate"));
-                obj.setEndDate(resultSet.getString("EndDate"));
-                obj.setSubProjectDescription(resultSet.getString("SubProjectDescription"));
-            }
-
-
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-        return obj;
-    }
-
-
-    @Override
-    public SubProject getSubProject(int subProjectID) {
-        SubProject obj = null;
-
-        try {
-            String sqlString = "SELECT SubProjectID, SubProjectName, StartDate, EndDate, SubProjectDescription FROM SubProject WHERE SubProjectID = ?";
-
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setInt(1, subProjectID);
-
-            ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) {
-                obj = new SubProject();
-                obj.setSubProjectID(resultSet.getInt("SubProjectID"));
-                obj.setSubProjectName(resultSet.getString("SubProjectName"));
-                obj.setStartDate(resultSet.getString("StartDate"));
-                obj.setEndDate(resultSet.getString("EndDate"));
-                obj.setSubProjectDescription(resultSet.getString("SubProjectDescription"));
-            }
-
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return obj;
-    }
-
-    @Override
-    public Task getTask(int taskID){
-        Task task = null;
-
-        String sqlString = "SELECT TaskID, TaskName, StartDate, EndDate, EstimatedTime, TaskDescription, SkillRequirement FROM Task WHERE TaskID = ?";
-
-        try{
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setInt(1, taskID);
-            ResultSet rs = stmt.executeQuery();
-            if(rs.next()){
-                task = new Task();
-                task.setTaskID(rs.getInt(1));
-                task.setTaskName(rs.getString(2));
-                task.setStartDateString(rs.getString(3));
-                task.setEndDateString(rs.getString(4));
-                task.setEstimatedTime(rs.getInt(5));
-                task.setTaskDescription(rs.getString(6));
-                task.setSkillRequirement(rs.getString(7));
-            }
-
-        }catch(SQLException e){
-            throw new RuntimeException(e);
-        }
-        return task;
-    }
-
-    @Override
-    public void editTask(Task task, int taskID){
-        String sqlString = "UPDATE Task SET TaskName = ?, StartDate = ?, EndDate = ?," +
-                " EstimatedTime = ?, TaskDescription = ?, SkillRequirement = ? WHERE TaskID = ?";
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setString(1, task.getTaskName());
-            stmt.setString(2, task.getStartDateString());
-            stmt.setString(3, task.getEndDateString());
-            stmt.setInt(4, task.getEstimatedTime());
-            stmt.setString(5, task.getTaskDescription());
-            stmt.setString(6, task.getSkillRequirement());
-            stmt.setInt(7, taskID);
-            stmt.executeUpdate();
-
-        }catch (SQLException e){
-            throw new RuntimeException("Problem updating your task from the DB based on taskID" + e.getMessage());
-        }
-    }
-
-    @Override
-    public void editProject(Project project, int projectID) {
-        String sqlString = "UPDATE Project SET ProjectName = ?, StartDate = ?, Deadline = ?," +
-                " ProjectDescription = ? WHERE ProjectID = ?";
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setString(1, project.getProjectName());
-            stmt.setString(2, project.getStartDateString());
-            stmt.setString(3, project.getDeadlineString());
-            stmt.setString(4, project.getProjectDescription());
-            stmt.setInt(5, projectID);
-
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Problem updating your project from the DB based on ProjectID" + e.getMessage());
-        }
-
-    }
-
-    @Override
-    public void editSubProject(SubProject subProject, int subProjectID){
-        String sqlString = "UPDATE SubProject SET SubProjectName = ?, StartDate = ?," +
-                " EndDate = ?, SubProjectDescription = ? WHERE SubProjectID = ?";
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setString(1, subProject.getSubProjectName());
-            stmt.setString(2, subProject.getStartDateString());
-            stmt.setString(3, subProject.getEndDateString());
-            stmt.setString(4, subProject.getSubProjectDescription());
-            stmt.setInt(5, subProjectID);
-
-            stmt.executeUpdate();
-
-        } catch (SQLException e){
-            throw new RuntimeException("Problem updating your sub-project from the DB based on subProjectID/ProjectID" + e.getMessage());
-        }
-    }
-
-    public void editSubTask(SubTask subTask, int subTaskID){
-        String sqlString = "UPDATE SubTask SET SubTaskName = ?, StartDate = ?," +
-                " EndDate = ?, EstimatedTime = ?, SubTaskDescription = ?, SkillRequirement = ? WHERE SubTaskID = ?";
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setString(1, subTask.getSubTaskName());
-            stmt.setString(2, subTask.getStartDateString());
-            stmt.setString(3, subTask.getEndDateString());
-            stmt.setInt(4, subTask.getTime());
-            stmt.setString(5, subTask.getSubTaskDescription());
-            stmt.setString(6, subTask.getSkillRequirement());
-            stmt.setInt(7, subTaskID);
-
-            stmt.executeUpdate();
-
-        } catch (SQLException e){
-            throw new RuntimeException("Problem updating your sub-task from the DB based on subTaskID/TaskID" + e.getMessage());
-        }
-    }
-
-    public void deleteSubProject(int subProjectID){
-        try{
-            String sqlString = "DELETE FROM SubProject WHERE SubProjectID = ?";
-
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setInt(1, subProjectID);
-            stmt.executeUpdate();
-
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    @Override
-    public void deleteProject(int ProjectID){
-        String sqlString = "DELETE FROM Project WHERE ProjectID = ?";
-
-        try{
-
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setInt(1,ProjectID);
-            stmt.executeUpdate();
-
-        } catch (SQLException e){
-            throw new RuntimeException("Not deleting project from DB" + e.getMessage());
-        }
-    }
-
-    @Override
-    public void deleteTask(int taskID){
-        String sqlString = "DELETE FROM Task WHERE TaskID = ?";
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setInt(1, taskID);
-            stmt.executeUpdate();
-
-        }catch(SQLException e){
-            throw new RuntimeException("Not deleting task from DB" + e.getMessage());
-        }
     }
 
     //Methods to manage employees;
@@ -440,6 +118,8 @@ public class AlignProRepository implements IFAlignProRepository {
                 employee = new Employee();
                 employee.setEmployeeID(rls.getInt(1));
                 employee.setEmployeeName(rls.getString(2));
+            } else {
+                return employee;
             }
 
             String sqlString2 = "SELECT Skills.SkillName from Employee_Skill JOIN Skills on Employee_Skill.SkillID = Skills.SkillID WHERE Employee_Skill.EmployeeID = ?";
@@ -460,6 +140,36 @@ public class AlignProRepository implements IFAlignProRepository {
         return employee;
 
 }
+
+    @Override
+    public Employee getEmployee(int employeeID)
+    {    Employee employee = null;
+        try{
+            String sqlString = "SELECT * FROM Employee WHERE EmployeeID = ?";
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1,employeeID);
+            ResultSet rls = stmt.executeQuery();
+            if(rls.next()){
+                employee = new Employee();
+                employee.setEmployeeID(rls.getInt(1));
+                employee.setEmployeeName(rls.getString(2));
+            } else {
+                return employee;
+            }
+            String sqlString2 = "SELECT Skills.SkillName from Employee_Skill JOIN Skills on Employee_Skill.SkillID = Skills.SkillID WHERE Employee_Skill.EmployeeID = ?";
+            PreparedStatement stmt2 = conn.prepareStatement(sqlString2);
+            stmt2.setInt(1,employee.getEmployeeID());
+            ResultSet rls2 = stmt2.executeQuery();
+            while(rls2.next()){
+                employee.setSkills(rls2.getString(1));
+            }
+        } catch (SQLException e){
+            throw new RuntimeException("Get an employee is not working" + e.getMessage());
+        }
+        return employee;
+    }
+
+
 
     @Override
     public List<Employee> getListOfEmployees(){
@@ -487,6 +197,20 @@ public class AlignProRepository implements IFAlignProRepository {
         }
 
         return employeeList;
+    }
+
+    @Override
+    public void deleteEmployee(int employeeID){
+        String sqlString = "DELETE FROM Employee WHERE EmployeeID = ?";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, employeeID);
+            stmt.executeUpdate();
+
+        }catch(SQLException e){
+            throw new RuntimeException("Not deleting employee from DB" + e.getMessage());
+        }
     }
 
 
@@ -637,74 +361,46 @@ public class AlignProRepository implements IFAlignProRepository {
         return tasks;
     }
 
-
     @Override
-    public SubTask getSubTask(int subTaskID){
-        String sqlString =
-                "SELECT SubTaskID, SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement FROM SubTask WHERE SubTaskID = ?";
-        SubTask subTask = null;
-        try {
+    public void editEmployee(Employee obj, int employeeID){
+
+        try{
+            String sqlString = "UPDATE Employee SET EmployeeName = ? Where EmployeeID = ?";
             PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setInt(1, subTaskID);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                subTask = new SubTask();
-                subTask.setSubTaskID(rs.getInt("SubTaskID"));
-                subTask.setSubTaskName(rs.getString("SubTaskName"));
-                subTask.setStartDate(rs.getString("StartDate"));
-                subTask.setEndDate(rs.getString("EndDate"));
-                subTask.setTime(rs.getInt("EstimatedTime"));
-                subTask.setSubTaskDescription(rs.getString("SubTaskDescription"));
-                subTask.setSkillRequirement(rs.getString("SkillRequirement"));
+            stmt.setString(1, obj.getEmployeeName());
+            stmt.setInt(2,employeeID);
+            stmt.executeUpdate();
+
+
+            Map<String, Integer> pairList = getSkillsID();
+
+            String sqlDeleteSkills ="DELETE FROM Employee_Skill WHERE EmployeeID = ?";
+            PreparedStatement stmt2 = conn.prepareStatement(sqlDeleteSkills);
+            stmt2.setInt(1,employeeID);
+            stmt2.executeUpdate();
+
+            for(String skills : obj.getSkills()){
+
+                String sqlSetSkills = "INSERT INTO Employee_Skill (EmployeeID, SkillID) VALUES (?, ?)";
+
+                PreparedStatement stmt3 = conn.prepareStatement(sqlSetSkills);
+                stmt3.setInt(1, employeeID);
+                stmt3.setInt(2, pairList.get(skills));
+                stmt3.executeUpdate();
             }
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException e){
+            throw new RuntimeException("not updating emplyee information" + e.getMessage());
         }
-        return subTask;
-    }
-
-    @Override
-    public void saveSubTask(String subTaskName, String startDate, String endDate,
-                            int time, String subTaskDescription, String skillRequirement, int taskID) {
-
-        String sqlString =
-                "INSERT INTO SubTask (SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement, TaskID) VALUES (?, ?, ?, ?, ?, ?, ?);";
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setString(1, subTaskName);
-            stmt.setString(2, startDate);
-            stmt.setString(3, endDate);
-            stmt.setInt(4, time);
-            stmt.setString(5, subTaskDescription);
-            stmt.setString(6, skillRequirement);
-            stmt.setInt(7, taskID);
-
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-
 
     }
 
-    @Override
-    public void deleteSubTask(int subTaskID) {
-        String sqlString =
-                "DELETE FROM SubTask WHERE SubTaskID = ?";
 
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setInt(1, subTaskID);
-            stmt.executeUpdate();
 
-        } catch(SQLException e){
-            throw new RuntimeException(e);
-        }
-    }
+
+
+
+
 
 
 

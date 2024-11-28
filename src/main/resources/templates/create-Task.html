@@ -7,7 +7,7 @@
 <body>
 
 <main>
-    <form th:action="@{/saveTask}" th:object="${obj}" method="post">
+    <form th:action="@{/tasks/saveTask}" th:object="${obj}" method="post">
         <input type="hidden" th:field="*{subProjectID}">
         <label for="task">Task</label>
         <input type="text" id="task" name="taskName" th:field="*{taskName}" required>

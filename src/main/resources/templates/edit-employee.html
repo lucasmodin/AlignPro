@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:action="@{/updateEmployee}" th:object="${EmployeeObj}" method="post">
+  <input type="hidden" name="employeeID" id="employeeID" th:value="${EmployeeObj.employeeID}">
+
+  <label for="employeeName">Name</label>
+  <input class="text-input" type="text" name="employeeName" id="employeeName" th:field="*{employeeName}">
+
+
+
+
+  <th:block th:each="skill : ${Skills}">
+    <input type="checkbox" name="skills" id="skills" th:field="*{skills}" th:value="${skill}" th:text="${skill}">
+  </th:block>
+
+  <button type="submit">Update Employee</button>
+</form>
+
+</body>
+</html>
