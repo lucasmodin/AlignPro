@@ -28,7 +28,7 @@ class SubProjectControllerTest {
     @Test
     void testCreateNewSubProject() throws Exception {
         int projectID = 1;
-        mockMvc.perform(get("/createSubProject/{projectID}", projectID))
+        mockMvc.perform(get("/subProjects/createSubProject/{projectID}", projectID))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("obj"))
                 .andExpect(view().name("create-SubProject"));
@@ -38,7 +38,7 @@ class SubProjectControllerTest {
     void saveNewSubProject() throws Exception {
         SubProject subProject = new SubProject("make crud functions", "2024-11-25", "2024-11-26", "make all crud now!");
 
-        mockMvc.perform(post("/saveSubProject").
+        mockMvc.perform(post("/subProjects/saveSubProject").
                         flashAttr("subProject", subProject))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
@@ -48,7 +48,7 @@ class SubProjectControllerTest {
     void deleteSubProject() throws Exception{
         int subProjectId = 1;
 
-        mockMvc.perform(post("/deleteSubProject/{subProjectID}", subProjectId))
+        mockMvc.perform(post("/subProjects/deleteSubProject/{subProjectID}", subProjectId))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
     }
@@ -58,7 +58,7 @@ class SubProjectControllerTest {
         int subProjectID = 1;
         SubProject dummySubProject = new SubProject(1,"dummy", "2024-11-11", "2024-11-22", "dummy project");
         when(subProjectService.getSubProject(1)).thenReturn(dummySubProject);
-        mockMvc.perform(get("/edit-subproject/{subProjectID}", subProjectID))
+        mockMvc.perform(get("/subProjects/edit-subproject/{subProjectID}", subProjectID))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("subProject", dummySubProject))
                 .andExpect(view().name("edit-SubProject"));
@@ -72,7 +72,7 @@ class SubProjectControllerTest {
         String endDate = "2024-11-22";
         String subProjectDescription = "dummy project";
 
-        mockMvc.perform(post("/updateSubProject")
+        mockMvc.perform(post("/subProjects/updateSubProject")
                         .param("subProjectID", String.valueOf(subProjectID))
                         .param("subProjectName",subProjectName)
                         .param("startDate", startDate)

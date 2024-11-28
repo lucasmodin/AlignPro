@@ -28,7 +28,7 @@ class ProjectControllerTest {
 
     @Test
     void testCreateNewProject() throws Exception {
-        mockMvc.perform(get("/CreateProject"))
+        mockMvc.perform(get("/projects/CreateProject"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("obj"))
                 .andExpect(view().name("create-Project"));
@@ -37,7 +37,7 @@ class ProjectControllerTest {
     @Test
     void saveNewProject() throws Exception {
         Project project1 = new Project("New Project", "2024-11-24", "2024-11-26","Hehe det er en joke");
-        mockMvc.perform(post("/saveProject")
+        mockMvc.perform(post("/projects/saveProject")
                         .flashAttr("projectObj",project1))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
@@ -48,7 +48,7 @@ class ProjectControllerTest {
         int projectId = 1;
         Project dummyProject = new Project(1,"dummy", "2024-11-11", "2024-11-22", "dummy project");
         when(projectService.getProject(1)).thenReturn(dummyProject);
-        mockMvc.perform(get("/edit-project/{projectId}", projectId))
+        mockMvc.perform(get("/projects/edit-project/{projectId}", projectId))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("project", dummyProject))
                 .andExpect(view().name("edit-project"));
@@ -64,7 +64,7 @@ class ProjectControllerTest {
         String deadline = "2024-11-22";
         String projectDescription = "dummy project";
 
-        mockMvc.perform(post("/updateProject")
+        mockMvc.perform(post("/projects/updateProject")
                         .param("projectId", String.valueOf(projectId))
                         .param("projectName",projectName)
                         .param("startDate", startDate)
@@ -79,7 +79,7 @@ class ProjectControllerTest {
     void testDeleteProject() throws Exception {
         int projectID = 1;
 
-        mockMvc.perform(post("/delete-project/{projectID}", projectID))
+        mockMvc.perform(post("/projects/delete-project/{projectID}", projectID))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"))
                 .andExpect(redirectedUrl("/"));
