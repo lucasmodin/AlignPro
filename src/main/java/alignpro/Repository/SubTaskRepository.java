@@ -1,7 +1,8 @@
 package alignpro.Repository;
 
 import alignpro.Model.DBConnection;
-import alignpro.Model.SubTask;
+import alignpro.Model.Projects.SubTask;
+import alignpro.Repository.Interfaces.ISubTaskRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -14,7 +15,7 @@ import java.sql.SQLException;
 
 @Repository("SUBTASK_REPOSITORY_JDBC")
 @Lazy
-public class SubTaskRepository implements ISubTaskRepository{
+public class SubTaskRepository implements ISubTaskRepository {
     @Value("${spring.datasource.url}")
     private String dbURL;
     @Value("${spring.datasource.username}")

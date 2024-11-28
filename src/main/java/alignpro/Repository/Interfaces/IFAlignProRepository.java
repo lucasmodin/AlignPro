@@ -1,8 +1,10 @@
-package alignpro.Repository;
+package alignpro.Repository.Interfaces;
 
 import alignpro.Model.*;
+import alignpro.Model.Projects.Project;
+import alignpro.Model.Projects.SubProject;
+import alignpro.Model.Projects.Task;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

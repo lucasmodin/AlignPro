@@ -2,6 +2,10 @@ package alignpro.Repository;
 
 
 import alignpro.Model.*;
+import alignpro.Model.Projects.Project;
+import alignpro.Model.Projects.SubProject;
+import alignpro.Model.Projects.Task;
+import alignpro.Repository.Interfaces.IFAlignProRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -16,8 +20,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Repository("ALIGNPRO_REPOSITORY_JDBC")
 @Lazy

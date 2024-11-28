@@ -1,7 +1,6 @@
-package alignpro.Model;
+package alignpro.Model.Projects;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Task {
     private int taskID;

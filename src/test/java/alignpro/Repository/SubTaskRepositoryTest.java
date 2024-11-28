@@ -1,6 +1,6 @@
 package alignpro.Repository;
 
-import alignpro.Model.SubTask;
+import alignpro.Model.Projects.SubTask;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,7 +1,7 @@
 package alignpro.Service;
 
-import alignpro.Model.Project;
-import alignpro.Repository.IProjectRepository;
+import alignpro.Model.Projects.Project;
+import alignpro.Repository.Interfaces.IProjectRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;

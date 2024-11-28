@@ -1,7 +1,7 @@
 package alignpro.Service;
 
-import alignpro.Model.SubTask;
-import alignpro.Repository.ISubTaskRepository;
+import alignpro.Model.Projects.SubTask;
+import alignpro.Repository.Interfaces.ISubTaskRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;

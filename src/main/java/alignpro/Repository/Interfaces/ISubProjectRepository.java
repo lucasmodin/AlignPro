@@ -1,6 +1,6 @@
-package alignpro.Repository;
+package alignpro.Repository.Interfaces;
 
-import alignpro.Model.SubProject;
+import alignpro.Model.Projects.SubProject;
 
 public interface ISubProjectRepository {
 

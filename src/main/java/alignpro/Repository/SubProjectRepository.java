@@ -1,7 +1,8 @@
 package alignpro.Repository;
 
 import alignpro.Model.DBConnection;
-import alignpro.Model.SubProject;
+import alignpro.Model.Projects.SubProject;
+import alignpro.Repository.Interfaces.ISubProjectRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;

@@ -1,4 +1,4 @@
-package alignpro.Model;
+package alignpro.Model.Projects;
 
 import java.time.LocalDate;
 

@@ -1,17 +1,15 @@
-package alignpro.Controller;
+package alignpro.Controller.ProjectOverview;
 
 
 import alignpro.Model.*;
+import alignpro.Model.Projects.Project;
+import alignpro.Model.Projects.SubProject;
 import alignpro.Service.AlignProService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-
-
 import java.util.List;
 
 @Controller

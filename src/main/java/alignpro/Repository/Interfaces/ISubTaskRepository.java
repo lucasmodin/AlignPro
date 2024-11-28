@@ -1,6 +1,6 @@
-package alignpro.Repository;
+package alignpro.Repository.Interfaces;
 
-import alignpro.Model.SubTask;
+import alignpro.Model.Projects.SubTask;
 
 public interface ISubTaskRepository {
 

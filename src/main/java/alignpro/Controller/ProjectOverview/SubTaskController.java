@@ -1,6 +1,6 @@
-package alignpro.Controller;
+package alignpro.Controller.ProjectOverview;
 
-import alignpro.Model.SubTask;
+import alignpro.Model.Projects.SubTask;
 import alignpro.Service.SubTaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

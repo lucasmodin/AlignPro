@@ -1,16 +1,11 @@
 package alignpro.Repository;
 
 import alignpro.Model.Employee;
-import alignpro.Model.Project;
-import alignpro.Model.SubProject;
-import alignpro.Model.SubTask;
-import alignpro.Model.Task;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
 import java.util.List;
