@@ -71,6 +71,24 @@ public class AlignProControllerTest {
                 .andExpect(redirectedUrl("/"));
     }
 
+    @Test
+    void updateEmployee() throws Exception {
+        List<String> listOfSkills = new ArrayList<>();
+        int employeeID = 1;
+        String name = "Lars kylling";
+        listOfSkills.add("Developer");
+        listOfSkills.add("Cost Controller");
+
+        mockMvc.perform(post("/updateEmployee")
+                        .param("employeeID", String.valueOf(employeeID))
+                        .param("employeeName", name )
+                        .param("skills", String.valueOf(listOfSkills)))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"))
+                .andExpect(view().name("redirect:/"));
+
+    }
+
 
 
 

@@ -361,6 +361,40 @@ public class AlignProRepository implements IFAlignProRepository {
         return tasks;
     }
 
+    @Override
+    public void editEmployee(Employee obj, int employeeID){
+
+        try{
+            String sqlString = "UPDATE Employee SET EmployeeName = ? Where EmployeeID = ?";
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1, obj.getEmployeeName());
+            stmt.setInt(2,employeeID);
+            stmt.executeUpdate();
+
+
+            Map<String, Integer> pairList = getSkillsID();
+
+            String sqlDeleteSkills ="DELETE FROM Employee_Skill WHERE EmployeeID = ?";
+            PreparedStatement stmt2 = conn.prepareStatement(sqlDeleteSkills);
+            stmt2.setInt(1,employeeID);
+            stmt2.executeUpdate();
+
+            for(String skills : obj.getSkills()){
+
+                String sqlSetSkills = "INSERT INTO Employee_Skill (EmployeeID, SkillID) VALUES (?, ?)";
+
+                PreparedStatement stmt3 = conn.prepareStatement(sqlSetSkills);
+                stmt3.setInt(1, employeeID);
+                stmt3.setInt(2, pairList.get(skills));
+                stmt3.executeUpdate();
+            }
+
+        } catch (SQLException e){
+            throw new RuntimeException("not updating emplyee information" + e.getMessage());
+        }
+
+    }
+
 
 
 

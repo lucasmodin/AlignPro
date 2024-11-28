@@ -27,6 +27,8 @@ public interface IFAlignProRepository {
 
     // Methods to manage Employees
 
+    public void editEmployee(Employee obj, int employeeID);
+
     void saveEmployee(String employeeName);
 
     void saveEmployee(String employeeName, List<String> skillList);

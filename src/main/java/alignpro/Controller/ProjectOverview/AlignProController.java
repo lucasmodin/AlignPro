@@ -73,4 +73,24 @@ public class AlignProController {
         //next is to implement logic for Task and subtask when the classes are made
     }
 
+    @GetMapping("/{ID}/editEmployee")
+    public String editEmployee(@PathVariable int ID, Model model){
+        Employee objToUpdate = alignProService.getEmployee(ID);
+        model.addAttribute("EmployeeObj", objToUpdate);
+        model.addAttribute("Skills", alignProService.getListOfSkills());
+        return "/edit-employee";
+    }
+
+    @PostMapping("updateEmployee")
+    public String updateEmployee(
+            @RequestParam("employeeID") int employeeID,
+            @RequestParam("employeeName") String employeeName,
+            @RequestParam("skills") List<String> skills){
+        Employee objUpdate = new Employee(employeeName, skills);
+        alignProService.editEmployee(objUpdate,employeeID);
+        return "redirect:/";
+    }
+
+
+
 }

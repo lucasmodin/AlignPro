@@ -44,6 +44,11 @@ public class AlignProService {
         alignProRepository.deleteEmployee(employeeID);
     }
 
+    public void editEmployee(Employee obj, int employeeID){
+        alignProRepository.editEmployee(obj, employeeID);
+    }
+
+
     public void saveEmployee(Employee obj){
         alignProRepository.saveEmployee(obj.getEmployeeName(),obj.getSkills());
     }

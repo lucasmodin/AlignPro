@@ -95,4 +95,24 @@ public class AlignProRepositoryTest {
 
         assertNull(test);}
 
+    @Test
+    void editEmployee(){
+
+        Employee objToEdit = alignProRepository.getEmployee("Lars Larsen");
+
+        assertEquals(1, objToEdit.getEmployeeID());
+        assertTrue(objToEdit.getSkills().contains("Developer"));
+
+        objToEdit.setEmployeeName("Kylling Lars");
+        objToEdit.setEmployeeID(2);
+
+        alignProRepository.editEmployee(objToEdit, 1);
+
+        Employee editedObj = alignProRepository.getEmployee(1);
+
+        assertEquals("Kylling Lars", editedObj.getEmployeeName());
+        System.out.println(editedObj.getEmployeeID() + editedObj.getEmployeeName());
+        assertEquals(1,editedObj.getEmployeeID());
+    }
+
 }
