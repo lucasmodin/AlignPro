@@ -37,6 +37,17 @@ public class AlignProController {
         return "redirect:/";
     }
 
+    @PostMapping("/deleteEmployee/{employeeID}")
+    public String deleteEmployee(@PathVariable("employeeID") int employeeID){
+        Employee employee = alignProService.getEmployee(employeeID);
+        if(employee != null) {
+            alignProService.deleteEmployee(employeeID);
+            return "redirect:/";
+        } else {
+            return "redirect:/";
+        }
+    }
+
 
     //TODO fix endpoint when user/login session is implemented
     @GetMapping("/pm-dashboard/{pmUserID}")

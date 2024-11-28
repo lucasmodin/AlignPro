@@ -63,6 +63,15 @@ public class AlignProControllerTest {
                 .andExpect(view().name("pm-Dashboard"));
     }
 
+    @Test
+    void deleteEmployee() throws Exception{
+        int employeeID = 1;
+        mockMvc.perform(post("/deleteEmployee/{employeeID}", employeeID))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+    }
+
+
 
 
 

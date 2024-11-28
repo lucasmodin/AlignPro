@@ -35,6 +35,15 @@ public class AlignProService {
     }
 
     //*** methods to handle employees and skills ***//
+
+    public Employee getEmployee(int employeeID){
+        return alignProRepository.getEmployee(employeeID);
+    }
+
+    public void deleteEmployee(int employeeID){
+        alignProRepository.deleteEmployee(employeeID);
+    }
+
     public void saveEmployee(Employee obj){
         alignProRepository.saveEmployee(obj.getEmployeeName(),obj.getSkills());
     }

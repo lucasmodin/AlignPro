@@ -84,4 +84,15 @@ public class AlignProRepositoryTest {
         assertEquals(3,mapSkills.get("Project Manager"));
     }
 
+    @Test
+    @DirtiesContext
+    void deleteEmployee() {
+        Employee objTest = alignProRepository.getEmployee(1);
+
+        assertTrue(objTest.getEmployeeName().equals("Lars Larsen"));
+        alignProRepository.deleteEmployee(1);
+        Employee test = alignProRepository.getEmployee(1);
+
+        assertNull(test);}
+
 }
