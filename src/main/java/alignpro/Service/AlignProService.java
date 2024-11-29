@@ -3,6 +3,7 @@ package alignpro.Service;
 import alignpro.Model.*;
 import alignpro.Model.Projects.Project;
 import alignpro.Model.Projects.SubProject;
+import alignpro.Model.Projects.SubTask;
 import alignpro.Model.Projects.Task;
 import alignpro.Repository.Interfaces.IFAlignProRepository;
 import org.springframework.context.ApplicationContext;
@@ -34,6 +35,7 @@ public class AlignProService {
         return alignProRepository.getTaskForSubProject(subProjectID);
     }
 
+    public List<SubTask> getAllSubTasks(int taskID){return alignProRepository.getSubTaskForTask(taskID);}
     //*** methods to handle employees and skills ***//
 
     public Employee getEmployee(int employeeID){

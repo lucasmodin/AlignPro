@@ -135,7 +135,7 @@ public class SubProject {
         this.subProjectName = subProjectName;
     }
 
-    public LocalDate getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
@@ -151,7 +151,7 @@ public class SubProject {
         this.startDate = LocalDate.parse(startDate);
     }
 
-    public LocalDate getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
