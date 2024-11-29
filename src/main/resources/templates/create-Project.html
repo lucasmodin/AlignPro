@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/styles/create-edit.css">
-
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
 
@@ -14,10 +14,12 @@
         <h1>Create a project</h1>
         <div class="input-box">
             <input type="text" id="projectName" name="projectName" placeholder="Project Name" th:field="*{projectName}" required>
+            <i class='bx bx-clipboard'></i>
         </div>
 
         <div class="input-box">
             <textarea id="projectDescription" name="projectDescription" placeholder="Project Description" th:field="*{projectDescription}" required></textarea>
+            <i class='bx bx-text' ></i>
         </div>
         <div class="input-box">
             <input type="date" id="startDate" name="startDate" placeholder="Start Date" th:field="*{startDate}" required>
