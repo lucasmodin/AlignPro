@@ -88,7 +88,7 @@ public class SubTask {
         return subTaskDescription;
     }
 
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
@@ -96,7 +96,7 @@ public class SubTask {
         return startDate.toString();
     }
 
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 

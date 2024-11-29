@@ -84,7 +84,7 @@ public class Project {
         this.projectName = projectName;
     }
 
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
@@ -100,7 +100,7 @@ public class Project {
         this.startDate = LocalDate.parse(startDate);
     }
 
-    public String getDeadLine() {
+    public LocalDate getDeadLine() {
         return deadLine;
     }
 
