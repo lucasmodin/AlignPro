@@ -67,8 +67,8 @@ public class AlignProController {
 
             ProjectDTO projectDTO = new ProjectDTO();
             projectDTO.setProjectName(project.getProjectName());
-            projectDTO.setStartDate(project.getStartDate());
-            projectDTO.setDeadline(project.getDeadLine());
+            projectDTO.setStartDate(project.getStartDateString());
+            projectDTO.setDeadline(project.getDeadlineString());
             projectDTO.setTotalSumTime(project.getTotalTime());
 
 
@@ -79,8 +79,8 @@ public class AlignProController {
 
                 SubProjectDTO subProjectDTO = new SubProjectDTO();
                 subProjectDTO.setSubProjectName(subProject.getSubProjectName());
-                subProjectDTO.setStartDate(subProject.getStartDate());
-                subProjectDTO.setEndDate(subProject.getEndDate());
+                subProjectDTO.setStartDate(subProject.getStartDateString());
+                subProjectDTO.setEndDate(subProject.getEndDateString());
 
 
                 List<Task> tasks = alignProService.getAllTasks(subProject.getSubProjectID());
@@ -100,8 +100,8 @@ public class AlignProController {
 
                         SubTaskDTO subTaskDTO = new SubTaskDTO();
                         subTaskDTO.setSubTaskName(subTask.getSubTaskName());
-                        subTaskDTO.setStartDate(subTask.getStartDate());
-                        subTaskDTO.setEndDate(subTask.getEndDate());
+                        subTaskDTO.setStartDate(subTask.getStartDateString());
+                        subTaskDTO.setEndDate(subTask.getEndDateString());
                         subTaskDTO.setEstimatedTime(subTask.getTime());
 
 
