@@ -11,6 +11,14 @@ main {
     font-size: 20px;
 }
 
+.input-box {
+    margin: 5px 0;
+}
+
+.wrapper h1{
+    margin: 30px 0;
+}
+
 .wrapper {
     height: 600px;
     width: 800px;
@@ -49,10 +57,29 @@ main {
     font-size: 17px;
     border: 0;
     margin: 20px;
+    cursor: pointer;
 }
 
 .btn:hover{
     background: lightgray;
     color: black;
     border: 1.4px solid black;
+    transition: 0.5s;
+}
+
+.wrapper hr{
+    width: 85%;
+    margin-bottom: 20px;
+}
+
+#box1, #box2 {
+    display: inline-block;
+}
+#box1 input, #box2 input{
+    width: 240px;
+}
+
+.input-box textarea{
+    padding-top: 15px;
+    height: 80px;
 }

@@ -12,20 +12,22 @@
     <div class="wrapper">
     <form th:action="@{/projects/saveProject}" th:object="${obj}" method="post">
         <h1>Create a Project</h1>
+        <hr>
         <div class="input-box">
             <input type="text" id="projectName" name="projectName" placeholder="Enter Project Name" th:field="*{projectName}" required>
             <i class='bx bx-clipboard'></i>
         </div>
 
         <div class="input-box">
-            <textarea id="projectDescription" name="projectDescription" placeholder="Enter Project Description" th:field="*{projectDescription}" required></textarea>
-            <i class='bx bx-text' ></i>
-        </div>
-        <div class="input-box">
             <input type="date" id="startDate" name="startDate" placeholder="Enter Start Date" th:field="*{startDate}" required>
         </div>
         <div class="input-box">
             <input type="date" id="deadLine" name="deadLine" placeholder="Enter Deadline" th:field="*{deadLine}" required>
+        </div>
+
+        <div class="input-box">
+            <textarea id="projectDescription" name="projectDescription" placeholder="Enter Project Description" th:field="*{projectDescription}" required></textarea>
+            <i class='bx bx-text' ></i>
         </div>
 
         <button type="submit" class="btn">Create Project</button>
