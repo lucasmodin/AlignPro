@@ -1,0 +1,47 @@
+body {
+    background: lightgray;
+}
+
+main {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    font-size: 20px;
+}
+
+.wrapper {
+    height: 600px;
+    width: 800px;
+    border-radius: 10px;
+    background: white;
+}
+
+.input-box input, textarea{
+    width: 610px;
+    height: 50px;
+    margin: 20px 0;
+    background: whitesmoke;
+    border-radius: 10px;
+    font-size: 15px;
+    border: 1.4px solid black;
+    padding-left: 40px;
+}
+
+.btn{
+    background: black;
+    color: white;
+    height: 40px;
+    width: 657px;
+    border-radius: 20px;
+    font-size: 17px;
+    border: 0;
+    margin: 20px;
+}
+
+.btn:hover{
+    background: lightgray;
+    color: black;
+    border: 1.4px solid black;
+}
