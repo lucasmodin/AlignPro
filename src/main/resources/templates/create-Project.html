@@ -7,7 +7,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-
+<a href="/pm-dashboard/1"><i class='bx bx-arrow-back'></i></a>
 <main>
     <div class="wrapper">
     <form th:action="@{/projects/saveProject}" th:object="${obj}" method="post">
@@ -18,10 +18,10 @@
             <i class='bx bx-clipboard'></i>
         </div>
 
-        <div class="input-box">
+        <div class="input-box" id="box1">
             <input type="date" id="startDate" name="startDate" placeholder="Enter Start Date" th:field="*{startDate}" required>
         </div>
-        <div class="input-box">
+        <div class="input-box" id="box2">
             <input type="date" id="deadLine" name="deadLine" placeholder="Enter Deadline" th:field="*{deadLine}" required>
         </div>
 
