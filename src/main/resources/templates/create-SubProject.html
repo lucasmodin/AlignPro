@@ -10,6 +10,7 @@
 
 <main>
     <div class="wrapper">
+        <a href="/pm-dashboard/1" id="back"><i class='bx bx-arrow-back'></i></a>
         <form th:action="@{/subProjects/saveSubProject}" th:object="${obj}" method="post">
             <input type="hidden" th:field="*{fkProjectID}">
             <h1>Create a Sub-Project</h1>
@@ -31,7 +32,7 @@
                 <i class='bx bx-text' ></i>
             </div>
 
-            <button type="submit" class="btn">Create Project</button>
+            <button type="submit" class="btn">Create Sub-Project</button>
         </form>
     </div>
 

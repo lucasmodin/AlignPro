@@ -7,9 +7,9 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-<a href="/pm-dashboard/1"><i class='bx bx-arrow-back'></i></a>
 <main>
     <div class="wrapper">
+        <a href="/pm-dashboard/1" id="back"><i class='bx bx-arrow-back'></i></a>
     <form th:action="@{/projects/saveProject}" th:object="${obj}" method="post">
         <h1>Create a Project</h1>
         <hr>
