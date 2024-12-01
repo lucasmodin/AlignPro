@@ -4,6 +4,7 @@ import alignpro.Model.DBConnection;
 import alignpro.Model.Projects.SubProject;
 import alignpro.Repository.Interfaces.ISubProjectRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
@@ -24,13 +25,17 @@ public class SubProjectRepository implements ISubProjectRepository {
     private String dbPassword;
 
     private Connection conn;
+    private DBConnection dbConnection;
 
-    public SubProjectRepository() {}
+    @Autowired
+    public SubProjectRepository(DBConnection dbConnection) {
+        this.dbConnection = dbConnection;
+    }
 
     @PostConstruct
     @Override
     public void setConn() {
-        this.conn = DBConnection.getConnection(dbURL,dbUsername,dbPassword);
+        this.conn = dbConnection.getConnection();
     }
 
     //************************* Save Method *******************************//

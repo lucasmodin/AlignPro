@@ -7,6 +7,7 @@ import alignpro.Model.Projects.SubProject;
 import alignpro.Model.Projects.Task;
 import alignpro.Repository.Interfaces.IFAlignProRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
@@ -32,19 +33,25 @@ public class AlignProRepository implements IFAlignProRepository {
     @Value("${spring.datasource.password}")
     private String dbPassword;
 
+    private DBConnection dbConnection;
     private Connection conn;
 
     /// ********************************* Constructor and set-up ************************** ///
-    public AlignProRepository(){
+
+    //By having a autowire on the dbconnection we ensure that spring loads the instans of dbconnection to the repo.
+    @Autowired
+    public AlignProRepository(DBConnection dbConnection) {
+        this.dbConnection = dbConnection;
     }
 
     //PostConstruct runes functions after we have generated the constructor
     //remove problem with beans.
 
+    //after the autowire we should have all dependacies injected to repo, and now we make the connection by calling a method that does that
     @PostConstruct
     @Override
     public void setConn() {
-        this.conn = DBConnection.getConnection(dbURL,dbUsername,dbPassword);
+        this.conn = dbConnection.getConnection();
     }
 
     //Methods to manage employees;
