@@ -2,6 +2,7 @@ package alignpro.Controller.ProjectOverview;
 
 
 import alignpro.Model.*;
+import alignpro.Model.DTOModel.DashBoard_DTO;
 import alignpro.Model.Projects.Project;
 import alignpro.Model.Projects.SubProject;
 import alignpro.Model.Projects.SubTask;
@@ -54,7 +55,8 @@ public class AlignProController {
     //TODO this is empty for now as I need to rewrite Logic
     @GetMapping("/pm-dashboard/{pmUserID}")
     public String getDashboard(@PathVariable("pmUserID") int pmUserID, Model model){
-
+        DashBoard_DTO dashboard = alignProService.dataDashBoard(pmUserID);
+        model.addAttribute("data", dashboard);
         return "pm-Dashboard";
         //next is to implement logic for Task and subtask when the classes are made
     }

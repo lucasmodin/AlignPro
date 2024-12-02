@@ -53,6 +53,14 @@ public interface IFAlignProRepository {
 
     List<Integer> pmUserProjectID(int pmUserID);
 
-    Map<String,String> projectNamesToSubprojectandTask();
+    Map<String,String> projectNamesToSubprojectandTask(int PmUserID);
+
+    List<Project> getProjectsForPMUser();
+
+    List<SubProject> getSubProjectsForProject();
+
+    List<Task> getTaskForSubProject();
+
+    List<SubTask> getSubTaskForTask();
 
 }

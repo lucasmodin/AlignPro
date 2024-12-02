@@ -1,9 +1,7 @@
 package alignpro.Service;
 
 import alignpro.Model.*;
-import alignpro.Model.DTOModel.DashBoard_DTO;
-import alignpro.Model.DTOModel.ProjectDTO;
-import alignpro.Model.DTOModel.SubProjectDTO;
+import alignpro.Model.DTOModel.*;
 import alignpro.Model.Projects.Project;
 import alignpro.Model.Projects.SubProject;
 import alignpro.Model.Projects.SubTask;
@@ -16,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -28,7 +27,97 @@ public class AlignProService {
     }
 
 
+    //PM dashboard data transfer
 
+    public DashBoard_DTO dataDashBoard(int pmUserID){
+        DashBoard_DTO dataTransferObj = new DashBoard_DTO();
+
+        List<Project> projects = alignProRepository.getProjectsForPMUser();
+        List<SubProject> subProjects = alignProRepository.getSubProjectsForProject();
+        List<Task> task = alignProRepository.getTaskForSubProject();
+        List<SubTask> subTask = alignProRepository.getSubTaskForTask();
+
+        Map<String,String> stuffUnderPM = alignProRepository.projectNamesToSubprojectandTask(pmUserID);
+
+        List<ProjectDTO> projectDTOSList = new ArrayList<>();
+        for (Project pjoObj : projects){
+            if(stuffUnderPM.get(pjoObj.getProjectName()) != null){
+                ProjectDTO projectDTO = new ProjectDTO();
+
+                projectDTO.setFilter(stuffUnderPM.get(pjoObj.getProjectName()));
+                projectDTO.setProjectName(pjoObj.getProjectName());
+                projectDTO.setProjectDescription(pjoObj.getProjectDescription());
+                projectDTO.setStartDate(pjoObj.getStartDate());
+                projectDTO.setDeadLine(pjoObj.getDeadLine());
+                projectDTO.setTotalTime(pjoObj.getTotalTime());
+
+                projectDTOSList.add(projectDTO);
+
+            }
+        }
+
+        List<SubProjectDTO> subProjectDTOSList = new ArrayList<>();
+        for (SubProject subProjectObj : subProjects){
+            if(stuffUnderPM.get(subProjectObj.getSubProjectName()) != null){
+                SubProjectDTO subProjectDTO = new SubProjectDTO();
+
+                subProjectDTO.setFilter(stuffUnderPM.get(subProjectObj.getSubProjectName()));
+
+                subProjectDTO.setSubProjectName(subProjectObj.getSubProjectName());
+
+                subProjectDTO.setSubProjectDescription(subProjectObj.getSubProjectDescription());
+                subProjectDTO.setStartDate(subProjectObj.getStartDate());
+                subProjectDTO.setEndDate(subProjectObj.getEndDate());
+                subProjectDTO.setSumTime(subProjectObj.getSumTime());
+
+                subProjectDTOSList.add(subProjectDTO);
+
+            }
+        }
+
+        List<TaskDTO> taskDTOSList = new ArrayList<>();
+        for (Task taskObj : task){
+            if(stuffUnderPM.get(taskObj.getTaskName()) != null){
+                TaskDTO taskDTO = new TaskDTO();
+
+                taskDTO.setFilter(stuffUnderPM.get(taskObj.getTaskName()));
+
+                taskDTO.setTaskName(taskObj.getTaskName());
+
+                taskDTO.setTaskDescription(taskObj.getTaskDescription());
+                taskDTO.setStartDate(taskObj.getStartDate());
+                taskDTO.setEndDate(taskObj.getEndDate());
+                taskDTO.setEstimatedTime(taskObj.getEstimatedTime());
+
+                taskDTOSList.add(taskDTO);
+            }
+        }
+
+        List<SubTaskDTO> subTaskDTOSList = new ArrayList<>();
+        for (SubTask subTaskObj : subTask){
+            if(stuffUnderPM.get(subTaskObj.getSubTaskName()) != null){
+                SubTaskDTO subTaskDTO = new SubTaskDTO();
+
+                subTaskDTO.setFilter(stuffUnderPM.get(subTaskObj.getSubTaskName()));
+
+                subTaskDTO.setSubTaskName(subTaskObj.getSubTaskName());
+
+                subTaskDTO.setSubTaskDescription(subTaskObj.getSubTaskDescription());
+                subTaskDTO.setStartDate(subTaskObj.getStartDate());
+                subTaskDTO.setEndDate(subTaskObj.getEndDate());
+                subTaskDTO.setTime(subTaskObj.getTime());
+
+                subTaskDTOSList.add(subTaskDTO);
+            }
+        }
+
+        dataTransferObj.setProjectList(projectDTOSList);
+        dataTransferObj.setSubProjectList(subProjectDTOSList);
+        dataTransferObj.setTaskList(taskDTOSList);
+        dataTransferObj.setSubTaskList(subTaskDTOSList);
+
+        return dataTransferObj;
+    }
 
 
     //PM dashboard methods

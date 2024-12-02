@@ -49,8 +49,8 @@ public class AlignProRepository implements IFAlignProRepository {
         this.conn = DBConnection.getConnection(dbURL,dbUsername,dbPassword);
     }
 
-    //Methods to manage employees;
 
+    //Methods to manage employees;
     @Override
     public void saveEmployee(String employeeName){
         try{
@@ -215,6 +215,40 @@ public class AlignProRepository implements IFAlignProRepository {
         }
     }
 
+    @Override
+    public void editEmployee(Employee obj, int employeeID){
+
+        try{
+            String sqlString = "UPDATE Employee SET EmployeeName = ? Where EmployeeID = ?";
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setString(1, obj.getEmployeeName());
+            stmt.setInt(2,employeeID);
+            stmt.executeUpdate();
+
+
+            Map<String, Integer> pairList = getSkillsID();
+
+            String sqlDeleteSkills ="DELETE FROM Employee_Skill WHERE EmployeeID = ?";
+            PreparedStatement stmt2 = conn.prepareStatement(sqlDeleteSkills);
+            stmt2.setInt(1,employeeID);
+            stmt2.executeUpdate();
+
+            for(String skills : obj.getSkills()){
+
+                String sqlSetSkills = "INSERT INTO Employee_Skill (EmployeeID, SkillID) VALUES (?, ?)";
+
+                PreparedStatement stmt3 = conn.prepareStatement(sqlSetSkills);
+                stmt3.setInt(1, employeeID);
+                stmt3.setInt(2, pairList.get(skills));
+                stmt3.executeUpdate();
+            }
+
+        } catch (SQLException e){
+            throw new RuntimeException("not updating emplyee information" + e.getMessage());
+        }
+
+    }
+
 
     /// ***************************** Helper function to get infomration ************************* ///
 
@@ -266,6 +300,8 @@ public class AlignProRepository implements IFAlignProRepository {
         return list;
     }
 
+
+    //**This methods do I overload, so I can get all projects, subprojects, task and subtask. **//
     @Override
     public List<Project> getProjectsForPMUser(int pmUserID) {
         List<Project> projects = new ArrayList<>();
@@ -330,7 +366,6 @@ public class AlignProRepository implements IFAlignProRepository {
         return subProjects;
     }
 
-
     @Override
     public List<Task> getTaskForSubProject(int subProjectID){
         List<Task> tasks = new ArrayList<>();
@@ -363,6 +398,7 @@ public class AlignProRepository implements IFAlignProRepository {
         return tasks;
     }
 
+    @Override
     public List<SubTask> getSubTaskForTask(int taskID){
         List<SubTask> subTasks = new ArrayList<>();
         String sqlString = """
@@ -394,40 +430,129 @@ public class AlignProRepository implements IFAlignProRepository {
         return subTasks;
     }
 
+
+    //**overload functions there just returns the full list of projects, subprojects, task and subtask.
+
     @Override
-    public void editEmployee(Employee obj, int employeeID){
+    public List<Project> getProjectsForPMUser() {
+        List<Project> projects = new ArrayList<>();
+        String sql = """
+                SELECT p.ProjectID AS ProjectID, p.ProjectName AS ProjectName, p.StartDate AS StartDate, p.Deadline AS Deadline, p.TotalSumTime AS TotalSumTime, p.ProjectDescription AS ProjectDescription
+                FROM Project p
+                JOIN PMUser_Project pmup on p.ProjectID = pmup.ProjectID;
+                """;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
 
-        try{
-            String sqlString = "UPDATE Employee SET EmployeeName = ? Where EmployeeID = ?";
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setString(1, obj.getEmployeeName());
-            stmt.setInt(2,employeeID);
-            stmt.executeUpdate();
 
-
-            Map<String, Integer> pairList = getSkillsID();
-
-            String sqlDeleteSkills ="DELETE FROM Employee_Skill WHERE EmployeeID = ?";
-            PreparedStatement stmt2 = conn.prepareStatement(sqlDeleteSkills);
-            stmt2.setInt(1,employeeID);
-            stmt2.executeUpdate();
-
-            for(String skills : obj.getSkills()){
-
-                String sqlSetSkills = "INSERT INTO Employee_Skill (EmployeeID, SkillID) VALUES (?, ?)";
-
-                PreparedStatement stmt3 = conn.prepareStatement(sqlSetSkills);
-                stmt3.setInt(1, employeeID);
-                stmt3.setInt(2, pairList.get(skills));
-                stmt3.executeUpdate();
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Project project = new Project();
+                project.setProjectID(rs.getInt("ProjectID"));
+                project.setProjectName(rs.getString("ProjectName"));
+                project.setStartDate(rs.getString("StartDate"));
+                project.setDeadLine(rs.getString("Deadline"));
+                project.setTotalTime(rs.getInt("TotalSumTime"));
+                project.setProjectDescription(rs.getString("ProjectDescription"));
+                projects.add(project);
             }
 
-        } catch (SQLException e){
-            throw new RuntimeException("not updating emplyee information" + e.getMessage());
+
+        } catch(SQLException e) {
+            throw new RuntimeException(e);
         }
 
+        return projects;
     }
 
+    @Override
+    public List<SubProject> getSubProjectsForProject() {
+        List<SubProject> subProjects = new ArrayList<>();
+        String sql = """
+                SELECT SubprojectID, SubProjectName, StartDate, EndDate, SumTime, SubProjectDescription, ProjectID
+                FROM SubProject;
+                """;
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                SubProject subProject = new SubProject();
+                subProject.setSubProjectID(rs.getInt("SubprojectID"));
+                subProject.setSubProjectName(rs.getString("SubProjectName"));
+                subProject.setStartDate(rs.getString("StartDate"));
+                subProject.setEndDate(rs.getString("EndDate"));
+                subProject.setFkProjectID(rs.getInt("ProjectID"));
+                subProject.setSubProjectDescription(rs.getString("SubProjectDescription"));
+                subProjects.add(subProject);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return subProjects;
+    }
+
+    @Override
+    public List<Task> getTaskForSubProject(){
+        List<Task> tasks = new ArrayList<>();
+        String sqlString = """
+                SELECT TaskID, TaskName, StartDate, EndDate, EstimatedTime, TaskDescription, SkillRequirement, SubProjectID
+                FROM Task;
+                """;
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Task task = new Task();
+                task.setTaskID(rs.getInt("TaskID"));
+                task.setTaskName(rs.getString("TaskName"));
+                task.setStartDateString(rs.getString("StartDate"));
+                task.setEndDateString(rs.getString("EndDate"));
+                task.setEstimatedTime(rs.getInt("EstimatedTime"));
+                task.setTaskDescription(rs.getString("TaskDescription"));
+                task.setSkillRequirement(rs.getString("SkillRequirement"));
+                task.setSubProjectID(rs.getInt("SubProjectID"));
+                tasks.add(task);
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        return tasks;
+    }
+
+    @Override
+    public List<SubTask> getSubTaskForTask(){
+        List<SubTask> subTasks = new ArrayList<>();
+        String sqlString = """
+                SELECT SubTaskID, SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement, TaskID
+                FROM SubTask;
+                """;
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                SubTask subTask = new SubTask();
+                subTask.setSubTaskID(rs.getInt("SubTaskID"));
+                subTask.setSubTaskName(rs.getString("SubTaskName"));
+                subTask.setStartDate(rs.getString("StartDate"));
+                subTask.setEndDate(rs.getString("EndDate"));
+                subTask.setTime(rs.getInt("EstimatedTime"));
+                subTask.setSubTaskDescription(rs.getString("SubTaskDescription"));
+                subTask.setSkillRequirement(rs.getString("SkillRequirement"));
+                subTask.setTaskID(rs.getInt("TaskID"));
+                subTasks.add(subTask);
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        return subTasks;
+    }
 
 
     /// ***************************** Mapping function to get DTO-Object ************************* ///
@@ -457,13 +582,15 @@ public class AlignProRepository implements IFAlignProRepository {
     }
 
 
-    public Map<String,String> projectNamesToSubprojectandTask() {
-        String sqlString = "SELECT p.ProjectName, sp.SubProjectName, t.TaskName, st.SubTaskName FROM Project p LEFT JOIN SubProject sp ON p.ProjectID = sp.ProjectID LEFT JOIN Task t ON sp.SubProjectID = t.SubProjectID LEFT JOIN SubTask st ON t.TaskID = st.TaskID ORDER BY p.ProjectName, sp.SubProjectName, t.TaskName, st.SubTaskName;";
+    //TODO THis create map with all subprojets, task and subtask, linked to ProjectName
+    public Map<String,String> projectNamesToSubprojectandTask(int pmUserID) {
+        String sqlString = "SELECT p.ProjectName, sp.SubProjectName, t.TaskName, st.SubTaskName FROM Project p LEFT JOIN SubProject sp ON p.ProjectID = sp.ProjectID LEFT JOIN Task t ON sp.SubProjectID = t.SubProjectID LEFT JOIN SubTask st ON t.TaskID = st.TaskID WHERE p.ProjectID = ? ORDER BY p.ProjectName, sp.SubProjectName, t.TaskName, st.SubTaskName;";
 
         Map<String, String> mapping = new HashMap<>();
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1,pmUserID);
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
