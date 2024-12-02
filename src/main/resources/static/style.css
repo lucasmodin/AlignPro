@@ -3,11 +3,10 @@ body{
     margin: 0 auto;
 }
 
-.container {
+.container{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
-
 }
 
 header {
@@ -15,40 +14,32 @@ header {
     grid-row: 1;
 }
 
-.image-banner {
-    grid-column: 2/3;
-    grid-row: 2;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-
-}
-
 .info-foot {
     grid-column: 1/3;
-    grid-row: 4;
+    grid-row: 3;
     display: flex;
     align-items: center;
+    margin: 0;
 
     padding: 10px 20px;
     justify-content: center;
-    background-color: #ebdaf5;
+    background-color: lightblue;
     font-size: large;
     box-shadow: 0 4px 8px rgba(0,0,0, 0.1);
-    color: #fdfcfe;
-}
+    color: white;
 
+}
 .navigation{
     grid-column: 1/3;
     grid-row: 1;
     display: flex;
     align-items: center;
-    background-color: #ebdaf5;
+    background-color: lightblue;
     box-shadow: 0 4px 8px rgba(0,0,0, 0.1);
     padding: 10px 20px;
     font-size: large;
     justify-content: space-between;
-    color: #fdfcfe;
+    color: white;
 
 }
 
@@ -61,7 +52,6 @@ header {
     justify-content: left;
     flex-grow: 1;
 }
-
 .right-links {
     list-style-type: none;
     margin: 0;
@@ -91,6 +81,52 @@ li {
     margin-left: auto;
     display: block;
     border-radius: 10px;
-    border: solid 1px #fdfcfe;
+    border: solid 1px white;
 
 }
+.left-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.left-container .logo-link {
+    max-height: 50px;
+}
+
+.left-container .text-logo {
+    max-height: 40px;
+}
+
+.image-banner {
+    grid-column: 1/3;
+    grid-row: 2;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+
+}
+
+.image-banner .image-front-page {
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    max-height: 700px;
+    object-fit: cover;
+    position: relative;
+}
+
+.socials-container {
+    display: flex;
+    gap: 20px;
+
+}
+
+ion-icon {
+    color: #fdfcfe;
+    font-size: 30px;
+}
+
+
