@@ -1,31 +1,34 @@
 package alignpro.Model;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 
-//By using the component annotation we ensure spring see this class as a bean that needs to be loaded
-@Component
 public class DBConnection {
 
-    private Connection conn;
+    private static Connection conn;
 
-    //instead of doing the application values in each repo we just pass them here
-    public DBConnection(@Value("${spring.datasource.url}") String URL,
-                        @Value("${spring.datasource.username}") String Admin,
-                        @Value("${spring.datasource.password}") String Password){
+    private DBConnection(){
+    }
+
+    public static Connection getConnection(String URL, String Admin, String Password){
+
+        if (conn != null){return conn;}
+
+        //(Connection connection = DriverManager.getConnection(URL, Admin, Password))
+
         try {
-            this.conn = DriverManager.getConnection(URL, Admin, Password);
-        }catch (SQLException e){
-            System.out.println("Failing at getting connection " + e.getMessage());
-            throw new RuntimeException("Failing at getting connection to the database" + e.getMessage());
+            Connection contemp = DriverManager.getConnection(URL,Admin,Password);
+            conn = contemp;
+        } catch (SQLException e) {
+            System.out.println("not working");
+            System.out.println("Kill me");
+
+            throw new RuntimeException(e);
         }
+
+        return conn;
     }
 
-    public Connection getConnection() {
-        return this.conn;
-    }
 }

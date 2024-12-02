@@ -25,18 +25,15 @@ public class SubProjectRepository implements ISubProjectRepository {
     private String dbPassword;
 
     private Connection conn;
-    private DBConnection dbConnection;
 
-    @Autowired
-    public SubProjectRepository(DBConnection dbConnection) {
-        this.conn = dbConnection.getConnection();
-    }
+    public SubProjectRepository() {}
 
-    /*@PostConstruct
+    @PostConstruct
     @Override
     public void setConn() {
-        this.conn = dbConnection.getConnection();
-    }*/
+        this.conn = DBConnection.getConnection(dbURL,dbUsername,dbPassword);
+    }
+
 
     //************************* Save Method *******************************//
 

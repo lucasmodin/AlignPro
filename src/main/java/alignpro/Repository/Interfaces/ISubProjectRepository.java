@@ -4,7 +4,7 @@ import alignpro.Model.Projects.SubProject;
 
 public interface ISubProjectRepository {
 
-    //void setConn();
+    void setConn();
 
     void saveSubProject(String subProjectName, String startDate, String endDate, String subProjectDescription, int projectID);
 

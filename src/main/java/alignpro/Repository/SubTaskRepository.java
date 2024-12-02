@@ -25,18 +25,15 @@ public class SubTaskRepository implements ISubTaskRepository {
     private String dbPassword;
 
     private Connection conn;
-    private DBConnection dbConnection;
 
-    @Autowired
-    public SubTaskRepository(DBConnection dbConnection) {
-        this.conn = dbConnection.getConnection();
-    }
+    public SubTaskRepository() {}
 
-    /*@PostConstruct
+    @PostConstruct
     @Override
     public void setConn() {
-        this.conn = dbConnection.getConnection();
-    }*/
+        this.conn = DBConnection.getConnection(dbURL,dbUsername,dbPassword);
+    }
+
 
     //************************* Save Method *******************************//
 

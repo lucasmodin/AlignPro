@@ -4,7 +4,7 @@ import alignpro.Model.Projects.Task;
 
 public interface ITaskRepository {
 
-    //void setConn();
+    void setConn();
 
     Task getTask(int taskID);
 

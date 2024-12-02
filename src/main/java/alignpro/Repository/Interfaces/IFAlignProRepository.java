@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface IFAlignProRepository {
 
-    //void setConn();
+    void setConn();
 
     //pm dashboard methods
 
