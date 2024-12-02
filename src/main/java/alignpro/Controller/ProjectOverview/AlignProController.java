@@ -64,7 +64,7 @@ public class AlignProController {
     @GetMapping("/pm-dashboard/filter/{filterProjects}")
     public String getfilterDashBoard(@PathVariable("filterProjects") String filterProjects, Model model){
         DashBoard_DTO unFilteredDashBoard = alignProService.dataDashBoard(1);
-        DashBoard_DTO dashBoard = alignProService.filter
+        //DashBoard_DTO dashBoard = alignProService.filter
 
 
 

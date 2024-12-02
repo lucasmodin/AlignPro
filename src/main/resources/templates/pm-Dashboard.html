@@ -51,7 +51,13 @@
 
 <!-- Table for SubProjects -->
 <h2>SubProjects</h2>
-<table>
+<div>
+    <button type="button" onclick="toggleVisibility('SubProjects')">
+        Toggle SubTask Table
+    </button>
+</div>
+
+<table id="SubProjects">
     <thead>
     <tr>
         <th>Belongs to Project</th>
@@ -77,7 +83,13 @@
 
 <!-- Table for Tasks -->
 <h2>Tasks</h2>
-<table>
+<div>
+    <button type="button" onclick="toggleVisibility('TaskTable')">
+        Toggle SubTask Table
+    </button>
+</div>
+
+<table id="TaskTable">
     <thead>
     <tr>
         <th>Belongs to Project</th>
@@ -103,7 +115,14 @@
 
 <!-- Table for SubTasks -->
 <h2>SubTasks</h2>
-<table>
+
+<div>
+    <button type="button" onclick="toggleVisibility('subTaskTable')">
+        Toggle SubTask Table
+    </button>
+</div>
+
+<table id="subTaskTable">
     <thead>
     <tr>
         <th>Belongs to Project</th>
@@ -126,6 +145,20 @@
     </tr>
     </tbody>
 </table>
+
+
+<script>
+    function toggleVisibility(tableId) {
+        const table = document.getElementById(tableId);
+        if (table.style.display === "none" || table.style.display === "") {
+            table.style.display = "table";
+        } else {
+            table.style.display = "none";
+        }
+    }
+</script>
+
+
 
 </body>
 </html>
