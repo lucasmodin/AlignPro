@@ -26,6 +26,16 @@
 <body>
 <h1>PM Dashboard</h1>
 
+<form method="get" th:action="@{/pm-dashboard/filter}">
+    <label for="filter">Choose a filter:</label>
+    <select id="filter" name="filterProjects" required>
+        <option value="">Select Filter</option>
+        <option th:each="filter : ${filterList}" th:value="${filter}" th:text="${filter}"></option>
+    </select>
+    <button type="submit">Apply Filter</button>
+</form>
+
+
 <h2>Projects</h2>
 <table>
     <thead>

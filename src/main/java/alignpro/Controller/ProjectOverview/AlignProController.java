@@ -56,18 +56,18 @@ public class AlignProController {
     @GetMapping("/pm-dashboard/{pmUserID}")
     public String getDashboard(@PathVariable("pmUserID") int pmUserID, Model model){
         DashBoard_DTO dashboard = alignProService.dataDashBoard(pmUserID);
+        List<String> filterList = dashboard.filterList();
         model.addAttribute("data", dashboard);
+        model.addAttribute("filterList", filterList);
         return "pm-Dashboard";
         //next is to implement logic for Task and subtask when the classes are made
     }
 
-    @GetMapping("/pm-dashboard/filter/{filterProjects}")
-    public String getfilterDashBoard(@PathVariable("filterProjects") String filterProjects, Model model){
+    @GetMapping("/pm-dashboard/filter")
+    public String getfilterDashBoard(@RequestParam("filterProjects") String filterProjects, Model model){
         DashBoard_DTO unFilteredDashBoard = alignProService.dataDashBoard(1);
-        //DashBoard_DTO dashBoard = alignProService.filter
-
-
-
+        unFilteredDashBoard.filter(filterProjects);
+        model.addAttribute("data", unFilteredDashBoard);
         return "pm-Dashboard";
     }
 
