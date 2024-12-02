@@ -4,9 +4,11 @@ package alignpro.Repository;
 import alignpro.Model.*;
 import alignpro.Model.Projects.Project;
 import alignpro.Model.Projects.SubProject;
+import alignpro.Model.Projects.SubTask;
 import alignpro.Model.Projects.Task;
 import alignpro.Repository.Interfaces.IFAlignProRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
@@ -359,6 +361,37 @@ public class AlignProRepository implements IFAlignProRepository {
             throw new RuntimeException(e);
         }
         return tasks;
+    }
+
+    public List<SubTask> getSubTaskForTask(int taskID){
+        List<SubTask> subTasks = new ArrayList<>();
+        String sqlString = """
+                SELECT SubTaskID, SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement, TaskID
+                FROM SubTask
+                WHERE TaskID = ?;
+                """;
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, taskID);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                SubTask subTask = new SubTask();
+                subTask.setSubTaskID(rs.getInt("SubTaskID"));
+                subTask.setSubTaskName(rs.getString("SubTaskName"));
+                subTask.setStartDate(rs.getString("StartDate"));
+                subTask.setEndDate(rs.getString("EndDate"));
+                subTask.setTime(rs.getInt("EstimatedTime"));
+                subTask.setSubTaskDescription(rs.getString("SubTaskDescription"));
+                subTask.setSkillRequirement(rs.getString("SkillRequirement"));
+                subTask.setTaskID(rs.getInt("TaskID"));
+                subTasks.add(subTask);
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        return subTasks;
     }
 
     @Override

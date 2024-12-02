@@ -3,37 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/styles/create-edit.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
 
-<h1>Create Employee</h1>
+<main>
+    <div class="wrapper">
+        <a href="/pm-dashboard/1" id="back"><i class='bx bx-arrow-back'></i></a>
+        <form th:action="@{/saveEmployee}" th:object="${employeeObj}" method="post">
+            <h1>Create an Employee</h1>
+            <hr>
+            <div class="input-box">
+                <input type="text" id="employeeName" name="name" placeholder="Enter Employee Name" th:field="*{employeeName}" required>
+                <i class='bx bx-user-plus'></i>
+            </div>
 
-<form th:action="@{/saveEmployee}" th:object="${employeeObj}" method="post">
-    <div>
-        <label for="employeeName">Name:</label>
-        <input type="text" id="employeeName" name="name" th:field="*{employeeName}" required>
+            <h2>Skills</h2>
+            <hr>
+            <div class="wrapper2">
+                <ul>
+                    <!-- Iterate through the list of all available skills -->
+                    <li th:each="skill : ${listOfSkills}">
+                        <label>
+                            <input type="checkbox"
+                                   name="skills"
+                                   th:value="${skill}"
+                                   th:checked="${employeeObj.skills.contains(skill)}">
+                            <span th:text="${skill}">Skill Name</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <button type="submit" class="btn">Create Employee</button>
+        </form>
     </div>
 
-    <h2>Skills</h2>
-    <div>
-        <ul>
-            <!-- Iterate through the list of all available skills -->
-            <li th:each="skill : ${listOfSkills}">
-                <label>
-                    <input type="checkbox"
-                           name="skills"
-                           th:value="${skill}"
-                           th:checked="${employeeObj.skills.contains(skill)}">
-                    <span th:text="${skill}">Skill Name</span>
-                </label>
-            </li>
-        </ul>
-    </div>
-
-    <!-- Submit button -->
-    <button type="submit">Save</button>
-</form>
-
+</main>
 
 </body>
 </html>

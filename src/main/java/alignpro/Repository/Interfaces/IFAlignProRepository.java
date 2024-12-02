@@ -3,6 +3,7 @@ package alignpro.Repository.Interfaces;
 import alignpro.Model.*;
 import alignpro.Model.Projects.Project;
 import alignpro.Model.Projects.SubProject;
+import alignpro.Model.Projects.SubTask;
 import alignpro.Model.Projects.Task;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface IFAlignProRepository {
 
     List<Task> getTaskForSubProject(int subProjectID);
 
-
+    List<SubTask> getSubTaskForTask(int taskID);
 
 
 
