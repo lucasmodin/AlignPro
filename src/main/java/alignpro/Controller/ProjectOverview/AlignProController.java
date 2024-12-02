@@ -61,6 +61,16 @@ public class AlignProController {
         //next is to implement logic for Task and subtask when the classes are made
     }
 
+    @GetMapping("/pm-dashboard/filter/{filterProjects}")
+    public String getfilterDashBoard(@PathVariable("filterProjects") String filterProjects, Model model){
+        DashBoard_DTO unFilteredDashBoard = alignProService.dataDashBoard(1);
+        DashBoard_DTO dashBoard = alignProService.filter
+
+
+
+        return "pm-Dashboard";
+    }
+
     @GetMapping("/{ID}/editEmployee")
     public String editEmployee(@PathVariable int ID, Model model){
         Employee objToUpdate = alignProService.getEmployee(ID);

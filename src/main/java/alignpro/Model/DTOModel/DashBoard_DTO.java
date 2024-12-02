@@ -1,7 +1,9 @@
 package alignpro.Model.DTOModel;
 
+import alignpro.Model.Projects.Project;
 import alignpro.Model.Projects.SubTask;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class DashBoard_DTO {
@@ -46,6 +48,19 @@ public class DashBoard_DTO {
 
     public void setSubTaskList(List<SubTaskDTO> subTaskList) {
         this.subTaskList = subTaskList;
+    }
+
+    //***** methods to sort itself *****//
+
+    public void filterList(String input) {
+        Iterator<ProjectDTO> iterator = projectList.iterator();
+
+        while (iterator.hasNext()) {
+            ProjectDTO item = iterator.next();
+            if (!item.getProjectName().contains(input)) {
+                iterator.remove(); // Removes items that do not contain the input
+            }
+        }
     }
 
 }

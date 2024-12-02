@@ -32,7 +32,7 @@ public class AlignProService {
     public DashBoard_DTO dataDashBoard(int pmUserID){
         DashBoard_DTO dataTransferObj = new DashBoard_DTO();
 
-        List<Project> projects = alignProRepository.getProjectsForPMUser();
+        List<Project> projects = alignProRepository.getProjectsForPMUser(pmUserID);
         List<SubProject> subProjects = alignProRepository.getSubProjectsForProject();
         List<Task> task = alignProRepository.getTaskForSubProject();
         List<SubTask> subTask = alignProRepository.getSubTaskForTask();
@@ -41,7 +41,6 @@ public class AlignProService {
 
         List<ProjectDTO> projectDTOSList = new ArrayList<>();
         for (Project pjoObj : projects){
-            if(stuffUnderPM.get(pjoObj.getProjectName()) != null){
                 ProjectDTO projectDTO = new ProjectDTO();
 
                 projectDTO.setFilter(stuffUnderPM.get(pjoObj.getProjectName()));
@@ -54,7 +53,7 @@ public class AlignProService {
                 projectDTOSList.add(projectDTO);
 
             }
-        }
+
 
         List<SubProjectDTO> subProjectDTOSList = new ArrayList<>();
         for (SubProject subProjectObj : subProjects){
