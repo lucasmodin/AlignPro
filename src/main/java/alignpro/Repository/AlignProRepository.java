@@ -430,10 +430,69 @@ public class AlignProRepository implements IFAlignProRepository {
 
 
 
+    /// ***************************** Mapping function to get DTO-Object ************************* ///
+
+    public List<Integer> pmUserProjectID(int pmUserID){
+        List<Integer> listofProjectIDS = new ArrayList<>();
 
 
+        try{
+
+            String sqlString = "SELECT (ProjectID) FROM PMUser_Project WHERE PMUserID = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1,pmUserID);
+
+            ResultSet rls = stmt.executeQuery();
+
+            while(rls.next()){
+                listofProjectIDS.add(rls.getInt("ProjectID"));
+            }
+
+        } catch(SQLException e){
+            throw new RuntimeException("could not match User to Projects" + e.getMessage());
+        }
+
+        return listofProjectIDS;
+    }
 
 
+    public Map<String,String> projectNamesToSubprojectandTask() {
+        String sqlString = "SELECT p.ProjectName, sp.SubProjectName, t.TaskName, st.SubTaskName FROM Project p LEFT JOIN SubProject sp ON p.ProjectID = sp.ProjectID LEFT JOIN Task t ON sp.SubProjectID = t.SubProjectID LEFT JOIN SubTask st ON t.TaskID = st.TaskID ORDER BY p.ProjectName, sp.SubProjectName, t.TaskName, st.SubTaskName;";
+
+        Map<String, String> mapping = new HashMap<>();
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                String projectName = resultSet.getString("ProjectName");
+
+                // Map SubProjectName to ProjectName
+                String subProjectName = resultSet.getString("SubProjectName");
+                if (subProjectName != null) {
+                    mapping.put(subProjectName, projectName);
+                }
+
+                // Map TaskName to ProjectName
+                String taskName = resultSet.getString("TaskName");
+                if (taskName != null) {
+                    mapping.put(taskName, projectName);
+                }
+
+                // Map SubTaskName to ProjectName
+                String subTaskName = resultSet.getString("SubTaskName");
+                if (subTaskName != null) {
+                    mapping.put(subTaskName, projectName);
+                }
+            }
+        }catch (SQLException e){
+            throw new RuntimeException("Not match project name to subproject, task and subtask" + e.getMessage());
+        }
+
+        return mapping;
+    }
 
 
 

@@ -3,6 +3,7 @@ package alignpro.Service;
 import alignpro.Model.*;
 import alignpro.Model.DTOModel.DashBoard_DTO;
 import alignpro.Model.DTOModel.ProjectDTO;
+import alignpro.Model.DTOModel.SubProjectDTO;
 import alignpro.Model.Projects.Project;
 import alignpro.Model.Projects.SubProject;
 import alignpro.Model.Projects.SubTask;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -26,66 +28,7 @@ public class AlignProService {
     }
 
 
-    public DashBoard_DTO standardDashBoardView (){
 
-        DashBoard_DTO dashBoard = new DashBoard_DTO();
-        dashBoard.
-
-        return
-    }
-
-
-    // Helper Methods to DashBoard convert from object to DTO object//
-
-    public List<ProjectDTO> convertProject(int pmUerID){
-        List<ProjectDTO> obj = new ArrayList<>();
-
-
-        List<Project> allProjects = getAllProjects(pmUerID);
-
-        if(allProjects != null){
-            for(Project objProject: allProjects){
-                ProjectDTO dtoObj = new ProjectDTO();
-
-                dtoObj.setFilter(objProject.getProjectName());
-                dtoObj.setProjectName(objProject.getProjectName());
-                dtoObj.setProjectDescription(objProject.getProjectDescription());
-                dtoObj.setStartDate(objProject.getStartDate());
-                dtoObj.setDeadLine(objProject.getDeadLine());
-
-                obj.add(dtoObj);
-            }
-        } else {
-            return obj;
-        }
-
-        return obj;
-    }
-
-    public List<ProjectDTO> convertSubProject(int pmUerID){
-        List<ProjectDTO> obj = new ArrayList<>();
-
-
-        List<Project> allProjects = getAllProjects(pmUerID);
-
-        if(allProjects != null){
-            for(Project objProject: allProjects){
-                ProjectDTO dtoObj = new ProjectDTO();
-
-                dtoObj.setFilter(objProject.getProjectName());
-                dtoObj.setProjectName(objProject.getProjectName());
-                dtoObj.setProjectDescription(objProject.getProjectDescription());
-                dtoObj.setStartDate(objProject.getStartDate());
-                dtoObj.setDeadLine(objProject.getDeadLine());
-
-                obj.add(dtoObj);
-            }
-        } else {
-            return obj;
-        }
-
-        return obj;
-    }
 
 
     //PM dashboard methods
@@ -134,6 +77,93 @@ public class AlignProService {
 
 
 
+    //TODO this is old methods, did an redesign.
+    /*
+
+    public DashBoard_DTO pmDashBoardView (int pmUserID){
+
+        DashBoard_DTO dashBoard = new DashBoard_DTO();
+        dashBoard.setProjectList(convertProject(pmUserID));
+        dashBoard.setSubProjectList(convertSubProject(pmUserID));
+
+
+        return
+    }
+
+
+    // Helper Methods to DashBoard convert from object to DTO object//
+
+    public List<ProjectDTO> convertProject(int pmUerID){
+        List<ProjectDTO> obj = new ArrayList<>();
+
+
+        List<Project> allProjects = getAllProjects(pmUerID);
+
+        if(allProjects != null){
+            for(Project objProject: allProjects){
+                ProjectDTO dtoObj = new ProjectDTO();
+
+                dtoObj.setFilter(objProject.getProjectName());
+                dtoObj.setProjectName(objProject.getProjectName());
+                dtoObj.setProjectDescription(objProject.getProjectDescription());
+                dtoObj.setStartDate(objProject.getStartDate());
+                dtoObj.setDeadLine(objProject.getDeadLine());
+
+                obj.add(dtoObj);
+            }
+        } else {
+            return obj;
+        }
+
+        return obj;
+    }
+
+    public List<SubProjectDTO> convertSubProject(int pmUerID){
+
+        List<SubProjectDTO> obj = new ArrayList<>();
+
+
+        List<Integer> projectIDs = pmSubProjectID(pmUerID);
+
+    if (projectIDs != null){
+        for(Integer ids : projectIDs){
+            for (SubProject subProObj : getAllSubProjects(ids)){
+                SubProjectDTO dtoObj = new SubProjectDTO();
+
+                dtoObj.setFilter(getAllProjects(pmUerID).get(ids).getProjectName());
+
+                dtoObj.setSubProjectName(subProObj.getSubProjectName());
+                dtoObj.setSubProjectDescription(subProObj.getSubProjectDescription());
+                dtoObj.setStartDate(subProObj.getStartDate());
+                dtoObj.setEndDate(subProObj.getEndDate());
+                dtoObj.setSumTime(subProObj.getSumTime());
+
+                obj.add(dtoObj);
+            }
+        }
+
+    } else {
+        return obj;
+    }
+
+    return obj;
+    }
+
+
+    // Helper method connect PMUser to Project ID
+    public List<Integer> pmSubProjectID(int pmUserID){
+        return alignProRepository.pmUserProjectID(pmUserID);
+    }
+
+    public List<Integer> subProjectIDtoTask(int pmUserID){
+        List<Integer> subProjectsConnectedToProjectID = pmSubProjectID(pmUserID);
+        List<Integer>
+        for ()
+
+    }
+
+
+     */
 
 
 

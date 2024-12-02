@@ -17,4 +17,54 @@ public class SubProjectDTO {
     //Empty konstruct for now
     public SubProjectDTO(){}
 
+
+    //************************* Setter and getters *******************************//
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
+
+    public String getSubProjectName() {
+        return subProjectName;
+    }
+
+    public void setSubProjectName(String subProjectName) {
+        this.subProjectName = subProjectName;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public int getSumTime() {
+        return sumTime;
+    }
+
+    public void setSumTime(int sumTime) {
+        this.sumTime = sumTime;
+    }
+
+    public String getSubProjectDescription() {
+        return subProjectDescription;
+    }
+
+    public void setSubProjectDescription(String subProjectDescription) {
+        this.subProjectDescription = subProjectDescription;
+    }
+
 }

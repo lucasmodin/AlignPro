@@ -49,4 +49,10 @@ public interface IFAlignProRepository {
     List<String> getListOfSkills();
 
 
+    /// ***************************** Mapping function to get DTO-Object ************************* ///
+
+    List<Integer> pmUserProjectID(int pmUserID);
+
+    Map<String,String> projectNamesToSubprojectandTask();
+
 }
