@@ -5,6 +5,35 @@
 </head>
 <body>
 <h1>PM Dashboard</h1>
+
+<ul>
+    <li th:each="projectHierarchy : ${projectHierarchies}">
+        <h2 th:text="${projectHierarchy.project.projectName}"></h2>
+        <p th:text="${projectHierarchy.project.projectDescription}"></p>
+
+        <ul>
+            <li th:each="subProjectHierarchy : ${projectHierarchy.subProjects}">
+                <h3 th:text="${subProjectHierarchy.subProject.subProjectName}"></h3>
+                <p th:text="${subProjectHierarchy.subProject.subProjectDescription}"></p>
+
+                <ul>
+                    <li th:each="taskHierarchy : ${subProjectHierarchy.tasks}">
+                        <h4 th:text="${taskHierarchy.task.taskName}"></h4>
+                        <p th:text="${taskHierarchy.task.taskDescription}"></p>
+
+                        <ul>
+                            <li th:each="subTask : ${taskHierarchy.subTasks}">
+                                <h5 th:text="${subTask.subTaskName}"></h5>
+                                <p th:text="${subTask.subTaskDescription}"></p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<!--
 <table>
     <thead>
     <tr>
@@ -112,7 +141,7 @@
                 <button type="submit">Delete sub-task</button>
             </form>
         </td>
-
+-->
         <!--
         <td>
             <a th:href="@{/projects/edit-project/{projectID}(projectID=${row.project?.projectID})}">Edit Project</a>
@@ -128,9 +157,10 @@
                 <button type="submit">Delete sub-project</button>
             </form>
         </td>
-        -->
+
     </tr>
     </tbody>
 </table>
+-->
 </body>
 </html>

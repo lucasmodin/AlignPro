@@ -2,10 +2,7 @@ package alignpro.Controller.ProjectOverview;
 
 
 import alignpro.Model.*;
-import alignpro.Model.Projects.Project;
-import alignpro.Model.Projects.SubProject;
-import alignpro.Model.Projects.SubTask;
-import alignpro.Model.Projects.Task;
+import alignpro.Model.Projects.*;
 import alignpro.Service.AlignProService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,40 +51,77 @@ public class AlignProController {
     //TODO fix endpoint when user/login session is implemented
     @GetMapping("/pm-dashboard/{pmUserID}")
     public String getDashboard(@PathVariable("pmUserID") int pmUserID, Model model){
-        List<PMDashboardRow> dashboardRows = new ArrayList<>();
+//        List<PMDashboardRow> dashboardRows = new ArrayList<>();
+//        List<Project> projects = alignProService.getAllProjects(pmUserID);
+
+//        for (Project project : projects) {
+//            List<SubProject> subProjects = alignProService.getAllSubProjects(project.getProjectID());
+//
+//            if (subProjects.isEmpty()) {
+//                dashboardRows.add(new PMDashboardRow(project, null, null, null));
+//            } else {
+//                for (SubProject subProject : subProjects) {
+//                    List<Task> tasks = alignProService.getAllTasks(subProject.getSubProjectID());
+//
+//                    if(tasks.isEmpty()){
+//                        dashboardRows.add(new PMDashboardRow(project, subProject, null, null));
+//                    } else{
+//                        for (Task task : tasks){
+//                            List<SubTask> subTasks = alignProService.getAllSubTasks(task.getTaskID());
+//
+//                            if(subTasks.isEmpty()){
+//                                dashboardRows.add(new PMDashboardRow(project, subProject, task, null));
+//                            } else{
+//                                for(SubTask subTask : subTasks){
+//                                    dashboardRows.add(new PMDashboardRow(project, subProject, task, subTask));
+//
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+
+//        }
+
+        List<ProjectHierarchy> projectHierarchies = new ArrayList<>();
         List<Project> projects = alignProService.getAllProjects(pmUserID);
 
         for (Project project : projects) {
+            ProjectHierarchy projectHierarchy = new ProjectHierarchy();
+            projectHierarchy.setProject(project);
+
+            List<SubProjectHierarchy> subProjectHierarchies = new ArrayList<>();
             List<SubProject> subProjects = alignProService.getAllSubProjects(project.getProjectID());
 
-            if (subProjects.isEmpty()) {
-                dashboardRows.add(new PMDashboardRow(project, null, null, null));
-            } else {
-                for (SubProject subProject : subProjects) {
-                    List<Task> tasks = alignProService.getAllTasks(subProject.getSubProjectID());
+            for (SubProject subProject : subProjects) {
+                SubProjectHierarchy subProjectHierarchy = new SubProjectHierarchy();
+                subProjectHierarchy.setSubProject(subProject);
 
-                    if(tasks.isEmpty()){
-                        dashboardRows.add(new PMDashboardRow(project, subProject, null, null));
-                    } else{
-                        for (Task task : tasks){
-                            List<SubTask> subTasks = alignProService.getAllSubTasks(task.getTaskID());
+                List<TaskHierarchy> taskHierarchies = new ArrayList<>();
+                List<Task> tasks = alignProService.getAllTasks(subProject.getSubProjectID());
 
-                            if(subTasks.isEmpty()){
-                                dashboardRows.add(new PMDashboardRow(project, subProject, task, null));
-                            } else{
-                                for(SubTask subTask : subTasks){
-                                    dashboardRows.add(new PMDashboardRow(project, subProject, task, subTask));
-                                }
-                            }
-                        }
-                    }
+                for (Task task : tasks) {
+                    TaskHierarchy taskHierarchy = new TaskHierarchy();
+                    taskHierarchy.setTask(task);
+
+                    List<SubTask> subTasks = alignProService.getAllSubTasks(task.getTaskID());
+                    taskHierarchy.setSubTasks(subTasks);
+
+                    taskHierarchies.add(taskHierarchy);
                 }
+
+                subProjectHierarchy.setTasks(taskHierarchies);
+                subProjectHierarchies.add(subProjectHierarchy);
             }
 
+            projectHierarchy.setSubProjects(subProjectHierarchies);
+            projectHierarchies.add(projectHierarchy);
         }
-
-        model.addAttribute("dashboardRows", dashboardRows);
+        model.addAttribute("projectHierarchies", projectHierarchies);
         return "pm-Dashboard";
+//        model.addAttribute("dashboardRows", dashboardRows);
+//        return "pm-Dashboard";
         //next is to implement logic for Task and subtask when the classes are made
     }
 
