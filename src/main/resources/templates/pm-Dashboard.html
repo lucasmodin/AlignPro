@@ -12,11 +12,16 @@
         <th>Project Start Date</th>
         <th>Project Deadline</th>
         <th>Project Description</th>
+        <th>Edit</th>
+        <th>Delete</th>
 
         <th>SubProject Name</th>
         <th>SubProject Start Date</th>
         <th>Subproject End date</th>
         <th>Subproject Description</th>
+        <th>Add</th>
+        <th>Edit</th>
+        <th>Delete</th>
 
         <th>Task Name</th>
         <th>Task Start Date</th>
@@ -24,6 +29,9 @@
         <th>Task Description</th>
         <th>Task Time</th>
         <th>Task Skills</th>
+        <th>Add</th>
+        <th>Edit</th>
+        <th>Delete</th>
 
         <th>SubTask Name</th>
         <th>SubTask Start Date</th>
@@ -31,6 +39,9 @@
         <th>SubTask Description</th>
         <th>SubTask Time</th>
         <th>SubTask Skills</th>
+        <th>Add</th>
+        <th>Edit</th>
+        <th>Delete</th>
 
         <th>Actions</th>
     </tr>
@@ -41,11 +52,30 @@
         <td th:text="${row.project?.startDate}"></td>
         <td th:text="${row.project?.deadLine}"></td>
         <td th:text="${row.project?.projectDescription}"></td>
+        <td>
+            <a th:href="@{/projects/edit-project/{projectID}(projectID=${row.project?.projectID})}">Edit Project</a>
+        </td>
+        <td>
+            <form th:action="@{/projects/delete-project/{projectID}(projectID=${row.project?.getProjectID()})}" method="post">
+                <button type="submit">Delete project</button>
+            </form>
+        </td>
 
         <td th:text="${row.subProject?.subProjectName ?: 'N/A'}"></td>
         <td th:text="${row.subProject?.startDate ?: 'N/A'}"></td>
         <td th:text="${row.subProject?.endDate ?: 'N/A'}"></td>
         <td th:text="${row.subProject?.subProjectDescription ?: 'N/A'}"></td>
+        <td>
+            <a th:href="@{/subProjects/createSubProject/{projectID}(projectID=${row.project?.projectID})}">Create sub-project</a>
+        </td>
+        <td>
+            <a th:href="@{/subProjects/edit-subproject/{subProjectID}(subProjectID=${row.subProject?.subProjectID})}">Edit Subproject</a>
+        </td>
+        <td>
+            <form th:action="@{/subProjects/deleteSubProject/{subProjectID}(subProjectID=${row.subProject?.getSubProjectID()})}" method="post">
+                <button type="submit">Delete sub-project</button>
+            </form>
+        </td>
 
         <td th:text="${row.task?.taskName ?: 'N/A'}"></td>
         <td th:text="${row.task?.startDate ?: 'N/A'}"></td>
@@ -53,6 +83,17 @@
         <td th:text="${row.task?.taskDescription ?: 'N/A'}"></td>
         <td th:text="${row.task?.estimatedTime ?: 'N/A'}"></td>
         <td th:text="${row.task?.skillRequirement ?: 'N/A'}"></td>
+        <td>
+            <a th:href="@{//createTask/{subProjectID}(subProjectID=${row.subProject?.subProjectID})}">Create Task</a>
+        </td>
+        <td>
+            <a th:href="@{/edit-task/{taskID}(taskID=${row.task?.taskID})}">Edit Task</a>
+        </td>
+        <td>
+            <form th:action="@{/tasks/deleteTask/{taskID}(taskID=${row.task?.getTaskID()})}" method="post">
+                <button type="submit">Delete Task</button>
+            </form>
+        </td>
 
         <td th:text="${row.subTask?.subTaskName ?: 'N/A'}"></td>
         <td th:text="${row.subTask?.startDate ?: 'N/A'}"></td>
@@ -60,7 +101,17 @@
         <td th:text="${row.subTask?.subTaskDescription ?: 'N/A'}"></td>
         <td th:text="${row.subTask?.time ?: 'N/A'}"></td>
         <td th:text="${row.subTask?.skillRequirement ?: 'N/A'}"></td>
-
+        <td>
+            <a th:href="@{/createSubTask/{taskID}(taskID=${row.task?.taskID})}">Create sub-task</a>
+        </td>
+        <td>
+            <a th:href="@{/edit-subTask/{subTaskID}(subTaskID=${row.subTask?.subTaskID})}">Edit Sub-task</a>
+        </td>
+        <td>
+            <form th:action="@{/subTasks/deleteSubTask/{subTaskID}(subTaskID=${row.subTask?.getSubTaskID()})}" method="post">
+                <button type="submit">Delete sub-task</button>
+            </form>
+        </td>
 
         <!--
         <td>
