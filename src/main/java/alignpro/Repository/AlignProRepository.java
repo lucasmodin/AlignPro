@@ -42,18 +42,18 @@ public class AlignProRepository implements IFAlignProRepository {
     //By having a autowire on the dbconnection we ensure that spring loads the instans of dbconnection to the repo.
     @Autowired
     public AlignProRepository(DBConnection dbConnection) {
-        this.dbConnection = dbConnection;
+        this.conn = dbConnection.getConnection();
     }
 
     //PostConstruct runes functions after we have generated the constructor
     //remove problem with beans.
 
     //after the autowire we should have all dependacies injected to repo, and now we make the connection by calling a method that does that
-    @PostConstruct
+    /*@PostConstruct
     @Override
     public void setConn() {
         this.conn = dbConnection.getConnection();
-    }
+    }*/
 
     //Methods to manage employees;
 

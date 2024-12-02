@@ -29,14 +29,14 @@ public class ProjectRepository implements IProjectRepository {
 
     @Autowired
     public ProjectRepository(DBConnection dbConnection) {
-        this.dbConnection = dbConnection;
+        this.conn = dbConnection.getConnection();
     }
 
-    @PostConstruct
+    /*@PostConstruct
     @Override
     public void setConn() {
         this.conn = dbConnection.getConnection();
-    }
+    }*/
 
 
     //************************* Save Method *******************************//

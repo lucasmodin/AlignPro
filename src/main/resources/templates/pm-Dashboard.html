@@ -84,10 +84,10 @@
         <td th:text="${row.task?.estimatedTime ?: 'N/A'}"></td>
         <td th:text="${row.task?.skillRequirement ?: 'N/A'}"></td>
         <td>
-            <a th:href="@{//createTask/{subProjectID}(subProjectID=${row.subProject?.subProjectID})}">Create Task</a>
+            <a th:href="@{/tasks/createTask/{subProjectID}(subProjectID=${row.subProject?.subProjectID})}">Create Task</a>
         </td>
         <td>
-            <a th:href="@{/edit-task/{taskID}(taskID=${row.task?.taskID})}">Edit Task</a>
+            <a th:href="@{/tasks/edit-task/{taskID}(taskID=${row.task?.taskID})}">Edit Task</a>
         </td>
         <td>
             <form th:action="@{/tasks/deleteTask/{taskID}(taskID=${row.task?.getTaskID()})}" method="post">
@@ -102,10 +102,10 @@
         <td th:text="${row.subTask?.time ?: 'N/A'}"></td>
         <td th:text="${row.subTask?.skillRequirement ?: 'N/A'}"></td>
         <td>
-            <a th:href="@{/createSubTask/{taskID}(taskID=${row.task?.taskID})}">Create sub-task</a>
+            <a th:href="@{/subTasks/createSubTask/{taskID}(taskID=${row.task?.taskID})}">Create sub-task</a>
         </td>
         <td>
-            <a th:href="@{/edit-subTask/{subTaskID}(subTaskID=${row.subTask?.subTaskID})}">Edit Sub-task</a>
+            <a th:href="@{/subTasks/edit-subTask/{subTaskID}(subTaskID=${row.subTask?.subTaskID})}">Edit Sub-task</a>
         </td>
         <td>
             <form th:action="@{/subTasks/deleteSubTask/{subTaskID}(subTaskID=${row.subTask?.getSubTaskID()})}" method="post">

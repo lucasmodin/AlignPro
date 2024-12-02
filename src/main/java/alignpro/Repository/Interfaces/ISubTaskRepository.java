@@ -4,7 +4,7 @@ import alignpro.Model.Projects.SubTask;
 
 public interface ISubTaskRepository {
 
-    void setConn();
+    //void setConn();
 
     SubTask getSubTask(int subTaskID);
 

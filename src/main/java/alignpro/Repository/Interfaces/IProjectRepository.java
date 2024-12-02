@@ -4,7 +4,7 @@ import alignpro.Model.Projects.Project;
 
 public interface IProjectRepository {
 
-    void setConn();
+    //void setConn();
 
     void saveProject(String projectName, String startDate,String deadLine, String projectDescription);
 
