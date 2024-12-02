@@ -51,42 +51,10 @@ public class AlignProController {
     }
 
 
-    //TODO fix endpoint when user/login session is implemented
+    //TODO this is empty for now as I need to rewrite Logic
     @GetMapping("/pm-dashboard/{pmUserID}")
     public String getDashboard(@PathVariable("pmUserID") int pmUserID, Model model){
-        List<PMDashboardRow> dashboardRows = new ArrayList<>();
-        List<Project> projects = alignProService.getAllProjects(pmUserID);
 
-        for (Project project : projects) {
-            List<SubProject> subProjects = alignProService.getAllSubProjects(project.getProjectID());
-
-            if (subProjects.isEmpty()) {
-                dashboardRows.add(new PMDashboardRow(project, null, null, null));
-            } else {
-                for (SubProject subProject : subProjects) {
-                    List<Task> tasks = alignProService.getAllTasks(subProject.getSubProjectID());
-
-                    if(tasks.isEmpty()){
-                        dashboardRows.add(new PMDashboardRow(project, subProject, null, null));
-                    } else{
-                        for (Task task : tasks){
-                            List<SubTask> subTasks = alignProService.getAllSubTasks(task.getTaskID());
-
-                            if(subTasks.isEmpty()){
-                                dashboardRows.add(new PMDashboardRow(project, subProject, task, null));
-                            } else{
-                                for(SubTask subTask : subTasks){
-                                    dashboardRows.add(new PMDashboardRow(project, subProject, task, subTask));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-
-        model.addAttribute("dashboardRows", dashboardRows);
         return "pm-Dashboard";
         //next is to implement logic for Task and subtask when the classes are made
     }
