@@ -26,6 +26,14 @@ main {
     background: white;
 }
 
+.wrapper2{
+    text-align: justify;
+}
+
+.wrapper2 ul{
+    margin-left: 55px;
+}
+
 #wrapperSecondform{
     height: 800px;
 }

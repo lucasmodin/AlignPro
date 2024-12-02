@@ -3,24 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/styles/create-edit.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
 
-<form th:action="@{/updateEmployee}" th:object="${EmployeeObj}" method="post">
-  <input type="hidden" name="employeeID" id="employeeID" th:value="${EmployeeObj.employeeID}">
+<main>
+    <div class="wrapper">
+        <a href="/pm-dashboard/1" id="back"><i class='bx bx-arrow-back'></i></a>
+        <form th:action="@{/updateEmployee}" th:object="${EmployeeObj}" method="post">
+        <input type="hidden" name="employeeID" id="employeeID" th:value="${EmployeeObj.employeeID}">
+            <h1>Edit Employee</h1>
+            <hr>
+            <div class="input-box">
+                <input type="text" id="employeeName" name="name" placeholder="Edit Employee Name" th:field="*{employeeName}" required>
+                <i class='bx bx-user-plus'></i>
+            </div>
 
-  <label for="employeeName">Name</label>
-  <input class="text-input" type="text" name="employeeName" id="employeeName" th:field="*{employeeName}">
+            <h2>Skills</h2>
+            <hr>
+            <div class="wrapper2">
+                <ul>
+                    <!-- Iterate through the list of all available skills -->
+                    <li th:each="skill : ${Skills}">
+                        <label>
+                            <input type="checkbox"
+                                   name="skills"
+                                   th:field="*{skills}"
+                                   th:value="${skill}">
+                            <span th:text="${skill}">Skill Name</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
 
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
 
-
-
-  <th:block th:each="skill : ${Skills}">
-    <input type="checkbox" name="skills" id="skills" th:field="*{skills}" th:value="${skill}" th:text="${skill}">
-  </th:block>
-
-  <button type="submit">Update Employee</button>
-</form>
-
+</main>
 </body>
 </html>
