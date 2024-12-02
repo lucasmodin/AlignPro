@@ -11,10 +11,27 @@
         <th>Project Name</th>
         <th>Project Start Date</th>
         <th>Project Deadline</th>
+        <th>Project Description</th>
+
         <th>SubProject Name</th>
         <th>SubProject Start Date</th>
+        <th>Subproject End date</th>
+        <th>Subproject Description</th>
+
         <th>Task Name</th>
+        <th>Task Start Date</th>
+        <th>Task End date</th>
+        <th>Task Description</th>
+        <th>Task Time</th>
+        <th>Task Skills</th>
+
         <th>SubTask Name</th>
+        <th>SubTask Start Date</th>
+        <th>SubTask End date</th>
+        <th>SubTask Description</th>
+        <th>SubTask Time</th>
+        <th>SubTask Skills</th>
+
         <th>Actions</th>
     </tr>
     </thead>
@@ -23,8 +40,29 @@
         <td th:text="${row.project?.projectName}"></td>
         <td th:text="${row.project?.startDate}"></td>
         <td th:text="${row.project?.deadLine}"></td>
+        <td th:text="${row.project?.projectDescription}"></td>
+
         <td th:text="${row.subProject?.subProjectName ?: 'N/A'}"></td>
         <td th:text="${row.subProject?.startDate ?: 'N/A'}"></td>
+        <td th:text="${row.subProject?.endDate ?: 'N/A'}"></td>
+        <td th:text="${row.subProject?.subProjectDescription ?: 'N/A'}"></td>
+
+        <td th:text="${row.task?.taskName ?: 'N/A'}"></td>
+        <td th:text="${row.task?.startDate ?: 'N/A'}"></td>
+        <td th:text="${row.task?.endDate ?: 'N/A'}"></td>
+        <td th:text="${row.task?.taskDescription ?: 'N/A'}"></td>
+        <td th:text="${row.task?.estimatedTime ?: 'N/A'}"></td>
+        <td th:text="${row.task?.skillRequirement ?: 'N/A'}"></td>
+
+        <td th:text="${row.subTask?.subTaskName ?: 'N/A'}"></td>
+        <td th:text="${row.subTask?.startDate ?: 'N/A'}"></td>
+        <td th:text="${row.subTask?.endDate ?: 'N/A'}"></td>
+        <td th:text="${row.subTask?.subTaskDescription ?: 'N/A'}"></td>
+        <td th:text="${row.subTask?.time ?: 'N/A'}"></td>
+        <td th:text="${row.subTask?.skillRequirement ?: 'N/A'}"></td>
+
+
+        <!--
         <td>
             <a th:href="@{/projects/edit-project/{projectID}(projectID=${row.project?.projectID})}">Edit Project</a>
         </td>
@@ -39,6 +77,7 @@
                 <button type="submit">Delete sub-project</button>
             </form>
         </td>
+        -->
     </tr>
     </tbody>
 </table>

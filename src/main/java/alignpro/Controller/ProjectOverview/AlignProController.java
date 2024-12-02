@@ -4,6 +4,8 @@ package alignpro.Controller.ProjectOverview;
 import alignpro.Model.*;
 import alignpro.Model.Projects.Project;
 import alignpro.Model.Projects.SubProject;
+import alignpro.Model.Projects.SubTask;
+import alignpro.Model.Projects.Task;
 import alignpro.Service.AlignProService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,10 +61,26 @@ public class AlignProController {
             List<SubProject> subProjects = alignProService.getAllSubProjects(project.getProjectID());
 
             if (subProjects.isEmpty()) {
-                dashboardRows.add(new PMDashboardRow(project, null));
+                dashboardRows.add(new PMDashboardRow(project, null, null, null));
             } else {
                 for (SubProject subProject : subProjects) {
-                    dashboardRows.add(new PMDashboardRow(project, subProject));
+                    List<Task> tasks = alignProService.getAllTasks(subProject.getSubProjectID());
+
+                    if(tasks.isEmpty()){
+                        dashboardRows.add(new PMDashboardRow(project, subProject, null, null));
+                    } else{
+                        for (Task task : tasks){
+                            List<SubTask> subTasks = alignProService.getAllSubTasks(task.getTaskID());
+
+                            if(subTasks.isEmpty()){
+                                dashboardRows.add(new PMDashboardRow(project, subProject, task, null));
+                            } else{
+                                for(SubTask subTask : subTasks){
+                                    dashboardRows.add(new PMDashboardRow(project, subProject, task, subTask));
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
