@@ -15,13 +15,8 @@ public interface IFAlignProRepository {
 
     //pm dashboard methods
 
-    List<SubProject> getSubProjectsForProject(int projectID);
-
     List<Project> getProjectsForPMUser(int pmUserID);
 
-    List<Task> getTaskForSubProject(int subProjectID);
-
-    List<SubTask> getSubTaskForTask(int taskID);
 
 
 
@@ -48,5 +43,19 @@ public interface IFAlignProRepository {
 
     List<String> getListOfSkills();
 
+
+    /// ***************************** Mapping function to get DTO-Object ************************* ///
+
+    List<Integer> pmUserProjectID(int pmUserID);
+
+    Map<String,String> projectNamesToSubprojectandTask(int PmUserID);
+
+    List<Project> getProjectsForPMUser();
+
+    List<SubProject> getSubProjectsForProject();
+
+    List<Task> getTaskForSubProject();
+
+    List<SubTask> getSubTaskForTask();
 
 }

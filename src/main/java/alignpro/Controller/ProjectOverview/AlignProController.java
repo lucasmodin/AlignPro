@@ -2,9 +2,12 @@ package alignpro.Controller.ProjectOverview;
 
 
 import alignpro.Model.*;
-import alignpro.Model.Projects.*;
+import alignpro.Model.DTOModel.DashBoard_DTO;
+import alignpro.Model.Projects.Project;
+import alignpro.Model.Projects.SubProject;
+import alignpro.Model.Projects.SubTask;
+import alignpro.Model.Projects.Task;
 import alignpro.Service.AlignProService;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -49,81 +52,25 @@ public class AlignProController {
     }
 
 
-    //TODO fix endpoint when user/login session is implemented
+    //TODO this is empty for now as I need to rewrite Logic
     @GetMapping("/pm-dashboard/{pmUserID}")
     public String getDashboard(@PathVariable("pmUserID") int pmUserID, Model model){
-//        List<PMDashboardRow> dashboardRows = new ArrayList<>();
-//        List<Project> projects = alignProService.getAllProjects(pmUserID);
-
-//        for (Project project : projects) {
-//            List<SubProject> subProjects = alignProService.getAllSubProjects(project.getProjectID());
-//
-//            if (subProjects.isEmpty()) {
-//                dashboardRows.add(new PMDashboardRow(project, null, null, null));
-//            } else {
-//                for (SubProject subProject : subProjects) {
-//                    List<Task> tasks = alignProService.getAllTasks(subProject.getSubProjectID());
-//
-//                    if(tasks.isEmpty()){
-//                        dashboardRows.add(new PMDashboardRow(project, subProject, null, null));
-//                    } else{
-//                        for (Task task : tasks){
-//                            List<SubTask> subTasks = alignProService.getAllSubTasks(task.getTaskID());
-//
-//                            if(subTasks.isEmpty()){
-//                                dashboardRows.add(new PMDashboardRow(project, subProject, task, null));
-//                            } else{
-//                                for(SubTask subTask : subTasks){
-//                                    dashboardRows.add(new PMDashboardRow(project, subProject, task, subTask));
-//
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-
-//        }
-
-        List<ProjectHierarchy> projectHierarchies = new ArrayList<>();
-        List<Project> projects = alignProService.getAllProjects(pmUserID);
-
-        for (Project project : projects) {
-            ProjectHierarchy projectHierarchy = new ProjectHierarchy();
-            projectHierarchy.setProject(project);
-
-            List<SubProjectHierarchy> subProjectHierarchies = new ArrayList<>();
-            List<SubProject> subProjects = alignProService.getAllSubProjects(project.getProjectID());
-
-            for (SubProject subProject : subProjects) {
-                SubProjectHierarchy subProjectHierarchy = new SubProjectHierarchy();
-                subProjectHierarchy.setSubProject(subProject);
-
-                List<TaskHierarchy> taskHierarchies = new ArrayList<>();
-                List<Task> tasks = alignProService.getAllTasks(subProject.getSubProjectID());
-
-                for (Task task : tasks) {
-                    TaskHierarchy taskHierarchy = new TaskHierarchy();
-                    taskHierarchy.setTask(task);
-
-                    List<SubTask> subTasks = alignProService.getAllSubTasks(task.getTaskID());
-                    taskHierarchy.setSubTasks(subTasks);
-
-                    taskHierarchies.add(taskHierarchy);
-                }
-
-                subProjectHierarchy.setTasks(taskHierarchies);
-                subProjectHierarchies.add(subProjectHierarchy);
-            }
-
-            projectHierarchy.setSubProjects(subProjectHierarchies);
-            projectHierarchies.add(projectHierarchy);
-        }
-        model.addAttribute("projectHierarchies", projectHierarchies);
+        DashBoard_DTO dashboard = alignProService.dataDashBoard(pmUserID);
+        List<String> filterList = dashboard.filterList();
+        model.addAttribute("data", dashboard);
+        model.addAttribute("filterList", filterList);
         return "pm-Dashboard";
-//        model.addAttribute("dashboardRows", dashboardRows);
-//        return "pm-Dashboard";
         //next is to implement logic for Task and subtask when the classes are made
+    }
+
+
+    //TODO it needs to get Project Manager PrimaryKey from Session to be able to get correct data.
+    @GetMapping("/pm-dashboard/filter")
+    public String getfilterDashBoard(@RequestParam("filterProjects") String filterProjects, Model model){
+        DashBoard_DTO unFilteredDashBoard = alignProService.dataDashBoard(1);
+        unFilteredDashBoard.filter(filterProjects);
+        model.addAttribute("data", unFilteredDashBoard);
+        return "pm-Dashboard";
     }
 
     @GetMapping("/{ID}/editEmployee")
@@ -145,9 +92,5 @@ public class AlignProController {
     }
 
 
-    @GetMapping("/login")
-    public String login(Model model){
-        return "login";
-    }
 
 }
