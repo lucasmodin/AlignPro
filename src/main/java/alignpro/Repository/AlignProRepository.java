@@ -335,101 +335,6 @@ public class AlignProRepository implements IFAlignProRepository {
         return projects;
     }
 
-    @Override
-    public List<SubProject> getSubProjectsForProject(int projectID) {
-        List<SubProject> subProjects = new ArrayList<>();
-        String sql = """
-                SELECT SubprojectID, SubProjectName, StartDate, EndDate, SumTime, SubProjectDescription, ProjectID
-                FROM SubProject
-                WHERE ProjectID = ?;
-                """;
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, projectID);
-
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                SubProject subProject = new SubProject();
-                subProject.setSubProjectID(rs.getInt("SubprojectID"));
-                subProject.setSubProjectName(rs.getString("SubProjectName"));
-                subProject.setStartDate(rs.getString("StartDate"));
-                subProject.setEndDate(rs.getString("EndDate"));
-                subProject.setFkProjectID(rs.getInt("ProjectID"));
-                subProject.setSubProjectDescription(rs.getString("SubProjectDescription"));
-                subProjects.add(subProject);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return subProjects;
-    }
-
-    @Override
-    public List<Task> getTaskForSubProject(int subProjectID){
-        List<Task> tasks = new ArrayList<>();
-        String sqlString = """
-                SELECT TaskID, TaskName, StartDate, EndDate, EstimatedTime, TaskDescription, SkillRequirement, SubProjectID
-                FROM Task
-                WHERE SubProjectID = ?;
-                """;
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setInt(1, subProjectID);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Task task = new Task();
-                task.setTaskID(rs.getInt("TaskID"));
-                task.setTaskName(rs.getString("TaskName"));
-                task.setStartDateString(rs.getString("StartDate"));
-                task.setEndDateString(rs.getString("EndDate"));
-                task.setEstimatedTime(rs.getInt("EstimatedTime"));
-                task.setTaskDescription(rs.getString("TaskDescription"));
-                task.setSkillRequirement(rs.getString("SkillRequirement"));
-                task.setSubProjectID(rs.getInt("SubProjectID"));
-                tasks.add(task);
-            }
-        }catch(SQLException e){
-            throw new RuntimeException(e);
-        }
-        return tasks;
-    }
-
-    @Override
-    public List<SubTask> getSubTaskForTask(int taskID){
-        List<SubTask> subTasks = new ArrayList<>();
-        String sqlString = """
-                SELECT SubTaskID, SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement, TaskID
-                FROM SubTask
-                WHERE TaskID = ?;
-                """;
-
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setInt(1, taskID);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                SubTask subTask = new SubTask();
-                subTask.setSubTaskID(rs.getInt("SubTaskID"));
-                subTask.setSubTaskName(rs.getString("SubTaskName"));
-                subTask.setStartDate(rs.getString("StartDate"));
-                subTask.setEndDate(rs.getString("EndDate"));
-                subTask.setTime(rs.getInt("EstimatedTime"));
-                subTask.setSubTaskDescription(rs.getString("SubTaskDescription"));
-                subTask.setSkillRequirement(rs.getString("SkillRequirement"));
-                subTask.setTaskID(rs.getInt("TaskID"));
-                subTasks.add(subTask);
-            }
-        }catch(SQLException e){
-            throw new RuntimeException(e);
-        }
-        return subTasks;
-    }
-
 
     //**overload functions there just returns the full list of projects, subprojects, task and subtask.
 
@@ -580,7 +485,6 @@ public class AlignProRepository implements IFAlignProRepository {
 
         return listofProjectIDS;
     }
-
 
     //TODO THis create map with all subprojets, task and subtask, linked to ProjectName
     public Map<String,String> projectNamesToSubprojectandTask(int projectID) {

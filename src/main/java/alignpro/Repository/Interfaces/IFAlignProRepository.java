@@ -15,13 +15,8 @@ public interface IFAlignProRepository {
 
     //pm dashboard methods
 
-    List<SubProject> getSubProjectsForProject(int projectID);
-
     List<Project> getProjectsForPMUser(int pmUserID);
 
-    List<Task> getTaskForSubProject(int subProjectID);
-
-    List<SubTask> getSubTaskForTask(int taskID);
 
 
 

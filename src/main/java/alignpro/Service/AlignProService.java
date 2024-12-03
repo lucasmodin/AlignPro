@@ -38,7 +38,6 @@ public class AlignProService {
         List<SubTask> subTask = alignProRepository.getSubTaskForTask();
 
 
-        //TODO den henter kun ud til project 1.
         Map<String,String> stuffUnderPM = new HashMap<>();
 
         List<Integer> pmProjects = alignProRepository.pmUserProjectID(pmUserID);
