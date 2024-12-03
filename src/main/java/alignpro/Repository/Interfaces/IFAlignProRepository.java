@@ -3,6 +3,7 @@ package alignpro.Repository.Interfaces;
 import alignpro.Model.*;
 import alignpro.Model.Projects.Project;
 import alignpro.Model.Projects.SubProject;
+import alignpro.Model.Projects.SubTask;
 import alignpro.Model.Projects.Task;
 
 import java.util.List;
@@ -14,12 +15,7 @@ public interface IFAlignProRepository {
 
     //pm dashboard methods
 
-    List<SubProject> getSubProjectsForProject(int projectID);
-
     List<Project> getProjectsForPMUser(int pmUserID);
-
-    List<Task> getTaskForSubProject(int subProjectID);
-
 
 
 
@@ -47,5 +43,19 @@ public interface IFAlignProRepository {
 
     List<String> getListOfSkills();
 
+
+    /// ***************************** Mapping function to get DTO-Object ************************* ///
+
+    List<Integer> pmUserProjectID(int pmUserID);
+
+    Map<String,String> projectNamesToSubprojectandTask(int PmUserID);
+
+    List<Project> getProjectsForPMUser();
+
+    List<SubProject> getSubProjectsForProject();
+
+    List<Task> getTaskForSubProject();
+
+    List<SubTask> getSubTaskForTask();
 
 }

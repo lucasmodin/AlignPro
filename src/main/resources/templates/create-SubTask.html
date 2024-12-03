@@ -3,42 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/styles/create-edit.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-
 <main>
-    <form th:action="@{/subTasks/saveSubTask}" th:object="${obj}" method="post">
-        <input type="hidden" th:field="*{taskID}">
-        <label for="subTask">Task</label>
-        <input type="text" id="subTask" name="subTaskName" th:field="*{subTaskName}" required>
-        <br><br>
+    <div class="wrapper" id="wrapperSecondform">
+        <a href="/pm-dashboard/1" id="back"><i class='bx bx-arrow-back'></i></a>
+        <form th:action="@{/subTasks/saveSubTask}" th:object="${obj}" method="post">
+            <input type="hidden" th:field="*{taskID}">
+            <h1>Create a Sub-Task</h1>
+            <hr>
+            <div class="input-box">
+                <input type="text" id="subTask" name="subTaskName" placeholder="Enter Sub-Task Name" th:field="*{subTaskName}" required>
+                <i class='bx bx-clipboard'></i>
+            </div>
 
-        <label for="subTaskDescription">Task Description:</label>
-        <textarea id="subTaskDescription" name="subTaskDescription" th:field="*{subTaskDescription}" required></textarea>
-        <br><br>
+            <div class="input-box" id="box1">
+                <input type="date" id="startDate" name="startDate" placeholder="Enter Start Date" th:field="*{startDate}" required>
+            </div>
+            <div class="input-box" id="box2">
+                <input type="date" id="EndDate" name="EndDate" placeholder="Enter EndDate" th:field="*{endDate}" required>
+            </div>
 
-        <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required>
-        <br><br>
+            <div class="input-box">
+                <input type="text" id="time" name="time" placeholder="Enter estimated time spent on this sub-task" th:field="*{time}" required>
+                <i class='bx bx-time'></i>
+            </div>
 
-        <label for="endDate">End date:</label>
-        <input type="date" id="endDate" name="endDate" th:field="*{endDate}" required>
-        <br><br>
+            <div class="input-box">
+                <input type="text" id="skillRequirement" name="skillRequirement" placeholder="Skills needed to do sub-task" th:field="*{skillRequirement}" required>
+                <i class='bx bx-cog'></i>
+            </div>
 
-        <label for="time">Estimated Time:</label>
-        <input type="text" id="time" name="time" th:field="*{time}" required>
-        <br><br>
+            <div class="input-box">
+                <textarea id="subTaskDescription" name="subTaskDescription" placeholder="Enter Sub-Task Description" th:field="*{subTaskDescription}" required></textarea>
+                <i class='bx bx-text' ></i>
+            </div>
 
-        <label for="skillRequirement">Skills Required:</label>
-        <input type="text" id="skillRequirement" name="skillRequirement" th:field="*{skillRequirement}" required>
-        <br><br>
-
-        <button type="submit">Create Task</button>
-
-
-    </form>
-
-
+            <button type="submit" class="btn">Create Sub-Task</button>
+        </form>
+    </div>
 </main>
 
 </body>
