@@ -19,6 +19,7 @@
             <div class="wrapper">
                 <h1>Login</h1>
                 <hr>
+                <form th:action="@{/loginValidation}" method="post">
                 <div class="input-box">
                     <label for="mail">Mail</label>
                     <input id="mail" type="email" name="mail" placeholder="Enter Email" required>
@@ -30,7 +31,9 @@
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <button type="submit" class="btn">Login</button>
+                </form>
             </div>
+
         </div>
     </div>
 </main>

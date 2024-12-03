@@ -20,6 +20,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class LoginControllerTest {
 
+    ProjectManager projectManager = new ProjectManager();
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -36,11 +38,11 @@ class LoginControllerTest {
 
     @Test
     void loginValidation() throws Exception {
-        ProjectManager projectManager = new ProjectManager();
-        when(loginService.getProjectManager("Lucas@Kea.com")).thenReturn(projectManager);
-        projectManager.setMail("Lucas@Kea.com");
-        projectManager.setPassword("GoodPassword1234");
-        projectManager.setProjectManagerID(3);
+        projectManager.setMail("Lucas@Kea.dk");
+        projectManager.setPassword("Lucas1234");
+
+        when(loginService.getProjectManager("Lucas@Kea.dk")).thenReturn(projectManager);
+        when(loginService.loginCheck("Lucas@Kea.dk", "Lucas1234")).thenReturn(true);
         mockMvc.perform(post("/loginValidation")
                 .param("mail", projectManager.getMail())
                 .param("password", projectManager.getPassword())

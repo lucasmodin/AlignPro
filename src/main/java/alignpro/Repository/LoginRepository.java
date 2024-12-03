@@ -2,7 +2,7 @@ package alignpro.Repository;
 
 import alignpro.Model.DBConnection;
 import alignpro.Model.ProjectManager;
-import alignpro.Repository.Interfaces.ILoginController;
+import alignpro.Repository.Interfaces.ILoginRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 @Repository("LOGIN_REPOSITORY_JDBC")
 @Lazy
-public class LoginRepository implements ILoginController {
+public class LoginRepository implements ILoginRepository {
 
     @Value("${spring.datasource.url}")
     private String dbURL;
@@ -40,23 +40,21 @@ public class LoginRepository implements ILoginController {
     public ProjectManager getProjectManager(String mail) {
         ProjectManager pm = null;
         String sqlString = """
-                SELECT PMUserID, FullName, Mail, PMPassword FROM PMUser WHERE LOWER(Mail) = ?
+                SELECT PMUserID, FullName, Mail, PMPassword FROM PMUser WHERE Mail = ?
                 """;
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setString(1, mail.toLowerCase());
+            stmt.setString(1, mail);
             ResultSet rs = stmt.executeQuery();
 
-            while(rs.next()) {
-                int userID = rs.getInt("PMUserID");
-                String fullName = rs.getString("FullName");
-                String userMail = rs.getString("Mail");
-                String password = rs.getString("PMPassword");
+            if(rs.next()) {
+                int userID = rs.getInt(1);
+                String fullName = rs.getString(2);
+                String userMail = rs.getString(3);
+                String password = rs.getString(4);
+                pm = new ProjectManager(userID,fullName,userMail,password);
 
-                if (pm == null) {
-                    pm = new ProjectManager(userID,fullName,userMail,password);
-                }
             }
 
         } catch(SQLException e) {
