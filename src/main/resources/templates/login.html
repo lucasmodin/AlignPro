@@ -3,8 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/styles/login.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
+<header th:replace="~{}"></header>
+<main>
+    <div class="container">
 
+        <div class="icon-column">
+            <i class='bx bxs-user-circle'></i>
+        </div>
+
+        <div class="form-column">
+            <div class="wrapper">
+                <h1>Login</h1>
+                <hr>
+                <div class="input-box">
+                    <label for="mail">Mail</label>
+                    <input id="mail" type="email" name="mail" placeholder="Enter Email" required>
+                    <i class='bx bxs-envelope'></i>
+                </div>
+                <div class="input-box">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password" placeholder="Enter Password" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{}"></footer>
 </body>
 </html>
