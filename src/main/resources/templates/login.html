@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/styles/login.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-<header th:replace="~{}"></header>
-<main>
-    <div class="container">
+<header th:replace="~{header-footer/layout-header-notloggedin :: header}"></header>
+<section>
+    <div class="containerLogin">
 
         <div class="icon-column">
             <img src="/images/image-back.png" alt="">
@@ -22,7 +23,7 @@
                 <form th:action="@{/loginValidation}" method="post">
                 <div class="input-box">
                     <label for="mail">Mail</label>
-                    <input id="mail" type="email" name="mail" placeholder="Enter Email" required t>
+                    <input id="mail" type="email" name="mail" placeholder="Enter Email"  required>
                     <i class='bx bxs-envelope'></i>
                 </div>
                 <div class="input-box">
@@ -36,8 +37,8 @@
 
         </div>
     </div>
-</main>
+</section>
 
-<footer th:replace="~{}"></footer>
+<footer th:replace="~{header-footer/layout-footer :: footer}"></footer>
 </body>
 </html>
