@@ -1,0 +1,77 @@
+body{
+    justify-content: center;
+    display: flex;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 1000px;
+    height: 600px;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    gap: 20px;
+    background-image: url("../styles/blue.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+}
+
+.input-box input{
+    width: 330px;
+    height: 50px;
+    margin: 20px 0;
+    font-size: 15px;
+    border-bottom: 2px solid lightskyblue;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.input-box i {
+    position: absolute;
+    margin-top: 37px;
+    margin-left: -63px;
+}
+
+.btn{
+    background: white;
+    color: black;
+    height: 40px;
+    width: 160px;
+    border-radius: 20px;
+    font-size: 17px;
+    margin: 20px;
+    cursor: pointer;
+    border: 1.4px solid black;
+}
+
+.btn:hover{
+    background: lightskyblue;
+    color: black;
+    border: 1.4px solid black;
+    transition: 0.5s;
+}
+
+.input-box label{
+    display: flex;
+    position: absolute;
+    font-size: 20px;
+    margin-left: 40px;
+}
+
+.input-box{
+    margin: 30px 0;
+}
+
+.wrapper h1{
+    margin-bottom: 60px;
+    font-size: 50px;
+}
+.wrapper hr{
+    width: 80%;
+}
