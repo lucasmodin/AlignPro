@@ -8,6 +8,7 @@ import alignpro.Model.Projects.SubProject;
 import alignpro.Model.Projects.SubTask;
 import alignpro.Model.Projects.Task;
 import alignpro.Service.AlignProService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -91,6 +92,9 @@ public class AlignProController {
         return "redirect:/";
     }
 
+    public boolean isUserLoggedIn(HttpSession session){
+        return session.getAttribute("pmUserID") != null;
+    }
 
 
 }
