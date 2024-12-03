@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -12,16 +12,17 @@
     <div class="container">
 
         <div class="icon-column">
-            <i class='bx bxs-user-circle'></i>
+            <img src="/images/image-back.png" alt="">
         </div>
 
         <div class="form-column">
             <div class="wrapper">
                 <h1>Login</h1>
                 <hr>
+                <form th:action="@{/loginValidation}" method="post">
                 <div class="input-box">
                     <label for="mail">Mail</label>
-                    <input id="mail" type="email" name="mail" placeholder="Enter Email" required>
+                    <input id="mail" type="email" name="mail" placeholder="Enter Email" required t>
                     <i class='bx bxs-envelope'></i>
                 </div>
                 <div class="input-box">
@@ -30,6 +31,7 @@
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <button type="submit" class="btn">Login</button>
+                </form>
             </div>
         </div>
     </div>

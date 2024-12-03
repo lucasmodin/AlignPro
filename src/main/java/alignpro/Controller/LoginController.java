@@ -32,7 +32,7 @@ public class LoginController {
         ProjectManager projectManager = loginService.getProjectManager(mail);
         if (loginService.loginCheck(mail, password)) {
             session.setAttribute("pmUserID", projectManager.getProjectManagerID());
-            return "redirect:/";
+            return "redirect:/pm-Dashboard";
         } else {
             model.addAttribute("error", "Invalid mail or password");
             return "login";
