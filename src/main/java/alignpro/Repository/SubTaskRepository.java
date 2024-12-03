@@ -4,6 +4,7 @@ import alignpro.Model.DBConnection;
 import alignpro.Model.Projects.SubTask;
 import alignpro.Repository.Interfaces.ISubTaskRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
@@ -32,6 +33,7 @@ public class SubTaskRepository implements ISubTaskRepository {
     public void setConn() {
         this.conn = DBConnection.getConnection(dbURL,dbUsername,dbPassword);
     }
+
 
     //************************* Save Method *******************************//
 

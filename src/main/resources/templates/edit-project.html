@@ -3,39 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
+  <link rel="stylesheet" href="/styles/create-edit.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'></head>
 <body>
 
 <main>
-  <form th:action="@{/projects/updateProject}" th:object="${project}" method="post">
-    <input type="hidden" name="projectId" th:value="${project.projectID}">
-    <h1>Edit project</h1>
-    <section class="input-field">
-      <label for="projectName">Edit Project Name</label>
-      <input type="text" id="projectName" name="projectName" th:field="*{projectName}" required>
-      <br><br>
+  <div class="wrapper">
+    <a href="/pm-dashboard/1" id="back"><i class='bx bx-arrow-back'></i></a>
+    <form th:action="@{/projects/updateProject}" th:object="${project}" method="post">
+      <input type="hidden" name="projectId" th:value="${project.projectID}">
+      <h1>Edit Project</h1>
+      <hr>
+      <div class="input-box">
+        <input type="text" id="projectName" name="projectName" placeholder="Edit Project Name" th:field="*{projectName}" required>
+        <i class='bx bx-clipboard'></i>
+      </div>
 
-      <label for="projectDescription">Edit Project Description:</label>
-      <textarea id="projectDescription" name="projectDescription" th:field="*{projectDescription}" required></textarea>
-      <br><br>
+      <div class="input-box" id="box1">
+        <input type="date" id="startDate" name="startDate" placeholder="Edit Start Date" th:field="*{startDate}" required>
+      </div>
+      <div class="input-box" id="box2">
+        <input type="date" id="deadLine" name="deadLine" placeholder="Edit Deadline" th:field="*{deadLine}" required>
+      </div>
 
-      <label for="startDate">Edit Start Date:</label>
-      <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required>
-      <br><br>
+      <div class="input-box">
+        <textarea id="projectDescription" name="projectDescription" placeholder="Edit Project Description" th:field="*{projectDescription}" required></textarea>
+        <i class='bx bx-text' ></i>
+      </div>
 
-      <label for="deadLine">Edit Deadline:</label>
-      <input type="date" id="deadLine" name="deadLine" th:field="*{deadLine}" required>
-      <br><br>
-
-      <button type="submit">Finish</button>
-    </section>
-  </form>
-
-  <form th:action="@{/projects/delete-project/{projectID}(projectID=${project.getProjectID()})}" method="post">
-    <button type="submit">Delete</button>
-  </form>
-
-
+      <button type="submit" class="btn">Submit</button>
+    </form>
+  </div>
 
 </main>
 

@@ -3,36 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
+    <link rel="stylesheet" href="/styles/create-edit.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'></head>
 <body>
 
 <main>
-    <form th:action="@{/subProjects/updateSubProject}" th:object="${subProject}" method="post">
-        <input type="hidden" name="subProjectID" th:value="${subProject.subProjectID}">
-        <input type="hidden" name="fkProjectID" th:value="${subProject.fkProjectID}">
-        <h1>Edit project</h1>
-        <section class="input-field">
-            <label for="subProjectName">Edit Sub-Project Name</label>
-            <input type="text" id="subProjectName" name="subProjectName" th:field="*{subProjectName}" required>
-            <br><br>
+    <div class="wrapper">
+        <a href="/pm-dashboard/1" id="back"><i class='bx bx-arrow-back'></i></a>
+        <form th:action="@{/subProjects/updateSubProject}" th:object="${subProject}" method="post">
+            <input type="hidden" name="subProjectID" th:value="${subProject.subProjectID}">
+            <input type="hidden" name="fkProjectID" th:value="${subProject.fkProjectID}">
+            <h1>Edit Sub-Project</h1>
+            <hr>
+            <div class="input-box">
+                <input type="text" id="subProjectName" name="subProjectName" placeholder="Edit Sub-Project Name" th:field="*{subProjectName}" required>
+                <i class='bx bx-clipboard'></i>
+            </div>
 
-            <label for="subProjectDescription">Edit Sub-Project Description:</label>
-            <textarea id="subProjectDescription" name="subProjectDescription" th:field="*{subProjectDescription}" required></textarea>
-            <br><br>
+            <div class="input-box" id="box1">
+                <input type="date" id="startDate" name="startDate" placeholder="Edit Start Date" th:field="*{startDate}" required>
+            </div>
+            <div class="input-box" id="box2">
+                <input type="date" id="EndDate" name="EndDate" placeholder="Edit EndDate" th:field="*{endDate}" required>
+            </div>
 
-            <label for="startDate">Edit Start Date:</label>
-            <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required>
-            <br><br>
+            <div class="input-box">
+                <textarea id="subProjectDescription" name="subProjectDescription" placeholder="Edit Sub-Project Description" th:field="*{subProjectDescription}" required></textarea>
+                <i class='bx bx-text' ></i>
+            </div>
 
-            <label for="endDate">Edit endDate:</label>
-            <input type="date" id="endDate" name="endDate" th:field="*{endDate}" required>
-            <br><br>
-
-            <button type="submit">Finish</button>
-        </section>
-    </form>
-
-
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
 
 </main>
 
