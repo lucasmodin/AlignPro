@@ -583,14 +583,14 @@ public class AlignProRepository implements IFAlignProRepository {
 
 
     //TODO THis create map with all subprojets, task and subtask, linked to ProjectName
-    public Map<String,String> projectNamesToSubprojectandTask(int pmUserID) {
+    public Map<String,String> projectNamesToSubprojectandTask(int projectID) {
         String sqlString = "SELECT p.ProjectName, sp.SubProjectName, t.TaskName, st.SubTaskName FROM Project p LEFT JOIN SubProject sp ON p.ProjectID = sp.ProjectID LEFT JOIN Task t ON sp.SubProjectID = t.SubProjectID LEFT JOIN SubTask st ON t.TaskID = st.TaskID WHERE p.ProjectID = ? ORDER BY p.ProjectName, sp.SubProjectName, t.TaskName, st.SubTaskName;";
 
         Map<String, String> mapping = new HashMap<>();
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sqlString);
-            stmt.setInt(1,pmUserID);
+            stmt.setInt(1,projectID);
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {

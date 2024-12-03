@@ -63,6 +63,8 @@ public class AlignProController {
         //next is to implement logic for Task and subtask when the classes are made
     }
 
+
+    //TODO it needs to get Project Manager PrimaryKey from Session to be able to get correct data.
     @GetMapping("/pm-dashboard/filter")
     public String getfilterDashBoard(@RequestParam("filterProjects") String filterProjects, Model model){
         DashBoard_DTO unFilteredDashBoard = alignProService.dataDashBoard(1);

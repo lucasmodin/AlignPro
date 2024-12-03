@@ -37,7 +37,15 @@ public class AlignProService {
         List<Task> task = alignProRepository.getTaskForSubProject();
         List<SubTask> subTask = alignProRepository.getSubTaskForTask();
 
-        Map<String,String> stuffUnderPM = alignProRepository.projectNamesToSubprojectandTask(pmUserID);
+
+        //TODO den henter kun ud til project 1.
+        Map<String,String> stuffUnderPM = new HashMap<>();
+
+        List<Integer> pmProjects = alignProRepository.pmUserProjectID(pmUserID);
+        for(int pmProjectsInt : pmProjects){
+            stuffUnderPM.putAll(alignProRepository.projectNamesToSubprojectandTask(pmProjectsInt));
+        }
+
 
         List<ProjectDTO> projectDTOSList = new ArrayList<>();
         for (Project pjoObj : projects){
@@ -118,23 +126,6 @@ public class AlignProService {
         return dataTransferObj;
     }
 
-
-    //PM dashboard methods
-    public List<Project> getAllProjects(int pmUserID){
-        return alignProRepository.getProjectsForPMUser(pmUserID);
-    }
-
-    public List<SubProject> getAllSubProjects(int projectID){
-        return alignProRepository.getSubProjectsForProject(projectID);
-    }
-
-    public List<Task> getAllTasks(int subProjectID){
-        return alignProRepository.getTaskForSubProject(subProjectID);
-    }
-
-    public List<SubTask> getAllSubTasks(int taskID){
-        return alignProRepository.getSubTaskForTask(taskID);
-    }
 
     //*** methods to handle employees and skills ***//
 
