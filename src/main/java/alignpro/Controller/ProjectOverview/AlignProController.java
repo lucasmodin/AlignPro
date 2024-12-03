@@ -4,6 +4,7 @@ package alignpro.Controller.ProjectOverview;
 import alignpro.Model.*;
 import alignpro.Model.Projects.*;
 import alignpro.Service.AlignProService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -144,5 +145,9 @@ public class AlignProController {
     }
 
 
+    @GetMapping("/login")
+    public String login(Model model){
+        return "login";
+    }
 
 }
