@@ -133,5 +133,19 @@ public class SubTaskRepository implements ISubTaskRepository {
         }
     }
 
+    @Override
+    public void assignEmployeeToTask(int subtaskID, int employeeID) {
+        String sqlString = """
+                INSERT INTO Subtask_Employee (SubtaskID, EmployeeID) VALUES (?, ?);
+                """;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            stmt.setInt(1, subtaskID);
+            stmt.setInt(2, employeeID);
+            stmt.executeUpdate();
+        } catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 
 }

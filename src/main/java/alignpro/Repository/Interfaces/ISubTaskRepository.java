@@ -15,4 +15,6 @@ public interface ISubTaskRepository {
 
     void editSubTask(SubTask subTask, int subTaskID);
 
+    void assignEmployeeToTask(int subtaskID, int employeeID);
+
 }

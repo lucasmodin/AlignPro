@@ -62,8 +62,10 @@ public class AlignProController {
         if (isUserLoggedIn(session)) return "redirect:/login";
         DashBoard_DTO dashboard = alignProService.dataDashBoard(pmUserID);
         List<String> filterList = dashboard.filterList();
+        List<Employee> employeeList = alignProService.getListOfEmployees();
         model.addAttribute("data", dashboard);
         model.addAttribute("filterList", filterList);
+        model.addAttribute("employeeList", employeeList);
         return "pm-Dashboard";
         //next is to implement logic for Task and subtask when the classes are made
     }

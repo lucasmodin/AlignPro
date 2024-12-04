@@ -31,4 +31,8 @@ public class SubTaskService {
     public void deleteSubTask(int subTaskID){
         subTaskRepository.deleteSubTask(subTaskID);
     }
+
+    public void assignEmployeeToTask(int subTaskID, int employeeID){
+        subTaskRepository.assignEmployeeToTask(subTaskID, employeeID);
+    }
 }
