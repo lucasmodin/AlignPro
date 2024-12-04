@@ -54,7 +54,6 @@
     </thead>
     <tbody>
     <tr th:each="project : ${data.getProjectList()}">
-        <input type="hidden" th:value="${project.projectID}">
         <td th:text="${project.getProjectName()}"></td>
         <td th:text="${project.projectDescription}"></td>
         <td th:text="${project.getStartDate()}"></td>
@@ -63,9 +62,9 @@
     </tr>
     </tbody>
     <a th:href="@{../projects/CreateProject}">Add</a>
-
-    <form th:action="@{/edit-project/{projectID}(projectID=${project.projectID})}" method="get">
-        <button type="submit">Edit</button>
+    <a th:href="@{/projects/edit-project/{projectID}(projectID=${project.projectID})}">Edit Project</a>
+    <form th:action="@{/projects/delete-project/{projectID}(projectID=${project.getProjectID()})}" method="post">
+        <button type="submit">Delete project</button>
     </form>
 
 </table>
