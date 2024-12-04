@@ -27,7 +27,7 @@ public class SubProjectController {
     @PostMapping("/saveSubProject")
     public String saveSubProject(@ModelAttribute SubProject newSubProject){
         subProjectService.saveSubProject(newSubProject);
-        return "redirect:/";
+        return "redirect:/pm-dashboard";
     }
 
     @GetMapping("/edit-subproject/{subProjectID}")

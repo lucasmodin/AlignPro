@@ -38,7 +38,7 @@ public class AlignProController {
     @PostMapping("/saveEmployee")
     public String saveEmployee(@ModelAttribute Employee newEmployee){
         alignProService.saveEmployee(newEmployee);
-        return "redirect:/";
+        return "redirect:/pm-dashboard";
     }
 
     @PostMapping("/deleteEmployee/{employeeID}")

@@ -27,7 +27,7 @@ public class ProjectController {
     @PostMapping("/saveProject")
     public String saveProject(@ModelAttribute Project newProject){
         projectService.saveProject(newProject);
-        return "redirect:/";
+        return "redirect:/pm-dashboard";
     }
 
     @GetMapping("/edit-project/{projectId}")

@@ -7,7 +7,7 @@ public class ProjectDTO {
     //TODO this is the filter string not relevant for Projects as we will filter on project name
     //TODO however for consistency
     private String filter;
-
+    private int projectID;
     private String projectName;
     private LocalDate startDate;
     private LocalDate deadLine;
@@ -20,6 +20,14 @@ public class ProjectDTO {
 
 
     //************************* Setter and getters *******************************//
+
+    public int getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
+    }
 
     public String getFilter() {
         return filter;

@@ -30,6 +30,12 @@ public class LoginController {
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
+
     @PostMapping("/loginValidation")
     public String loginValidation(@RequestParam("mail") String mail,
                                   @RequestParam("password") String password,
