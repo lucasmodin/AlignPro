@@ -35,9 +35,13 @@ class SubProjectRepositoryTest {
     @DirtiesContext
     void getSubProject(){
 
-        SubProject obj = subProjectRepository.getSubProject("Workd day and night");
+        SubProject objToSave = new SubProject("Test sub-project 1", "2024-11-25","2024-11-26","To test getSubProject Method");
+        subProjectRepository.saveSubProject(objToSave.getSubProjectName(), objToSave.getStartDateString(),
+                objToSave.getEndDateString(), objToSave.getSubProjectDescription(), 1);
 
-        assertEquals("Workd day and night", obj.getSubProjectName());
+        SubProject objToGet = subProjectRepository.getSubProject("To test getSubProject Method");
+
+        assertEquals("To test getSubProject Method", objToGet.getSubProjectName());
     }
 
     @Test
