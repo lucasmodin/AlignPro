@@ -7,12 +7,14 @@ public class SubTaskDTO {
     //TODO this is the filter string it needs to learn its project.
     //TODO write logic there makes SubTask knows it project
     private String filter;
-
+    private int subTaskID;
     private String subTaskName;
     private String subTaskDescription;
     private LocalDate startDate;
     private LocalDate endDate;
     private int time;
+    private int taskID;
+
 
     //Empty konstrucot
     public SubTaskDTO(){}
@@ -20,6 +22,22 @@ public class SubTaskDTO {
 
 
     //************************* Setter and getters *******************************//
+    public int getSubTaskID() {
+        return subTaskID;
+    }
+
+    public void setSubTaskID(int subTaskID) {
+        this.subTaskID = subTaskID;
+    }
+
+    public int getTaskID() {
+        return taskID;
+    }
+
+    public void setTaskID(int taskID) {
+        this.taskID = taskID;
+    }
+
     public String getFilter() {
         return filter;
     }
