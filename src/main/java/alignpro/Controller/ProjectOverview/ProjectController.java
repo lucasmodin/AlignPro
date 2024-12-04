@@ -41,11 +41,12 @@ public class ProjectController {
     public String editProject(@PathVariable("projectId") int projectId, Model model, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
         Project project = projectService.getProject(projectId);
+        int pmUserID = (int) session.getAttribute("pmUserID");
         if (project != null) {
             model.addAttribute("project", project);
             return "edit-project";
         } else {
-            return "redirect:/";
+            return "redirect:/pm-dashboard/" + pmUserID;
         }
     }
 
@@ -57,18 +58,20 @@ public class ProjectController {
                                 @RequestParam("deadLine") String deadLine,
                                 HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         Project project = new Project(projectId, projectName, startDate, deadLine, projectDescription);
         projectService.editProject(project, project.getProjectID());
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + pmUserID ;
     }
 
     @PostMapping("/delete-project/{projectID}")
     public String deleteProject(@PathVariable("projectID") int projectID, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
         Project projectToDelete = projectService.getProject(projectID);
+        int pmUserID = (int) session.getAttribute("pmUserID");
         if(projectToDelete != null){
             projectService.deleteProject(projectID);
-            return "redirect:/";
+            return "redirect:/pm-dashboard/" + pmUserID ;
         } else {
             return "redirect:/";
         }

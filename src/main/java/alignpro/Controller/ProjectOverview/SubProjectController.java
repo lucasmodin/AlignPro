@@ -29,19 +29,21 @@ public class SubProjectController {
     @PostMapping("/saveSubProject")
     public String saveSubProject(@ModelAttribute SubProject newSubProject, HttpSession session){
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         subProjectService.saveSubProject(newSubProject);
-        return "redirect:/pm-dashboard";
+        return "redirect:/pm-dashboard/" + pmUserID;
     }
 
     @GetMapping("/edit-subproject/{subProjectID}")
     public String editSubProject(@PathVariable("subProjectID") int subProjectID, Model model, HttpSession session){
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         SubProject subProject = subProjectService.getSubProject(subProjectID);
         if(subProject != null){
             model.addAttribute("subProject", subProject);
             return "edit-SubProject";
         } else {
-            return "redirect:/";
+            return "redirect:/pm-dashboard/" + pmUserID;
         }
     }
 
@@ -54,18 +56,20 @@ public class SubProjectController {
                                    @RequestParam("fkProjectID") int fkProjectID*/
                                     HttpSession session){
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         SubProject subProject = new SubProject(subProjectID, subProjectName, startDate
                 , endDate, subProjectDescription);
         subProjectService.editSubProject(subProject, subProject.getSubProjectID());
 
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + pmUserID;
     }
 
     @PostMapping("/deleteSubProject/{subProjectID}")
     public String deleteSubProject(@PathVariable("subProjectID") int subProjectID, HttpSession session){
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         subProjectService.deleteSubProject(subProjectID);
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + pmUserID;
     }
 
     public boolean isUserLoggedIn(HttpSession session){

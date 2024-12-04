@@ -29,19 +29,21 @@ public class SubTaskController {
     @PostMapping("/saveSubTask")
     public String saveSubTask(@ModelAttribute SubTask newSubTask, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         subTaskService.saveSubTask(newSubTask);
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + pmUserID;
     }
 
     @GetMapping("/edit-subTask/{subTaskID}")
     public String editSubTask(@PathVariable("subTaskID") int subTaskID, Model model, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         SubTask obj = subTaskService.getSubTask(subTaskID);
         if(obj != null){
             model.addAttribute("obj", obj);
             return "edit-SubTask";
         } else {
-            return "redirect:/";
+            return "redirect:/pm-dashboard/" + pmUserID;
         }
     }
 
@@ -55,16 +57,18 @@ public class SubTaskController {
                                 @RequestParam("skillRequirement") String skillRequirement,
                                 HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         SubTask subTask = new SubTask(subTaskID, subTaskName, subTaskDescription, startDate, endDate, time, skillRequirement);
         subTaskService.editSubTask(subTask, subTask.getSubTaskID());
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + pmUserID;
     }
 
     @PostMapping("/deleteSubTask/{subTaskID}")
     public String deleteSubTask(@PathVariable("subTaskID") int subTaskID, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         subTaskService.deleteSubTask(subTaskID);
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + pmUserID;
     }
 
     public boolean isUserLoggedIn(HttpSession session){
