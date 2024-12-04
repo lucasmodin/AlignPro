@@ -40,7 +40,7 @@ public class AlignProController {
     public String saveEmployee(@ModelAttribute Employee newEmployee, HttpSession session){
         if (isUserLoggedIn(session)) return "redirect:/login";
         alignProService.saveEmployee(newEmployee);
-        return "redirect:/pm-dashboard";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
     @PostMapping("/deleteEmployee/{employeeID}")
@@ -49,7 +49,7 @@ public class AlignProController {
         Employee employee = alignProService.getEmployee(employeeID);
         if(employee != null && !isUserLoggedIn(session)) {
             alignProService.deleteEmployee(employeeID);
-            return "redirect:/pm-Dashboard";
+            return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
         } else {
             return "redirect:/";
         }
@@ -97,7 +97,7 @@ public class AlignProController {
         if (isUserLoggedIn(session)) return "redirect:/login";
         Employee objUpdate = new Employee(employeeName, skills);
         alignProService.editEmployee(objUpdate,employeeID);
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
     public boolean isUserLoggedIn(HttpSession session){

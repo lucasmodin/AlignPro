@@ -30,7 +30,8 @@ public class SubProjectController {
     public String saveSubProject(@ModelAttribute SubProject newSubProject, HttpSession session){
         if (isUserLoggedIn(session)) return "redirect:/login";
         subProjectService.saveSubProject(newSubProject);
-        return "redirect:/pm-dashboard";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
+
     }
 
     @GetMapping("/edit-subproject/{subProjectID}")
@@ -41,7 +42,7 @@ public class SubProjectController {
             model.addAttribute("subProject", subProject);
             return "edit-SubProject";
         } else {
-            return "redirect:/";
+            return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
         }
     }
 
@@ -58,14 +59,14 @@ public class SubProjectController {
                 , endDate, subProjectDescription);
         subProjectService.editSubProject(subProject, subProject.getSubProjectID());
 
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
     @PostMapping("/deleteSubProject/{subProjectID}")
     public String deleteSubProject(@PathVariable("subProjectID") int subProjectID, HttpSession session){
         if (isUserLoggedIn(session)) return "redirect:/login";
         subProjectService.deleteSubProject(subProjectID);
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
     public boolean isUserLoggedIn(HttpSession session){

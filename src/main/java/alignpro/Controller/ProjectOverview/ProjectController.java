@@ -30,7 +30,7 @@ public class ProjectController {
     public String saveProject(@ModelAttribute Project newProject, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
         projectService.saveProject(newProject);
-        return "redirect:/pm-dashboard";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
     @GetMapping("/edit-project/{projectId}")
@@ -41,7 +41,7 @@ public class ProjectController {
             model.addAttribute("project", project);
             return "edit-project";
         } else {
-            return "redirect:/";
+            return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
         }
     }
 
@@ -55,7 +55,7 @@ public class ProjectController {
         if (isUserLoggedIn(session)) return "redirect:/login";
         Project project = new Project(projectId, projectName, startDate, deadLine, projectDescription);
         projectService.editProject(project, project.getProjectID());
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
     @PostMapping("/delete-project/{projectID}")
@@ -64,7 +64,7 @@ public class ProjectController {
         Project projectToDelete = projectService.getProject(projectID);
         if(projectToDelete != null){
             projectService.deleteProject(projectID);
-            return "redirect:/";
+            return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
         } else {
             return "redirect:/";
         }

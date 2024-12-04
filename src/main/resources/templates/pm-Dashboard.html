@@ -63,10 +63,11 @@
         <td><form th:action="@{../projects/delete-project/{projectID}(projectID=${project.projectID})}" method="post">
             <button type="submit">Delete</button>
         </form></td>
+        <td><a th:href="@{../subProjects/createSubProject/{projectID}(projectID=${project.projectID})}">Add Sub-Project</a> </td>
     </tr>
-    <a th:href="@{../projects/CreateProject}">Add</a>
     </tbody>
 </table>
+<a th:href="@{../projects/CreateProject}">Add</a>
 
 <!-- Table for SubProjects -->
 <h2>SubProjects</h2>
@@ -96,11 +97,11 @@
         <td th:text="${subProject.getStartDate()}"></td>
         <td th:text="${subProject.getEndDate()}"></td>
         <td th:text="${subProject.getSumTime()}"></td>
-        <td><a th:href="@{../subProjects/createSubProject/{projectID}(projectID=${subProject.fkProjectID})}">Add</a> </td>
         <td><a th:href="@{../subProjects/edit-subproject/{subProjectID}(subProjectID=${subProject.subProjectID})}">Edit</a></td>
         <td><form th:action="@{../subProjects/deleteSubProject/{subProjectID}(subProjectID=${subProject.subProjectID})}" method="post">
             <button type="submit">Delete</button>
         </form></td>
+        <td><a th:href="@{../tasks/createTask/{subProjectID}(subProjectID=${subProject.subProjectID})}">Add Task</a></td>
     </tr>
     </tbody>
 </table>
@@ -133,7 +134,6 @@
         <td th:text="${task.getStartDate()}"></td>
         <td th:text="${task.getEndDate()}"></td>
         <td th:text="${task.getEstimatedTime()}"></td>
-        <td><a th:href="@{../tasks/createTask/{subProjectID}(subProjectID=${task.subProjectID})}">Add</a> </td>
         <td><a th:href="@{../tasks/edit-task/{taskID}(taskID=${task.taskID})}">Edit</a></td>
         <td><form th:action="@{../tasks/deleteTask/{taskID}(taskID=${task.taskID})}" method="post">
             <button type="submit">Delete</button>

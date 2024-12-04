@@ -26,7 +26,7 @@ public class TaskController {
             model.addAttribute("task", task);
             return "edit-Task";
         } else {
-            return "redirect:/";
+            return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
         }
     }
 
@@ -43,7 +43,7 @@ public class TaskController {
         Task task = new Task(taskID, taskName, startDate, endDate,
                 estimatedTime, taskDescription, skillRequirement);
         taskService.editTask(task, task.getTaskID());
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
     @GetMapping("/createTask/{subProjectID}")
@@ -59,14 +59,14 @@ public class TaskController {
     public String saveTask(@ModelAttribute Task newTask, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
         taskService.saveTask(newTask);
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
     @PostMapping("/deleteTask/{taskID}")
     public String deleteTask(@PathVariable("taskID") int taskID, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
         taskService.deleteTask(taskID);
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
     public boolean isUserLoggedIn(HttpSession session){
