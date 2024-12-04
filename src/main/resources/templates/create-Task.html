@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/styles/create-edit.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
 
+<header th:replace="~{header-footer/layout-header-notloggedin :: header}"></header>
 <main>
     <div class="wrapper" id="wrapperSecondform">
         <a href="/pm-dashboard/1" id="back"><i class='bx bx-arrow-back'></i></a>
@@ -47,6 +49,7 @@
     </div>
 </main>
 
+<footer th:replace="~{header-footer/layout-footer :: footer}"></footer>
 
 </body>
 </html>

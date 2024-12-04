@@ -51,6 +51,7 @@ public class AlignProService {
                 ProjectDTO projectDTO = new ProjectDTO();
 
                 projectDTO.setFilter(stuffUnderPM.get(pjoObj.getProjectName()));
+                projectDTO.setProjectID(pjoObj.getProjectID());
                 projectDTO.setProjectName(pjoObj.getProjectName());
                 projectDTO.setProjectDescription(pjoObj.getProjectDescription());
                 projectDTO.setStartDate(pjoObj.getStartDate());

@@ -27,12 +27,12 @@ public class ProjectController {
     @PostMapping("/saveProject")
     public String saveProject(@ModelAttribute Project newProject){
         projectService.saveProject(newProject);
-        return "redirect:/";
+        return "redirect:/pm-dashboard";
     }
 
-    @GetMapping("/edit-project/{projectId}")
-    public String editProject(@PathVariable("projectId") int projectId, Model model) {
-        Project project = projectService.getProject(projectId);
+    @GetMapping("/edit-project/{projectID}")
+    public String editProject(@PathVariable("projectID") int projectID, Model model) {
+        Project project = projectService.getProject(projectID);
         if (project != null) {
             model.addAttribute("project", project);
             return "edit-project";
@@ -42,12 +42,12 @@ public class ProjectController {
     }
 
     @PostMapping("/updateProject")
-    public String updateProject(@RequestParam("projectId") int projectId,
+    public String updateProject(@RequestParam("projectID") int projectID,
                                 @RequestParam("projectName") String projectName,
                                 @RequestParam("projectDescription") String projectDescription,
                                 @RequestParam("startDate") String startDate,
                                 @RequestParam("deadLine") String deadLine) {
-        Project project = new Project(projectId, projectName, startDate, deadLine, projectDescription);
+        Project project = new Project(projectID, projectName, startDate, deadLine, projectDescription);
         projectService.editProject(project, project.getProjectID());
         return "redirect:/";
     }

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>PM Dashboard</title>
-
+    <link rel="stylesheet" href="/style.css">
+<!--
     <style>
         table {
             width: 100%;
@@ -21,9 +22,12 @@
             margin-top: 20px;
         }
     </style>
-
+-->
 </head>
 <body>
+
+<header th:replace="~{header-footer/layout-header-loggedin :: header}"></header>
+
 <h1>PM Dashboard</h1>
 
 <form method="get" th:action="@{/pm-dashboard/filter}">
@@ -57,6 +61,13 @@
         <td th:text="${project.getTotalTime()}"></td>
     </tr>
     </tbody>
+    <a th:href="@{../projects/CreateProject}">Add</a>
+    <!--
+    <a th:href="@{/projects/edit-project/{projectID}(projectID=${project.projectID})}">Edit Project</a>
+    <form th:action="@{/projects/delete-project/{projectID}(projectID=${project.getProjectID()})}" method="post">
+        <button type="submit">Delete project</button>
+    </form>-->
+
 </table>
 
 <!-- Table for SubProjects -->
@@ -168,7 +179,7 @@
     }
 </script>
 
-
+<footer th:replace="~{header-footer/layout-footer :: footer}"></footer>
 
 </body>
 </html>

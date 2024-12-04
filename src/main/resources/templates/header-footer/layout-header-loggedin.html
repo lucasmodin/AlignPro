@@ -1,29 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-
-<header th:fragmet="header">
+<header th:fragment="header">
     <nav class="navigation">
-        <div class="left-container">
-            <a class="home-link" href="index.html">
-                <img class="logo-link" src="/images/image-logo.PNG" alt="logo">
+        <section class="left-container">
+            <a class="home-link" href="../index">
+                <img class="logo-link" src="/images/image-back.png" alt="logo">
             </a>
-            <img class="text-logo" src="/images/textlogo.PNG" alt="textLogo">
-        </div>
+            <img class="text-logo" src="/images/text-back.png" alt="text-Logo">
+        </section>
         <ul class="right-links">
-            <a href="/templates/index.html"><li>Home</li></a>
-            <a href="/about.html"><li>About</li></a>
-            <a class="login-link" href="/login"><li>Login</li></a>
-            <a class="create-user-link" href="/newUser"><li>Sign up</li></a>
+            <a href="../index">Home</a>
+            <a href="/sustainability.html">Sustainability</a>
+            <a class="create-user-link" href="/newUser">Sign up</a>
+            <a class="login-link" href="/logout">Logout</a>
         </ul>
     </nav>
 </header>
-
-
 </body>
 </html>
