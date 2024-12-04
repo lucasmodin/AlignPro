@@ -6,7 +6,7 @@ public interface IProjectRepository {
 
     void setConn();
 
-    void saveProject(String projectName, String startDate,String deadLine, String projectDescription);
+    void saveProject(String projectName, String startDate,String deadLine, String projectDescription, int pmUserID);
 
     Project getProject(String projectName);
 

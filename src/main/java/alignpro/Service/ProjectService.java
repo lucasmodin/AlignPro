@@ -16,9 +16,9 @@ public class ProjectService {
     }
 
 
-    public void saveProject(Project obj){
+    public void saveProject(Project obj, int pmUserID){
         projectRepository.saveProject(obj.getProjectName(), obj.getStartDateString(),
-                obj.getDeadlineString(), obj.getProjectDescription());
+                obj.getDeadlineString(), obj.getProjectDescription(), pmUserID);
     }
 
     public void editProject(Project project, int projectID){

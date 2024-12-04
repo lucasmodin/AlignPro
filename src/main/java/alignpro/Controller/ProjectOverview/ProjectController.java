@@ -21,16 +21,20 @@ public class ProjectController {
     @GetMapping("/CreateProject")
     public String createProject(Model model, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         Project obj = new Project();
         model.addAttribute("obj", obj);
+        model.addAttribute("pmUserID", pmUserID);
         return "create-Project";
     }
 
     @PostMapping("/saveProject")
-    public String saveProject(@ModelAttribute Project newProject, HttpSession session) {
+    public String saveProject(@ModelAttribute Project newProject,
+                              @RequestParam("pmUserID") int pmUserID,
+                              HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
-        projectService.saveProject(newProject);
-        return "redirect:/pm-dashboard";
+        projectService.saveProject(newProject, pmUserID);
+        return "redirect:/pm-dashboard/" + pmUserID ;
     }
 
     @GetMapping("/edit-project/{projectId}")

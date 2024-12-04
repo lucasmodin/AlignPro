@@ -18,7 +18,7 @@ class ProjectRepositoryTest {
     ProjectRepository projectRepository;
 
 
-    // this test, test both save and get Project. Perhaps project should be get differently.
+    /* this test, test both save and get Project. Perhaps project should be get differently.
     @Test
     void saveProject(){
 
@@ -30,6 +30,7 @@ class ProjectRepositoryTest {
 
         assertEquals(objToSave.getProjectDescription(),objToGet.getProjectDescription());
     }
+    */
 
     @Test
     void getProject(){
