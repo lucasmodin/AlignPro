@@ -19,6 +19,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class SubTaskControllerTest {
 
+    private final int pmUserID = 1;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -30,7 +32,7 @@ class SubTaskControllerTest {
         int subTaskID = 1;
         SubTask dummyProject = new SubTask(1, "SubTask 2", "task task doooo", "2025-11-25", "2025-11-25", 5, "java");
         when(subTaskService.getSubTask(1)).thenReturn(dummyProject);
-        mockMvc.perform(get("/subTasks/edit-subTask/{subTaskID}", subTaskID).sessionAttr("pmUserID", 1))
+        mockMvc.perform(get("/subTasks/edit-subTask/{subTaskID}", subTaskID).sessionAttr("pmUserID", pmUserID))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("obj", dummyProject))
                 .andExpect(view().name("edit-SubTask"));
@@ -46,7 +48,7 @@ class SubTaskControllerTest {
         int time = 5;
         String skillRequirement = "java";
 
-        mockMvc.perform(post("/subTasks/updateSubTask").sessionAttr("pmUserID", 1)
+        mockMvc.perform(post("/subTasks/updateSubTask").sessionAttr("pmUserID", pmUserID)
                         .param("subTaskID", String.valueOf(subTaskID))
                         .param("subTaskName", subTaskName)
                         .param("subTaskDescription", subTaskDescription)
@@ -55,14 +57,14 @@ class SubTaskControllerTest {
                         .param("time", String.valueOf(time))
                         .param("skillRequirement", skillRequirement))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"))
-                .andExpect(view().name("redirect:/"));
+                .andExpect(redirectedUrl("/pm-dashboard/" + pmUserID))
+                .andExpect(view().name("redirect:/pm-dashboard/" + pmUserID));
     }
 
     @Test
     void createSubTask() throws Exception{
         int taskID = 1;
-        mockMvc.perform(get("/subTasks/createSubTask/{taskID}", taskID).sessionAttr("pmUserID", 1))
+        mockMvc.perform(get("/subTasks/createSubTask/{taskID}", taskID).sessionAttr("pmUserID", pmUserID))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("obj"))
                 .andExpect(view().name("create-SubTask"));
@@ -71,18 +73,18 @@ class SubTaskControllerTest {
     @Test
     void saveSubTask() throws Exception{
         SubTask subTask = new SubTask();
-        mockMvc.perform(post("/subTasks/saveSubTask", subTask).sessionAttr("pmUserID", 1))
+        mockMvc.perform(post("/subTasks/saveSubTask", subTask).sessionAttr("pmUserID", pmUserID))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"))
-                .andExpect(view().name("redirect:/"));
+                .andExpect(redirectedUrl("/pm-dashboard/" + pmUserID))
+                .andExpect(view().name("redirect:/pm-dashboard/" + pmUserID));
     }
 
     @Test
     void deleteSubTask() throws Exception{
         int subTaskID = 1;
-        mockMvc.perform(post("/subTasks/deleteSubTask/{subTaskID}", subTaskID).sessionAttr("pmUserID", 1))
+        mockMvc.perform(post("/subTasks/deleteSubTask/{subTaskID}", subTaskID).sessionAttr("pmUserID", pmUserID))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"));
+                .andExpect(redirectedUrl("/pm-dashboard/" + pmUserID));
     }
 
 }
