@@ -24,6 +24,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class AlignProControllerTest {
 
+    ProjectManager projectManager = new ProjectManager();
+    private int projectManagerID = 1;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -34,7 +37,8 @@ public class AlignProControllerTest {
 
     @Test
     void testCreateNewEmployee() throws Exception {
-        mockMvc.perform(get("/CreateEmployee"))
+        projectManager.setProjectManagerID(1);
+        mockMvc.perform(get("/CreateEmployee").sessionAttr("pmUserID", projectManager.getProjectManagerID()))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("employeeObj"))
                 .andExpect(model().attributeExists("listOfSkills"))
