@@ -96,6 +96,7 @@
         <td th:text="${subProject.getStartDate()}"></td>
         <td th:text="${subProject.getEndDate()}"></td>
         <td th:text="${subProject.getSumTime()}"></td>
+        <td><a th:href="@{../subProjects/createSubProject/{projectID}(projectID=${subProject.fkProjectID})}">Add</a> </td>
         <td><a th:href="@{../subProjects/edit-subproject/{subProjectID}(subProjectID=${subProject.subProjectID})}">Edit</a></td>
         <td><form th:action="@{../subProjects/deleteSubProject/{subProjectID}(subProjectID=${subProject.subProjectID})}" method="post">
             <button type="submit">Delete</button>
@@ -115,7 +116,7 @@
 <table id="TaskTable">
     <thead>
     <tr>
-        <th>Belongs to Project</th>
+        <th>Belongs to Sub-Project</th>
         <th>Task Name</th>
         <th>Description</th>
         <th>Start Date</th>
@@ -132,6 +133,11 @@
         <td th:text="${task.getStartDate()}"></td>
         <td th:text="${task.getEndDate()}"></td>
         <td th:text="${task.getEstimatedTime()}"></td>
+        <td><a th:href="@{../tasks/createTask/{subProjectID}(subProjectID=${task.subProjectID})}">Add</a> </td>
+        <td><a th:href="@{../tasks/edit-task/{taskID}(taskID=${task.taskID})}">Edit</a></td>
+        <td><form th:action="@{../tasks/deleteTask/{taskID}(taskID=${task.taskID})}" method="post">
+            <button type="submit">Delete</button>
+        </form></td>
     </tr>
     </tbody>
 </table>
@@ -148,7 +154,7 @@
 <table id="subTaskTable">
     <thead>
     <tr>
-        <th>Belongs to Project</th>
+        <th>Belongs to Task</th>
         <th>SubTask Name</th>
         <th>Description</th>
         <th>Start Date</th>
@@ -165,6 +171,11 @@
         <td th:text="${subTask.getStartDate()}"></td>
         <td th:text="${subTask.getEndDate()}"></td>
         <td th:text="${subTask.getTime()}"></td>
+        <td><a th:href="@{../subTasks/createSubTask/{taskID}(taskID=${subTask.taskID})}">Add</a> </td>
+        <td><a th:href="@{../subTasks/edit-subTask/{subTaskID}(subTaskID=${subTask.subTaskID})}">Edit</a></td>
+        <td><form th:action="@{../subTasks/deleteSubTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="post">
+            <button type="submit">Delete</button>
+        </form></td>
     </tr>
     </tbody>
 </table>

@@ -77,6 +77,7 @@ public class AlignProService {
                 subProjectDTO.setStartDate(subProjectObj.getStartDate());
                 subProjectDTO.setEndDate(subProjectObj.getEndDate());
                 subProjectDTO.setSumTime(subProjectObj.getSumTime());
+                subProjectDTO.setFkProjectID(subProjectObj.getFkProjectID());
 
                 subProjectDTOSList.add(subProjectDTO);
 
@@ -89,6 +90,7 @@ public class AlignProService {
                 TaskDTO taskDTO = new TaskDTO();
 
                 taskDTO.setFilter(stuffUnderPM.get(taskObj.getTaskName()));
+                taskDTO.setTaskID(taskObj.getTaskID());
 
                 taskDTO.setTaskName(taskObj.getTaskName());
 
@@ -96,6 +98,7 @@ public class AlignProService {
                 taskDTO.setStartDate(taskObj.getStartDate());
                 taskDTO.setEndDate(taskObj.getEndDate());
                 taskDTO.setEstimatedTime(taskObj.getEstimatedTime());
+                taskDTO.setSubProjectID(taskObj.getSubProjectID());
 
                 taskDTOSList.add(taskDTO);
             }
@@ -107,6 +110,7 @@ public class AlignProService {
                 SubTaskDTO subTaskDTO = new SubTaskDTO();
 
                 subTaskDTO.setFilter(stuffUnderPM.get(subTaskObj.getSubTaskName()));
+                subTaskDTO.setSubTaskID(subTaskObj.getSubTaskID());
 
                 subTaskDTO.setSubTaskName(subTaskObj.getSubTaskName());
 
@@ -114,6 +118,7 @@ public class AlignProService {
                 subTaskDTO.setStartDate(subTaskObj.getStartDate());
                 subTaskDTO.setEndDate(subTaskObj.getEndDate());
                 subTaskDTO.setTime(subTaskObj.getTime());
+                subTaskDTO.setTaskID(subTaskObj.getTaskID());
 
                 subTaskDTOSList.add(subTaskDTO);
             }

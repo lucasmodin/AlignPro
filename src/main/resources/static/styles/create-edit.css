@@ -24,7 +24,8 @@ main {
     width: 800px;
     border-radius: 10px;
     background: white;
-    margin-top: 89px;
+    margin-top: 76px;
+    margin-bottom: 75px;
 }
 
 .wrapper2{
@@ -38,6 +39,7 @@ main {
 #wrapperSecondform{
     height: 800px;
 }
+
 
 .input-box input, textarea{
     width: 570px;

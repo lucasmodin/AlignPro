@@ -29,7 +29,6 @@ header {
     box-shadow: 0 4px 8px rgba(0,0,0, 0.1);
     color: white;
     position: absolute;
-    bottom: 0;
     width: 100%;
 
 }
@@ -133,7 +132,7 @@ li {
     padding: 0;
     width: 100%;
     height: auto;
-    max-height: 780px;
+    max-height: 751px;
     object-fit: cover;
     position: relative;
 }
