@@ -30,7 +30,7 @@ public class ProjectController {
     public String saveProject(@ModelAttribute Project newProject, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
         projectService.saveProject(newProject);
-        return "redirect:/";
+        return "redirect:/pm-dashboard";
     }
 
     @GetMapping("/edit-project/{projectId}")

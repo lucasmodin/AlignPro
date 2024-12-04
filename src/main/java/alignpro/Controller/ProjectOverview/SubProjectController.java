@@ -30,7 +30,7 @@ public class SubProjectController {
     public String saveSubProject(@ModelAttribute SubProject newSubProject, HttpSession session){
         if (isUserLoggedIn(session)) return "redirect:/login";
         subProjectService.saveSubProject(newSubProject);
-        return "redirect:/";
+        return "redirect:/pm-dashboard";
     }
 
     @GetMapping("/edit-subproject/{subProjectID}")

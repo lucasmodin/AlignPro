@@ -40,7 +40,7 @@ public class AlignProController {
     public String saveEmployee(@ModelAttribute Employee newEmployee, HttpSession session){
         if (isUserLoggedIn(session)) return "redirect:/login";
         alignProService.saveEmployee(newEmployee);
-        return "redirect:/pm-Dashboard";
+        return "redirect:/pm-dashboard";
     }
 
     @PostMapping("/deleteEmployee/{employeeID}")

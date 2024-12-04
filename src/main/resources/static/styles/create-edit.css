@@ -1,5 +1,5 @@
 body {
-    background: lightgray;
+    background: whitesmoke;
 }
 
 main {
@@ -24,6 +24,7 @@ main {
     width: 800px;
     border-radius: 10px;
     background: white;
+    margin-top: 89px;
 }
 
 .wrapper2{

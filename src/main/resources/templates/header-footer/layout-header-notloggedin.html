@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,14 +9,14 @@
 <header th:fragment="header">
     <nav class="navigation">
         <section class="left-container">
-            <a class="home-link" href="index.html">
+            <a class="home-link" href="../index">
                 <img class="logo-link" src="/images/image-back.png" alt="logo">
             </a>
             <img class="text-logo" src="/images/text-back.png" alt="text-logo">
         </section>
         <ul class="right-links">
-            <a href="/templates/index.html">Home</a>
-            <a href="/about.html">About</a>
+            <a href="../index">Home</a>
+            <a href="/sustainability.html">Sustainability</a>
             <a class="login-link" href="/login">Login</a>
         </ul>
     </nav>

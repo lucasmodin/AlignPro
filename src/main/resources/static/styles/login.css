@@ -1,9 +1,10 @@
-body{
-    justify-content: center;
+section{
     display: flex;
+    justify-content: center;
+    background: whitesmoke;
 }
 
-.container{
+.containerLogin{
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 1000px;
@@ -17,6 +18,7 @@ body{
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 20px;
+    margin: 89px 0;
 }
 
 .input-box input{
@@ -28,7 +30,6 @@ body{
     border-left: none;
     border-right: none;
     border-top: none;
-    padding-left: 40px;
     padding-right: 40px;
 }
 
@@ -36,6 +37,12 @@ body{
     position: absolute;
     margin-top: 37px;
     margin-left: -63px;
+}
+
+.input-box input:focus{
+    outline: none;
+    transition: 0.5s;
+    border-bottom: 2px solid blue;
 }
 
 .btn{
@@ -61,7 +68,7 @@ body{
     display: flex;
     position: absolute;
     font-size: 20px;
-    margin-left: 40px;
+    margin-left: 60px;
 }
 
 .input-box{
@@ -73,5 +80,19 @@ body{
     font-size: 50px;
 }
 .wrapper hr{
-    width: 80%;
+    width: 80%  ;
+}
+
+.icon-column{
+    width: 180px;
+    height: 180px;
+    align-content: center;
+    background: lavender;
+    border-radius: 100%;
+    margin-left: 170px;
+}
+
+.icon-column img{
+    object-fit: contain;
+    image-rendering: crisp-edges;
 }
