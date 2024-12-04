@@ -27,7 +27,7 @@ class TaskControllerTest {
     @Test
     void createTask() throws Exception{
         int subProjectID = 1;
-        mockMvc.perform(get("/tasks/createTask/{subProjectID}", subProjectID))
+        mockMvc.perform(get("/tasks/createTask/{subProjectID}", subProjectID).sessionAttr("pmUserID", 1))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("obj"))
                 .andExpect(view().name("create-Task"));
@@ -36,7 +36,7 @@ class TaskControllerTest {
     @Test
     void saveTask() throws Exception{
         Task task1 = new Task("Task 1", "2024-11-24", "2024-11-26", 2, "task task must do", "java", 1);
-        mockMvc.perform(post("/tasks/saveTask")
+        mockMvc.perform(post("/tasks/saveTask").sessionAttr("pmUserID", 1)
                         .flashAttr("task1",task1))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
@@ -46,7 +46,7 @@ class TaskControllerTest {
     void deleteTask() throws Exception{
         int taskID = 1;
 
-        mockMvc.perform(post("/tasks/deleteTask/{taskID}", taskID))
+        mockMvc.perform(post("/tasks/deleteTask/{taskID}", taskID).sessionAttr("pmUserID", 1))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
     }
@@ -56,7 +56,7 @@ class TaskControllerTest {
         int taskID = 1;
         Task dummmyTask = new Task("Task 2", "2025-11-25", "2025-11-25", 5, "task task doooo", "java", 1);
         when(taskService.getTask(1)).thenReturn(dummmyTask);
-        mockMvc.perform(get("/tasks/edit-task/{taskID}", taskID))
+        mockMvc.perform(get("/tasks/edit-task/{taskID}", taskID).sessionAttr("pmUserID", 1))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("task", dummmyTask))
                 .andExpect(view().name("edit-Task"));
@@ -72,7 +72,7 @@ class TaskControllerTest {
         String taskDescription = "task task doooo";
         String skillRequirement = "java";
 
-        mockMvc.perform(post("/tasks/updateTask")
+        mockMvc.perform(post("/tasks/updateTask").sessionAttr("pmUserID", 1)
                         .param("taskID", String.valueOf(taskID))
                         .param("taskName", taskName)
                         .param("startDate", startDate)

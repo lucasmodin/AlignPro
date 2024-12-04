@@ -30,7 +30,7 @@ class SubTaskControllerTest {
         int subTaskID = 1;
         SubTask dummyProject = new SubTask(1, "SubTask 2", "task task doooo", "2025-11-25", "2025-11-25", 5, "java");
         when(subTaskService.getSubTask(1)).thenReturn(dummyProject);
-        mockMvc.perform(get("/subTasks/edit-subTask/{subTaskID}", subTaskID))
+        mockMvc.perform(get("/subTasks/edit-subTask/{subTaskID}", subTaskID).sessionAttr("pmUserID", 1))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("obj", dummyProject))
                 .andExpect(view().name("edit-SubTask"));
@@ -46,7 +46,7 @@ class SubTaskControllerTest {
         int time = 5;
         String skillRequirement = "java";
 
-        mockMvc.perform(post("/subTasks/updateSubTask")
+        mockMvc.perform(post("/subTasks/updateSubTask").sessionAttr("pmUserID", 1)
                         .param("subTaskID", String.valueOf(subTaskID))
                         .param("subTaskName", subTaskName)
                         .param("subTaskDescription", subTaskDescription)
@@ -62,7 +62,7 @@ class SubTaskControllerTest {
     @Test
     void createSubTask() throws Exception{
         int taskID = 1;
-        mockMvc.perform(get("/subTasks/createSubTask/{taskID}", taskID))
+        mockMvc.perform(get("/subTasks/createSubTask/{taskID}", taskID).sessionAttr("pmUserID", 1))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("obj"))
                 .andExpect(view().name("create-SubTask"));
@@ -71,7 +71,7 @@ class SubTaskControllerTest {
     @Test
     void saveSubTask() throws Exception{
         SubTask subTask = new SubTask();
-        mockMvc.perform(post("/subTasks/saveSubTask", subTask))
+        mockMvc.perform(post("/subTasks/saveSubTask", subTask).sessionAttr("pmUserID", 1))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"))
                 .andExpect(view().name("redirect:/"));
@@ -80,7 +80,7 @@ class SubTaskControllerTest {
     @Test
     void deleteSubTask() throws Exception{
         int subTaskID = 1;
-        mockMvc.perform(post("/subTasks/deleteSubTask/{subTaskID}", subTaskID))
+        mockMvc.perform(post("/subTasks/deleteSubTask/{subTaskID}", subTaskID).sessionAttr("pmUserID", 1))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
     }

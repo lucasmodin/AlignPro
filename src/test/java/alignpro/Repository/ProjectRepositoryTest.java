@@ -11,8 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
-// NB Tests fail if the following line is not included as the h2 database is not reset between tests
-//@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:h2init.sql")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class ProjectRepositoryTest {
 
     @Autowired
@@ -21,7 +20,6 @@ class ProjectRepositoryTest {
 
     // this test, test both save and get Project. Perhaps project should be get differently.
     @Test
-    @DirtiesContext
     void saveProject(){
 
         Project objToSave = new Project("Test project 1", "2024-11-24", "2024-11-25", "To test saveProject Method");
@@ -34,7 +32,6 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    @DirtiesContext
     void getProject(){
 
         Project obj = projectRepository.getProject("Project Kea");
@@ -43,7 +40,6 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    @DirtiesContext
     void editProject(){
 
         //Arrange
@@ -67,7 +63,6 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    @DirtiesContext
     void deleteProject(){
 
         Project objTest = projectRepository.getProject(1);

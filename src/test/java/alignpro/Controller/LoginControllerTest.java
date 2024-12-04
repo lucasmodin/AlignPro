@@ -30,7 +30,7 @@ class LoginControllerTest {
 
     @Test
     void login() throws Exception {
-        mockMvc.perform(get("/login"))
+        mockMvc.perform(get("/login").sessionAttr("pmUserID", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("login"));
 
@@ -40,6 +40,7 @@ class LoginControllerTest {
     void loginValidation() throws Exception {
         projectManager.setMail("Lucas@Kea.dk");
         projectManager.setPassword("Lucas1234");
+        projectManager.setProjectManagerID(1);
 
         when(loginService.getProjectManager("Lucas@Kea.dk")).thenReturn(projectManager);
         when(loginService.loginCheck("Lucas@Kea.dk", "Lucas1234")).thenReturn(true);
@@ -48,6 +49,6 @@ class LoginControllerTest {
                 .param("password", projectManager.getPassword())
                 .sessionAttr("pmUserID", projectManager.getProjectManagerID()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"));
+                .andExpect(redirectedUrl("/pm-dashboard/" + projectManager.getProjectManagerID()));
     }
 }
