@@ -58,8 +58,8 @@ public class AlignProController {
 
     //TODO this is empty for now as I need to rewrite Logic
     @GetMapping("/pm-dashboard/{pmUserID}")
-    public String getDashboard(@PathVariable("pmUserID") int pmUserID, Model model, HttpSession session){
-        if (isUserLoggedIn(session)) return "redirect:/login";
+    public String getDashboard(@PathVariable("pmUserID") int pmUserID, Model model/*, HttpSession session*/){
+        //if (isUserLoggedIn(session)) return "redirect:/login";
         DashBoard_DTO dashboard = alignProService.dataDashBoard(pmUserID);
         List<String> filterList = dashboard.filterList();
         model.addAttribute("data", dashboard);

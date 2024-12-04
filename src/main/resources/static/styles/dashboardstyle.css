@@ -1,0 +1,33 @@
+body{
+    background: whitesmoke;
+}
+
+main{
+    margin-top: 76px;
+    margin-bottom: 75px;
+}
+
+.filter, .pm-containers{
+    margin: 50px 60px;
+}
+
+.pm-containers table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pm-containers tr{
+    font-size: 19px ;
+}
+
+.pm-containers td{
+    border: 1px solid lightgray;
+    padding: 10px;
+    background: white;
+    text-align: center;
+}
+
+td.headings{
+    text-align: left;
+    padding-left: 30px;
+}
