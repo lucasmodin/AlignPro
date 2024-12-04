@@ -69,6 +69,7 @@ public class AlignProService {
                 SubProjectDTO subProjectDTO = new SubProjectDTO();
 
                 subProjectDTO.setFilter(stuffUnderPM.get(subProjectObj.getSubProjectName()));
+                subProjectDTO.setSubProjectID(subProjectObj.getSubProjectID());
 
                 subProjectDTO.setSubProjectName(subProjectObj.getSubProjectName());
 
