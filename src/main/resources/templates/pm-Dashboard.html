@@ -67,7 +67,7 @@
     </tr>
     </tbody>
 </table>
-<a th:href="@{../projects/CreateProject}">Add</a>
+<a th:href="@{../projects/CreateProject}">Add Project</a>
 
 <!-- Table for SubProjects -->
 <h2>SubProjects</h2>
@@ -138,6 +138,7 @@
         <td><form th:action="@{../tasks/deleteTask/{taskID}(taskID=${task.taskID})}" method="post">
             <button type="submit">Delete</button>
         </form></td>
+        <td><a th:href="@{../subTasks/createSubTask/{taskID}(taskID=${task.taskID})}">Add Sub-Task</a> </td>
     </tr>
     </tbody>
 </table>
@@ -171,7 +172,6 @@
         <td th:text="${subTask.getStartDate()}"></td>
         <td th:text="${subTask.getEndDate()}"></td>
         <td th:text="${subTask.getTime()}"></td>
-        <td><a th:href="@{../subTasks/createSubTask/{taskID}(taskID=${subTask.taskID})}">Add</a> </td>
         <td><a th:href="@{../subTasks/edit-subTask/{subTaskID}(subTaskID=${subTask.subTaskID})}">Edit</a></td>
         <td><form th:action="@{../subTasks/deleteSubTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="post">
             <button type="submit">Delete</button>
