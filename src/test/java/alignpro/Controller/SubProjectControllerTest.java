@@ -27,7 +27,7 @@ class SubProjectControllerTest {
     @Test
     void testCreateNewSubProject() throws Exception {
         int projectID = 1;
-        mockMvc.perform(get("/subProjects/createSubProject/{projectID}", projectID))
+        mockMvc.perform(get("/subProjects/createSubProject/{projectID}", projectID).sessionAttr("pmUserID", 1))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("obj"))
                 .andExpect(view().name("create-SubProject"));
@@ -37,17 +37,17 @@ class SubProjectControllerTest {
     void saveNewSubProject() throws Exception {
         SubProject subProject = new SubProject("make crud functions", "2024-11-25", "2024-11-26", "make all crud now!");
 
-        mockMvc.perform(post("/subProjects/saveSubProject").
-                        flashAttr("subProject", subProject))
+        mockMvc.perform(post("/subProjects/saveSubProject").sessionAttr("pmUserID", 1)
+                        .flashAttr("subProject", subProject))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"));
+                .andExpect(redirectedUrl("/pm-dashboard"));
     }
 
     @Test
     void deleteSubProject() throws Exception{
         int subProjectId = 1;
 
-        mockMvc.perform(post("/subProjects/deleteSubProject/{subProjectID}", subProjectId))
+        mockMvc.perform(post("/subProjects/deleteSubProject/{subProjectID}", subProjectId).sessionAttr("pmUserID", 1))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
     }
@@ -57,7 +57,7 @@ class SubProjectControllerTest {
         int subProjectID = 1;
         SubProject dummySubProject = new SubProject(1,"dummy", "2024-11-11", "2024-11-22", "dummy project");
         when(subProjectService.getSubProject(1)).thenReturn(dummySubProject);
-        mockMvc.perform(get("/subProjects/edit-subproject/{subProjectID}", subProjectID))
+        mockMvc.perform(get("/subProjects/edit-subproject/{subProjectID}", subProjectID).sessionAttr("pmUserID", 1))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("subProject", dummySubProject))
                 .andExpect(view().name("edit-SubProject"));
@@ -71,7 +71,7 @@ class SubProjectControllerTest {
         String endDate = "2024-11-22";
         String subProjectDescription = "dummy project";
 
-        mockMvc.perform(post("/subProjects/updateSubProject")
+        mockMvc.perform(post("/subProjects/updateSubProject").sessionAttr("pmUserID", 1)
                         .param("subProjectID", String.valueOf(subProjectID))
                         .param("subProjectName",subProjectName)
                         .param("startDate", startDate)

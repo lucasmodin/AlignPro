@@ -27,7 +27,8 @@ public class AlignProController {
     }
 
     @GetMapping("/CreateEmployee")
-    public String createEmployee(Model model){
+    public String createEmployee(Model model, HttpSession session){
+        if (isUserLoggedIn(session)) return "redirect:/login";
         Employee employee = new Employee();
         List<String> listOfSkills = alignProService.getListOfSkills();
         model.addAttribute("employeeObj", employee);
@@ -36,17 +37,19 @@ public class AlignProController {
     }
 
     @PostMapping("/saveEmployee")
-    public String saveEmployee(@ModelAttribute Employee newEmployee){
+    public String saveEmployee(@ModelAttribute Employee newEmployee, HttpSession session){
+        if (isUserLoggedIn(session)) return "redirect:/login";
         alignProService.saveEmployee(newEmployee);
         return "redirect:/pm-dashboard";
     }
 
     @PostMapping("/deleteEmployee/{employeeID}")
-    public String deleteEmployee(@PathVariable("employeeID") int employeeID){
+    public String deleteEmployee(@PathVariable("employeeID") int employeeID, HttpSession session){
+
         Employee employee = alignProService.getEmployee(employeeID);
-        if(employee != null) {
+        if(employee != null && !isUserLoggedIn(session)) {
             alignProService.deleteEmployee(employeeID);
-            return "redirect:/";
+            return "redirect:/pm-Dashboard";
         } else {
             return "redirect:/";
         }
@@ -55,7 +58,8 @@ public class AlignProController {
 
     //TODO this is empty for now as I need to rewrite Logic
     @GetMapping("/pm-dashboard/{pmUserID}")
-    public String getDashboard(@PathVariable("pmUserID") int pmUserID, Model model){
+    public String getDashboard(@PathVariable("pmUserID") int pmUserID, Model model, HttpSession session){
+        if (isUserLoggedIn(session)) return "redirect:/login";
         DashBoard_DTO dashboard = alignProService.dataDashBoard(pmUserID);
         List<String> filterList = dashboard.filterList();
         model.addAttribute("data", dashboard);
@@ -67,7 +71,8 @@ public class AlignProController {
 
     //TODO it needs to get Project Manager PrimaryKey from Session to be able to get correct data.
     @GetMapping("/pm-dashboard/filter")
-    public String getfilterDashBoard(@RequestParam("filterProjects") String filterProjects, Model model){
+    public String getfilterDashBoard(@RequestParam("filterProjects") String filterProjects, Model model, HttpSession session){
+        if (isUserLoggedIn(session)) return "redirect:/login";
         DashBoard_DTO unFilteredDashBoard = alignProService.dataDashBoard(1);
         unFilteredDashBoard.filter(filterProjects);
         model.addAttribute("data", unFilteredDashBoard);
@@ -75,7 +80,8 @@ public class AlignProController {
     }
 
     @GetMapping("/{ID}/editEmployee")
-    public String editEmployee(@PathVariable int ID, Model model){
+    public String editEmployee(@PathVariable int ID, Model model, HttpSession session){
+        if (isUserLoggedIn(session)) return "redirect:/login";
         Employee objToUpdate = alignProService.getEmployee(ID);
         model.addAttribute("EmployeeObj", objToUpdate);
         model.addAttribute("Skills", alignProService.getListOfSkills());
@@ -86,14 +92,16 @@ public class AlignProController {
     public String updateEmployee(
             @RequestParam("employeeID") int employeeID,
             @RequestParam("employeeName") String employeeName,
-            @RequestParam("skills") List<String> skills){
+            @RequestParam("skills") List<String> skills,
+            HttpSession session){
+        if (isUserLoggedIn(session)) return "redirect:/login";
         Employee objUpdate = new Employee(employeeName, skills);
         alignProService.editEmployee(objUpdate,employeeID);
         return "redirect:/";
     }
 
     public boolean isUserLoggedIn(HttpSession session){
-        return session.getAttribute("pmUserID") != null;
+        return session.getAttribute("pmUserID") == null;
     }
 
 

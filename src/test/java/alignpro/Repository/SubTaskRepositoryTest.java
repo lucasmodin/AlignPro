@@ -10,6 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 // NB Tests fail if the following line is not included as the h2 database is not reset between tests
 //@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:h2init.sql")
 class SubTaskRepositoryTest {
@@ -18,7 +19,6 @@ class SubTaskRepositoryTest {
     SubTaskRepository subTaskRepository;
 
     @Test
-    @DirtiesContext
     void saveSubTask(){
 
         SubTask objToSave = new SubTask("sub project test", "please go through test", "2024-11-11", "2024-11-22", 50,"coding", 1);
@@ -34,14 +34,12 @@ class SubTaskRepositoryTest {
     }
 
     @Test
-    @DirtiesContext
     void getSubTask() {
         SubTask objToGet = subTaskRepository.getSubTask(1);
         assertEquals(objToGet.getSubTaskName(),"Build a gun");
     }
 
     @Test
-    @DirtiesContext
     void editSubTask() {
         //Arrange
         //had to make new object and save it to the database, as the in the context of the other tests, the populated ID's from the h2init bugs (ID 1 and 2), but works fine isolated

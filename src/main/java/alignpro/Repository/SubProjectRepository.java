@@ -63,7 +63,7 @@ public class SubProjectRepository implements ISubProjectRepository {
         SubProject obj = null;
 
         try {
-            String sqlString = "SELECT SubProjectID, SubProjectName, StartDate, EndDate, SubProjectDescription FROM SubProject WHERE SubProjectID = ?";
+            String sqlString = "SELECT SubProjectID, SubProjectName, StartDate, EndDate, SubProjectDescription, ProjectID FROM SubProject WHERE SubProjectID = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sqlString);
             stmt.setInt(1, subProjectID);
@@ -76,6 +76,7 @@ public class SubProjectRepository implements ISubProjectRepository {
                 obj.setStartDate(resultSet.getString("StartDate"));
                 obj.setEndDate(resultSet.getString("EndDate"));
                 obj.setSubProjectDescription(resultSet.getString("SubProjectDescription"));
+                obj.setFkProjectID(resultSet.getInt("ProjectID"));
             }
 
 
@@ -92,7 +93,7 @@ public class SubProjectRepository implements ISubProjectRepository {
         SubProject obj = null;
 
         try{
-            String sqlString = "SELECT SubProjectID, SubProjectName, StartDate, EndDate, SubProjectDescription FROM SubProject WHERE SubProjectName = ?";
+            String sqlString = "SELECT SubProjectID, SubProjectName, StartDate, EndDate, SubProjectDescription, ProjectID FROM SubProject WHERE SubProjectName = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sqlString);
             stmt.setString(1, subProjectName);
@@ -105,6 +106,7 @@ public class SubProjectRepository implements ISubProjectRepository {
                 obj.setStartDate(resultSet.getString("StartDate"));
                 obj.setEndDate(resultSet.getString("EndDate"));
                 obj.setSubProjectDescription(resultSet.getString("SubProjectDescription"));
+                obj.setFkProjectID(resultSet.getInt("ProjectID"));
             }
 
 

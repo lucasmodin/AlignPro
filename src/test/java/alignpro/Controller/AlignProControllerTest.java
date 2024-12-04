@@ -24,6 +24,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class AlignProControllerTest {
 
+
+
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -34,7 +37,7 @@ public class AlignProControllerTest {
 
     @Test
     void testCreateNewEmployee() throws Exception {
-        mockMvc.perform(get("/CreateEmployee"))
+        mockMvc.perform(get("/CreateEmployee").sessionAttr("pmUserID", 1))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("employeeObj"))
                 .andExpect(model().attributeExists("listOfSkills"))
@@ -51,16 +54,16 @@ public class AlignProControllerTest {
         Employee employeeObj = new Employee("Egon Olsen", listOfSkills);
 
 
-        mockMvc.perform(post("/saveEmployee")
+        mockMvc.perform(post("/saveEmployee").sessionAttr("pmUserID", 1)
                 .flashAttr("employeeObj", employeeObj))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"));
+                .andExpect(redirectedUrl("/pm-dashboard"));
     }
 
      @Test
     void deleteEmployee() throws Exception{
         int employeeID = 1;
-        mockMvc.perform(post("/deleteEmployee/{employeeID}", employeeID))
+        mockMvc.perform(post("/deleteEmployee/{employeeID}", employeeID).sessionAttr("pmUserID", 1))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
     }
@@ -73,7 +76,7 @@ public class AlignProControllerTest {
         listOfSkills.add("Developer");
         listOfSkills.add("Cost Controller");
 
-        mockMvc.perform(post("/updateEmployee")
+        mockMvc.perform(post("/updateEmployee").sessionAttr("pmUserID", 1)
                         .param("employeeID", String.valueOf(employeeID))
                         .param("employeeName", name )
                         .param("skills", String.valueOf(listOfSkills)))

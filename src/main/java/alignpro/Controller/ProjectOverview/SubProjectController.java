@@ -2,6 +2,7 @@ package alignpro.Controller.ProjectOverview;
 
 import alignpro.Model.Projects.SubProject;
 import alignpro.Service.SubProjectService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,8 @@ public class SubProjectController {
     }
 
     @GetMapping("/createSubProject/{projectID}")
-    public String createSubProject(@PathVariable("projectID") int projectID, Model model){
+    public String createSubProject(@PathVariable("projectID") int projectID, Model model, HttpSession session){
+        if (isUserLoggedIn(session)) return "redirect:/login";
         SubProject obj = new SubProject();
         obj.setFkProjectID(projectID);
         model.addAttribute("obj", obj);
@@ -25,13 +27,15 @@ public class SubProjectController {
     }
 
     @PostMapping("/saveSubProject")
-    public String saveSubProject(@ModelAttribute SubProject newSubProject){
+    public String saveSubProject(@ModelAttribute SubProject newSubProject, HttpSession session){
+        if (isUserLoggedIn(session)) return "redirect:/login";
         subProjectService.saveSubProject(newSubProject);
         return "redirect:/pm-dashboard";
     }
 
     @GetMapping("/edit-subproject/{subProjectID}")
-    public String editSubProject(@PathVariable("subProjectID") int subProjectID, Model model){
+    public String editSubProject(@PathVariable("subProjectID") int subProjectID, Model model, HttpSession session){
+        if (isUserLoggedIn(session)) return "redirect:/login";
         SubProject subProject = subProjectService.getSubProject(subProjectID);
         if(subProject != null){
             model.addAttribute("subProject", subProject);
@@ -46,8 +50,10 @@ public class SubProjectController {
                                    @RequestParam("subProjectName") String subProjectName,
                                    @RequestParam("startDate") String startDate,
                                    @RequestParam("endDate") String endDate,
-                                   @RequestParam("subProjectDescription") String subProjectDescription/*,
-                                   @RequestParam("fkProjectID") int fkProjectID*/){
+                                   @RequestParam("subProjectDescription") String subProjectDescription,/*,
+                                   @RequestParam("fkProjectID") int fkProjectID*/
+                                    HttpSession session){
+        if (isUserLoggedIn(session)) return "redirect:/login";
         SubProject subProject = new SubProject(subProjectID, subProjectName, startDate
                 , endDate, subProjectDescription);
         subProjectService.editSubProject(subProject, subProject.getSubProjectID());
@@ -56,9 +62,14 @@ public class SubProjectController {
     }
 
     @PostMapping("/deleteSubProject/{subProjectID}")
-    public String deleteSubProject(@PathVariable("subProjectID") int subProjectID){
+    public String deleteSubProject(@PathVariable("subProjectID") int subProjectID, HttpSession session){
+        if (isUserLoggedIn(session)) return "redirect:/login";
         subProjectService.deleteSubProject(subProjectID);
         return "redirect:/";
+    }
+
+    public boolean isUserLoggedIn(HttpSession session){
+        return session.getAttribute("pmUserID") == null;
     }
 
 }
