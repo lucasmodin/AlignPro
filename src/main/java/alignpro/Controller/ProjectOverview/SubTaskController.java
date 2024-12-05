@@ -23,14 +23,14 @@ public class SubTaskController {
         SubTask obj = new SubTask();
         obj.setTaskID(taskID);
         model.addAttribute("obj", obj);
-        return "create-SubTask";
+        return "createHTML/create-SubTask";
     }
 
     @PostMapping("/saveSubTask")
     public String saveSubTask(@ModelAttribute SubTask newSubTask, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
         subTaskService.saveSubTask(newSubTask);
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
     @GetMapping("/edit-subTask/{subTaskID}")
@@ -39,9 +39,9 @@ public class SubTaskController {
         SubTask obj = subTaskService.getSubTask(subTaskID);
         if(obj != null){
             model.addAttribute("obj", obj);
-            return "edit-SubTask";
+            return "editHTML/edit-SubTask";
         } else {
-            return "redirect:/";
+            return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
         }
     }
 
@@ -57,14 +57,14 @@ public class SubTaskController {
         if (isUserLoggedIn(session)) return "redirect:/login";
         SubTask subTask = new SubTask(subTaskID, subTaskName, subTaskDescription, startDate, endDate, time, skillRequirement);
         subTaskService.editSubTask(subTask, subTask.getSubTaskID());
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
     @PostMapping("/deleteSubTask/{subTaskID}")
     public String deleteSubTask(@PathVariable("subTaskID") int subTaskID, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
         subTaskService.deleteSubTask(subTaskID);
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
     public boolean isUserLoggedIn(HttpSession session){

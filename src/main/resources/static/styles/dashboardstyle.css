@@ -1,0 +1,71 @@
+body{
+    background: whitesmoke;
+}
+
+
+.pm-containers a, .pm-containers button{
+    all: unset;
+    cursor: pointer;
+}
+
+
+main{
+    margin-top: 76px;
+    margin-bottom: 75px;
+}
+
+.filter, .pm-containers{
+    margin: 50px 40px;
+}
+
+.pm-containers table{
+    border-collapse: collapse;
+}
+
+.pm-containers tr{
+    font-size: 19px ;
+}
+
+.pm-containers td{
+    border: 1px solid lightgray;
+    padding: 10px;
+    background: white;
+    text-align: center;
+}
+.pm-containers th{
+    color: grey;
+    font-size: 17px;
+}
+
+td.headings{
+    text-align: left;
+    padding-left: 30px;
+    width: 220px;
+}
+
+td.description{
+    width: 500px;
+    text-align: left;
+    padding-left: 30px;
+}
+
+td.dates, td.deadline{
+    width: 110px;
+}
+
+td.deadline{
+    color: crimson;
+}
+
+td.time{
+    width: 110px;
+    color: grey;
+}
+
+td.belongTo{
+    width: 170px;
+}
+
+td.edit, td.delete, td.add{
+    width: 55px;
+}
