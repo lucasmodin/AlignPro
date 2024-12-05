@@ -24,7 +24,7 @@ public class TaskController {
         Task task = taskService.getTask(taskID);
         if(task != null){
             model.addAttribute("task", task);
-            return "edit-Task";
+            return "editHTML/edit-Task";
         } else {
             return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
         }
@@ -52,7 +52,7 @@ public class TaskController {
         Task obj = new Task();
         obj.setSubProjectID(subProjectID);
         model.addAttribute("obj", obj);
-        return "create-Task";
+        return "createHTML/create-Task";
     }
 
     @PostMapping("/saveTask")

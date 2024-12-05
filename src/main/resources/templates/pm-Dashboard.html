@@ -52,6 +52,9 @@
             <th>Start Date</th>
             <th>Deadline</th>
             <th>Total Sum Time</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Sub-Project</th>
         </tr>
         </thead>
         <tbody>
@@ -61,12 +64,12 @@
             <td class="dates" th:text="${project.getStartDate()}"></td>
             <td class="deadline" th:text="${project.getDeadLine()}"></td>
             <td class="time" th:text="${project.getTotalTime()} + 'h'"></td>
-            <!--<td><a th:href="@{../projects/edit-project/{projectID}(projectID=${project.projectID})}">Edit</a></td>
-            <td><form th:action="@{../projects/delete-project/{projectID}(projectID=${project.projectID})}" method="post">
-                <button type="submit">Delete</button>
+            <td class="edit"><a th:href="@{../projects/edit-project/{projectID}(projectID=${project.projectID})}"><i class='bx bx-message-square-edit'></i></a></td>
+            <td class="delete"><form th:action="@{../projects/delete-project/{projectID}(projectID=${project.projectID})}" method="post">
+                <button type="submit"><i class='bx bx-trash'></i></button>
             </form></td>
-            <td><a th:href="@{../subProjects/createSubProject/{projectID}(projectID=${project.projectID})}">Add Sub-Project</a> </td>
-        --></tr>
+            <td class="add"><a th:href="@{../subProjects/createSubProject/{projectID}(projectID=${project.projectID})}"><i class='bx bx-plus-circle' ></i></a> </td>
+        </tr>
         </tbody>
     </table>
     <!--<a th:href="@{../projects/CreateProject}">Add Project</a>-->
@@ -89,6 +92,9 @@
             <th>End Date</th>
             <th>Sum Time</th>
             <th>Belongs to Project</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Task</th>
         </tr>
         </thead>
         <tbody>
@@ -99,12 +105,12 @@
             <td class="deadline" th:text="${subProject.getEndDate()}"></td>
             <td class="time" th:text="${subProject.getSumTime()} + 'h'"></td>
             <td class="belongTo" th:text="${subProject.getFilter()}"></td>
-            <!--<td><a th:href="@{../subProjects/edit-subproject/{subProjectID}(subProjectID=${subProject.subProjectID})}">Edit</a></td>
-            <td><form th:action="@{../subProjects/deleteSubProject/{subProjectID}(subProjectID=${subProject.subProjectID})}" method="post">
-                <button type="submit">Delete</button>
+            <td class="edit"><a th:href="@{../subProjects/edit-subproject/{subProjectID}(subProjectID=${subProject.subProjectID})}"><i class='bx bx-message-square-edit'></i></a></td>
+            <td class="delete"><form th:action="@{../subProjects/deleteSubProject/{subProjectID}(subProjectID=${subProject.subProjectID})}" method="post">
+                <button type="submit"><i class='bx bx-trash'></i></button>
             </form></td>
-            <td><a th:href="@{../tasks/createTask/{subProjectID}(subProjectID=${subProject.subProjectID})}">Add Task</a></td>
-        --></tr>
+            <td class="add"><a th:href="@{../tasks/createTask/{subProjectID}(subProjectID=${subProject.subProjectID})}"><i class='bx bx-plus-circle' ></i></a></td>
+        </tr>
         </tbody>
     </table>
     </section>
@@ -126,6 +132,9 @@
             <th>End Date</th>
             <th>Estimated Time</th>
             <th>Belongs to Sub-Project</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Sub-Task</th>
         </tr>
         </thead>
         <tbody>
@@ -136,12 +145,12 @@
             <td class="deadline" th:text="${task.getEndDate()}"></td>
             <td class="time" th:text="${task.getEstimatedTime()} + 'h'"></td>
             <td class="belongTo" th:text="${task.getFilter()}"></td>
-            <!--<td><a th:href="@{../tasks/edit-task/{taskID}(taskID=${task.taskID})}">Edit</a></td>
-            <td><form th:action="@{../tasks/deleteTask/{taskID}(taskID=${task.taskID})}" method="post">
-                <button type="submit">Delete</button>
+            <td class="edit"><a th:href="@{../tasks/edit-task/{taskID}(taskID=${task.taskID})}"><i class='bx bx-message-square-edit'></i></a></td>
+            <td class="delete"><form th:action="@{../tasks/deleteTask/{taskID}(taskID=${task.taskID})}" method="post">
+                <button type="submit"><i class='bx bx-trash'></i></button>
             </form></td>
-            <td><a th:href="@{../subTasks/createSubTask/{taskID}(taskID=${task.taskID})}">Add Sub-Task</a> </td>
-        --></tr>
+            <td class="add"><a th:href="@{../subTasks/createSubTask/{taskID}(taskID=${task.taskID})}"><i class='bx bx-plus-circle' ></i></a> </td>
+        </tr>
         </tbody>
     </table>
     </section>
@@ -163,6 +172,8 @@
             <th>End Date</th>
             <th>Estimated Time</th>
             <th>Belongs to Task</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -173,11 +184,11 @@
             <td class="deadline" th:text="${subTask.getEndDate()}"></td>
             <td class="time" th:text="${subTask.getTime()} + 'h'"></td>
             <td class="belongTo" th:text="${subTask.getFilter()}"></td>
-            <!--<td><a th:href="@{../subTasks/edit-subTask/{subTaskID}(subTaskID=${subTask.subTaskID})}">Edit</a></td>
-            <td><form th:action="@{../subTasks/deleteSubTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="post">
-                <button type="submit">Delete</button>
+            <td class="edit"><a th:href="@{../subTasks/edit-subTask/{subTaskID}(subTaskID=${subTask.subTaskID})}"><i class='bx bx-message-square-edit'></i></a></td>
+            <td class="delete"><form th:action="@{../subTasks/deleteSubTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="post">
+                <button type="submit"><i class='bx bx-trash'></i></button>
             </form></td>
-        --></tr>
+        </tr>
         </tbody>
     </table>
     </section>

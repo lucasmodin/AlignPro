@@ -23,7 +23,7 @@ public class SubProjectController {
         SubProject obj = new SubProject();
         obj.setFkProjectID(projectID);
         model.addAttribute("obj", obj);
-        return "create-SubProject";
+        return "createHTML/create-SubProject";
     }
 
     @PostMapping("/saveSubProject")
@@ -40,7 +40,7 @@ public class SubProjectController {
         SubProject subProject = subProjectService.getSubProject(subProjectID);
         if(subProject != null){
             model.addAttribute("subProject", subProject);
-            return "edit-SubProject";
+            return "editHTML/edit-SubProject";
         } else {
             return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
         }

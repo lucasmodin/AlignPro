@@ -23,7 +23,7 @@ public class ProjectController {
         if (isUserLoggedIn(session)) return "redirect:/login";
         Project obj = new Project();
         model.addAttribute("obj", obj);
-        return "create-Project";
+        return "createHTML/create-Project";
     }
 
     @PostMapping("/saveProject")
@@ -39,7 +39,7 @@ public class ProjectController {
         Project project = projectService.getProject(projectId);
         if (project != null) {
             model.addAttribute("project", project);
-            return "edit-project";
+            return "editHTML/edit-project";
         } else {
             return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
         }

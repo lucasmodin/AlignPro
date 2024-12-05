@@ -23,7 +23,7 @@ public class SubTaskController {
         SubTask obj = new SubTask();
         obj.setTaskID(taskID);
         model.addAttribute("obj", obj);
-        return "create-SubTask";
+        return "createHTML/create-SubTask";
     }
 
     @PostMapping("/saveSubTask")
@@ -39,7 +39,7 @@ public class SubTaskController {
         SubTask obj = subTaskService.getSubTask(subTaskID);
         if(obj != null){
             model.addAttribute("obj", obj);
-            return "edit-SubTask";
+            return "editHTML/edit-SubTask";
         } else {
             return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
         }
