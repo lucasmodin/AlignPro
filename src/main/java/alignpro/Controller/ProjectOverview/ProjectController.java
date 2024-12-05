@@ -21,27 +21,32 @@ public class ProjectController {
     @GetMapping("/CreateProject")
     public String createProject(Model model, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         Project obj = new Project();
         model.addAttribute("obj", obj);
+        model.addAttribute("pmUserID", pmUserID);
         return "createHTML/create-Project";
     }
 
     @PostMapping("/saveProject")
-    public String saveProject(@ModelAttribute Project newProject, HttpSession session) {
+    public String saveProject(@ModelAttribute Project newProject,
+                              @RequestParam("pmUserID") int pmUserID,
+                              HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
-        projectService.saveProject(newProject);
-        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
+        projectService.saveProject(newProject, pmUserID);
+        return "redirect:/pm-dashboard/" + pmUserID ;
     }
 
     @GetMapping("/edit-project/{projectId}")
     public String editProject(@PathVariable("projectId") int projectId, Model model, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
         Project project = projectService.getProject(projectId);
+        int pmUserID = (int) session.getAttribute("pmUserID");
         if (project != null) {
             model.addAttribute("project", project);
             return "editHTML/edit-project";
         } else {
-            return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
+            return "redirect:/pm-dashboard/" + pmUserID;
         }
     }
 
@@ -53,18 +58,20 @@ public class ProjectController {
                                 @RequestParam("deadLine") String deadLine,
                                 HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         Project project = new Project(projectId, projectName, startDate, deadLine, projectDescription);
         projectService.editProject(project, project.getProjectID());
-        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
+        return "redirect:/pm-dashboard/" + pmUserID;
     }
 
     @PostMapping("/delete-project/{projectID}")
     public String deleteProject(@PathVariable("projectID") int projectID, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
         Project projectToDelete = projectService.getProject(projectID);
+        int pmUserID = (int) session.getAttribute("pmUserID");
         if(projectToDelete != null){
             projectService.deleteProject(projectID);
-            return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
+            return "redirect:/pm-dashboard/" + pmUserID ;
         } else {
             return "redirect:/";
         }

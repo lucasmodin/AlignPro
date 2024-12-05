@@ -175,23 +175,21 @@ public class AlignProRepository implements IFAlignProRepository {
 
     @Override
     public List<Employee> getListOfEmployees(){
-        List<String> employeeListName = new ArrayList<>();
         List<Employee> employeeList = new ArrayList<>();
 
         try {
 
-            String sqlString = "SELECT EmployeeName FROM Employee";
+            String sqlString = "SELECT EmployeeID, EmployeeName FROM Employee";
 
             PreparedStatement stmt = conn.prepareStatement(sqlString);
             ResultSet rls = stmt.executeQuery();
 
             while(rls.next()){
-                String employeeName = rls.getString(1);
-                employeeListName.add(employeeName);
-            }
-
-            for (String employeeName: employeeListName){
-                employeeList.add(getEmployee(employeeName));
+                int employeeID = rls.getInt(1);
+                System.out.println(employeeID);
+                String employeeName = rls.getString(2);
+                Employee employee = new Employee(employeeID, employeeName);
+                employeeList.add(employee);
             }
 
         } catch (SQLException e){

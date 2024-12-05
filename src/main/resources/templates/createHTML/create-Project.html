@@ -15,6 +15,7 @@
     <div class="wrapper">
         <a href="/pm-dashboard/1" id="back"><i class='bx bx-arrow-back'></i></a>
     <form th:action="@{/projects/saveProject}" th:object="${obj}" method="post">
+        <input type="hidden" name="pmUserID" th:value="${pmUserID}">
         <h1>Create a Project</h1>
         <hr>
         <div class="input-box">

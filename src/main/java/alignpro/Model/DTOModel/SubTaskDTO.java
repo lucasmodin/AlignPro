@@ -1,5 +1,7 @@
 package alignpro.Model.DTOModel;
 
+import alignpro.Model.Employee;
+
 import java.time.LocalDate;
 
 public class SubTaskDTO {
@@ -14,6 +16,7 @@ public class SubTaskDTO {
     private LocalDate endDate;
     private int time;
     private int taskID;
+    private Employee employee;
 
 
     //Empty konstrucot
@@ -84,5 +87,13 @@ public class SubTaskDTO {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

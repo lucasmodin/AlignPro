@@ -1,5 +1,7 @@
 package alignpro.Model.Projects;
 
+import alignpro.Model.Employee;
+
 import java.time.LocalDate;
 
 public class SubTask {
@@ -11,6 +13,7 @@ public class SubTask {
     private int time;
     private int taskID;
     private String skillRequirement;
+    private Employee employee;
 
 
     //************************* Constructors *******************************//
@@ -154,5 +157,13 @@ public class SubTask {
 
     public void setSkillRequirement(String skillRequirement) {
         this.skillRequirement = skillRequirement;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee){
+        this.employee = employee;
     }
 }

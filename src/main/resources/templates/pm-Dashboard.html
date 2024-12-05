@@ -149,7 +149,14 @@
             <td class="delete"><form th:action="@{../tasks/deleteTask/{taskID}(taskID=${task.taskID})}" method="post">
                 <button type="submit"><i class='bx bx-trash'></i></button>
             </form></td>
-            <td class="add"><a th:href="@{../subTasks/createSubTask/{taskID}(taskID=${task.taskID})}"><i class='bx bx-plus-circle' ></i></a> </td>
+            <td class="add"><form th:action="@{../subTasks/createSubTask/{taskID}(taskID=${task.taskID})}" method="get">
+            <span th:each="employee : ${employeeList}">
+                <input type="hidden" name="employeeID" th:value="${employee.employeeID}"/>
+                <input type="hidden" name="employeeName" th:value="${employee.employeeName}">
+            </span>
+                <button type="submit"><i class='bx bx-plus-circle'></i></button>
+            </form>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -184,7 +191,14 @@
             <td class="deadline" th:text="${subTask.getEndDate()}"></td>
             <td class="time" th:text="${subTask.getTime()} + 'h'"></td>
             <td class="belongTo" th:text="${subTask.getFilter()}"></td>
-            <td class="edit"><a th:href="@{../subTasks/edit-subTask/{subTaskID}(subTaskID=${subTask.subTaskID})}"><i class='bx bx-message-square-edit'></i></a></td>
+            <td class="edit"><form th:action="@{../subTasks/edit-subTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="get">
+            <span th:each="employee : ${employeeList}">
+                <input type="hidden" name="employeeID" th:value="${employee.employeeID}"/>
+                <input type="hidden" name="employeeName" th:value="${employee.employeeName}">
+            </span>
+                <button type="submit"><i class='bx bx-message-square-edit'></i></button>
+            </form>
+            </td>
             <td class="delete"><form th:action="@{../subTasks/deleteSubTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="post">
                 <button type="submit"><i class='bx bx-trash'></i></button>
             </form></td>
@@ -204,7 +218,6 @@
             table.style.display = "none";
         }
     }
-
 </script>
 </body>
 </html>

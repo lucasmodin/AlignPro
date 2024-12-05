@@ -18,18 +18,19 @@ class ProjectRepositoryTest {
     ProjectRepository projectRepository;
 
 
-    // this test, test both save and get Project. Perhaps project should be get differently.
+     //this test, test both save and get Project. Perhaps project should be get differently.
     @Test
     void saveProject(){
-
+        int pmUserID = 1;
         Project objToSave = new Project("Test project 1", "2024-11-24", "2024-11-25", "To test saveProject Method");
 
-        projectRepository.saveProject(objToSave.getProjectName(),objToSave.getStartDateString(),objToSave.getDeadlineString(), objToSave.getProjectDescription());
+        projectRepository.saveProject(objToSave.getProjectName(),objToSave.getStartDateString(),objToSave.getDeadlineString(), objToSave.getProjectDescription(), pmUserID);
 
         Project objToGet = projectRepository.getProject(4);
 
         assertEquals(objToSave.getProjectDescription(),objToGet.getProjectDescription());
     }
+
 
     @Test
     void getProject(){

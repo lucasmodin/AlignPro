@@ -21,12 +21,13 @@ public class TaskController {
     @GetMapping("/edit-task/{taskID}")
     public String editTask(@PathVariable("taskID") int taskID, Model model, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         Task task = taskService.getTask(taskID);
         if(task != null){
             model.addAttribute("task", task);
             return "editHTML/edit-Task";
         } else {
-            return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
+            return "redirect:/pm-dashboard/" + pmUserID;
         }
     }
 
@@ -40,10 +41,11 @@ public class TaskController {
                              @RequestParam("skillRequirement") String skillRequirement,
                              HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         Task task = new Task(taskID, taskName, startDate, endDate,
                 estimatedTime, taskDescription, skillRequirement);
         taskService.editTask(task, task.getTaskID());
-        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
+        return "redirect:/pm-dashboard/" + pmUserID;
     }
 
     @GetMapping("/createTask/{subProjectID}")
@@ -58,15 +60,17 @@ public class TaskController {
     @PostMapping("/saveTask")
     public String saveTask(@ModelAttribute Task newTask, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         taskService.saveTask(newTask);
-        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
+        return "redirect:/pm-dashboard/" + pmUserID;
     }
 
     @PostMapping("/deleteTask/{taskID}")
     public String deleteTask(@PathVariable("taskID") int taskID, HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
+        int pmUserID = (int) session.getAttribute("pmUserID");
         taskService.deleteTask(taskID);
-        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
+        return "redirect:/pm-dashboard/" + pmUserID;
     }
 
     public boolean isUserLoggedIn(HttpSession session){

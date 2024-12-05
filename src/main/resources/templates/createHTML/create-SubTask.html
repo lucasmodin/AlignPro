@@ -43,6 +43,12 @@
                 <i class='bx bx-text' ></i>
             </div>
 
+            <label for="employeeID">Assign employee (optional):</label>
+            <select id="employeeID" name="employeeID">
+                <option value="">No employee</option>
+                <option th:each="employee : ${employeeList}" th:value="${employee.employeeID}" th:text="${employee.employeeName}"></option>
+            </select>
+
             <button type="submit" class="btn">Create Sub-Task</button>
         </form>
     </div>

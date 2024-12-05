@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class AlignProControllerTest {
 
-
+    private final int pmUserID = 1;
 
 
     @Autowired
@@ -32,8 +32,7 @@ public class AlignProControllerTest {
 
     @MockBean
     private AlignProService service;
-    @Autowired
-    private AlignProService alignProService;
+
 
     @Test
     void testCreateNewEmployee() throws Exception {
@@ -41,7 +40,7 @@ public class AlignProControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("employeeObj"))
                 .andExpect(model().attributeExists("listOfSkills"))
-                .andExpect(view().name("create-Employee"));
+                .andExpect(view().name("createHTML/create-Employee"));
     }
 
     @Test
@@ -57,7 +56,7 @@ public class AlignProControllerTest {
         mockMvc.perform(post("/saveEmployee").sessionAttr("pmUserID", 1)
                 .flashAttr("employeeObj", employeeObj))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/pm-dashboard"));
+                .andExpect(redirectedUrl("/pm-dashboard/" + pmUserID));
     }
 
      @Test
@@ -81,8 +80,8 @@ public class AlignProControllerTest {
                         .param("employeeName", name )
                         .param("skills", String.valueOf(listOfSkills)))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"))
-                .andExpect(view().name("redirect:/"));
+                .andExpect(redirectedUrl("/pm-dashboard/" + pmUserID))
+                .andExpect(view().name("redirect:/pm-dashboard/" + pmUserID));
 
     }
 

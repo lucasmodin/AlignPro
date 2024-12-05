@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 @Repository("PROJECT_REPOSITORY_JDBC")
 @Lazy
@@ -40,19 +37,32 @@ public class ProjectRepository implements IProjectRepository {
     //************************* Save Method *******************************//
 
     @Override
-    public void saveProject(String projectName, String startDate,String deadLine, String projectDescription){
-
+    public void saveProject(String projectName, String startDate,String deadLine, String projectDescription, int pmUserID){
+        int primaryKeyProject = 0;
+        String sqlString = "INSERT INTO Project (ProjectName, StartDate, Deadline, ProjectDescription) VALUES (?,?,?,?)";
         try{
 
-            String sqlString = "INSERT INTO Project (ProjectName, StartDate, Deadline, ProjectDescription) VALUES (?,?,?,?)";
-
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            PreparedStatement stmt = conn.prepareStatement(sqlString, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, projectName);
             stmt.setString(2, startDate);
             stmt.setString(3, deadLine);
             stmt.setString(4, projectDescription);
             stmt.executeUpdate();
 
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            if(generatedKeys.next()){
+                primaryKeyProject = generatedKeys.getInt(1);
+            }
+
+            System.out.println("Generated key:" + primaryKeyProject);
+
+            if(primaryKeyProject != 0){
+                String sqlStringPM = "INSERT INTO PMUser_Project (PMUserID, ProjectID) VALUES (?, ?)";
+                PreparedStatement stmtPM = conn.prepareStatement(sqlStringPM);
+                stmtPM.setInt(1, pmUserID);
+                stmtPM.setInt(2, primaryKeyProject);
+                stmtPM.executeUpdate();
+            }
 
         } catch(SQLException e){
             throw new RuntimeException(e);

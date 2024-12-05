@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -53,12 +54,14 @@ public class AlignProController {
 
     //TODO this is empty for now as I need to rewrite Logic
     @GetMapping("/pm-dashboard/{pmUserID}")
-    public String getDashboard(@PathVariable("pmUserID") int pmUserID, Model model/*, HttpSession session*/){
-        //if (isUserLoggedIn(session)) return "redirect:/login";
+    public String getDashboard(@PathVariable("pmUserID") int pmUserID, Model model, HttpSession session){
+        if (isUserLoggedIn(session)) return "redirect:/login";
         DashBoard_DTO dashboard = alignProService.dataDashBoard(pmUserID);
         List<String> filterList = dashboard.filterList();
+        List<Employee> employeeList = alignProService.getListOfEmployees();
         model.addAttribute("data", dashboard);
         model.addAttribute("filterList", filterList);
+        model.addAttribute("employeeList", employeeList);
         return "pm-Dashboard";
         //next is to implement logic for Task and subtask when the classes are made
     }

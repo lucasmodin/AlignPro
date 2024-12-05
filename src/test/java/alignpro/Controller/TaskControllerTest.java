@@ -18,6 +18,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class TaskControllerTest {
 
+    private final int pmUserID = 1;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -27,28 +29,28 @@ class TaskControllerTest {
     @Test
     void createTask() throws Exception{
         int subProjectID = 1;
-        mockMvc.perform(get("/tasks/createTask/{subProjectID}", subProjectID).sessionAttr("pmUserID", 1))
+        mockMvc.perform(get("/tasks/createTask/{subProjectID}", subProjectID).sessionAttr("pmUserID", pmUserID))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("obj"))
-                .andExpect(view().name("create-Task"));
+                .andExpect(view().name("createHTML/create-Task"));
     }
 
     @Test
     void saveTask() throws Exception{
         Task task1 = new Task("Task 1", "2024-11-24", "2024-11-26", 2, "task task must do", "java", 1);
-        mockMvc.perform(post("/tasks/saveTask").sessionAttr("pmUserID", 1)
+        mockMvc.perform(post("/tasks/saveTask").sessionAttr("pmUserID", pmUserID)
                         .flashAttr("task1",task1))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"));
+                .andExpect(redirectedUrl("/pm-dashboard/" + pmUserID));
     }
 
     @Test
     void deleteTask() throws Exception{
         int taskID = 1;
 
-        mockMvc.perform(post("/tasks/deleteTask/{taskID}", taskID).sessionAttr("pmUserID", 1))
+        mockMvc.perform(post("/tasks/deleteTask/{taskID}", taskID).sessionAttr("pmUserID", pmUserID))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"));
+                .andExpect(redirectedUrl("/pm-dashboard/" + pmUserID));
     }
 
     @Test
@@ -56,10 +58,10 @@ class TaskControllerTest {
         int taskID = 1;
         Task dummmyTask = new Task("Task 2", "2025-11-25", "2025-11-25", 5, "task task doooo", "java", 1);
         when(taskService.getTask(1)).thenReturn(dummmyTask);
-        mockMvc.perform(get("/tasks/edit-task/{taskID}", taskID).sessionAttr("pmUserID", 1))
+        mockMvc.perform(get("/tasks/edit-task/{taskID}", taskID).sessionAttr("pmUserID", pmUserID))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("task", dummmyTask))
-                .andExpect(view().name("edit-Task"));
+                .andExpect(view().name("editHTML/edit-Task"));
     }
 
     @Test
@@ -72,7 +74,7 @@ class TaskControllerTest {
         String taskDescription = "task task doooo";
         String skillRequirement = "java";
 
-        mockMvc.perform(post("/tasks/updateTask").sessionAttr("pmUserID", 1)
+        mockMvc.perform(post("/tasks/updateTask").sessionAttr("pmUserID", pmUserID)
                         .param("taskID", String.valueOf(taskID))
                         .param("taskName", taskName)
                         .param("startDate", startDate)
@@ -81,7 +83,7 @@ class TaskControllerTest {
                         .param("taskDescription", taskDescription)
                         .param("skillRequirement", skillRequirement))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/"))
-                .andExpect(view().name("redirect:/"));
+                .andExpect(redirectedUrl("/pm-dashboard/" + pmUserID))
+                .andExpect(view().name("redirect:/pm-dashboard/" + pmUserID));
     }
 }
