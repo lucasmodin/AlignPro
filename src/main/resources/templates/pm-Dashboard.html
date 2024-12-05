@@ -56,10 +56,10 @@
         <tbody>
         <tr th:each="project : ${data.getProjectList()}">
             <td class="headings" th:text="${project.getProjectName()}"></td>
-            <td th:text="${project.projectDescription}"></td>
-            <td th:text="${project.getStartDate()}"></td>
-            <td th:text="${project.getDeadLine()}"></td>
-            <td th:text="${project.getTotalTime()}"></td>
+            <td class="description" th:text="${project.projectDescription}"></td>
+            <td class="dates" th:text="${project.getStartDate()}"></td>
+            <td class="dates" th:text="${project.getDeadLine()}"></td>
+            <td class="time" th:text="${project.getTotalTime()}"></td>
             <!--<td><a th:href="@{../projects/edit-project/{projectID}(projectID=${project.projectID})}">Edit</a></td>
             <td><form th:action="@{../projects/delete-project/{projectID}(projectID=${project.projectID})}" method="post">
                 <button type="submit">Delete</button>
@@ -83,21 +83,21 @@
         <thead>
         <tr>
             <th>SubProject Name</th>
-            <th>Belongs to Project</th>
             <th>Description</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Sum Time</th>
+            <th>Belongs to Project</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="subProject : ${data.getSubProjectList()}">
             <td class="headings" th:text="${subProject.getSubProjectName()}"></td>
-            <td th:text="${subProject.getFilter()}"></td>
-            <td th:text="${subProject.getSubProjectDescription()}"></td>
-            <td th:text="${subProject.getStartDate()}"></td>
-            <td th:text="${subProject.getEndDate()}"></td>
-            <td th:text="${subProject.getSumTime()}"></td>
+            <td class="description" th:text="${subProject.getSubProjectDescription()}"></td>
+            <td class="dates" th:text="${subProject.getStartDate()}"></td>
+            <td class="dates" th:text="${subProject.getEndDate()}"></td>
+            <td class="time" th:text="${subProject.getSumTime()}"></td>
+            <td class="belongTo" th:text="${subProject.getFilter()}"></td>
             <!--<td><a th:href="@{../subProjects/edit-subproject/{subProjectID}(subProjectID=${subProject.subProjectID})}">Edit</a></td>
             <td><form th:action="@{../subProjects/deleteSubProject/{subProjectID}(subProjectID=${subProject.subProjectID})}" method="post">
                 <button type="submit">Delete</button>
@@ -120,21 +120,21 @@
         <thead>
         <tr>
             <th>Task Name</th>
-            <th>Belongs to Sub-Project</th>
             <th>Description</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Estimated Time</th>
+            <th>Belongs to Sub-Project</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="task : ${data.getTaskList()}">
             <td class="headings" th:text="${task.getTaskName()}"></td>
-            <td th:text="${task.getFilter()}"></td>
-            <td th:text="${task.getTaskDescription()}"></td>
-            <td th:text="${task.getStartDate()}"></td>
-            <td th:text="${task.getEndDate()}"></td>
-            <td th:text="${task.getEstimatedTime()}"></td>
+            <td class="description" th:text="${task.getTaskDescription()}"></td>
+            <td class="dates" th:text="${task.getStartDate()}"></td>
+            <td class="dates" th:text="${task.getEndDate()}"></td>
+            <td class="time" th:text="${task.getEstimatedTime()}"></td>
+            <td class="belongTo" th:text="${task.getFilter()}"></td>
             <!--<td><a th:href="@{../tasks/edit-task/{taskID}(taskID=${task.taskID})}">Edit</a></td>
             <td><form th:action="@{../tasks/deleteTask/{taskID}(taskID=${task.taskID})}" method="post">
                 <button type="submit">Delete</button>
@@ -157,22 +157,21 @@
         <thead>
         <tr>
             <th>SubTask Name</th>
-            <th>Belongs to Task</th>
             <th>Description</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Estimated Time</th>
-
+            <th>Belongs to Task</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="subTask : ${data.getSubTaskList()}">
             <td class="headings" th:text="${subTask.getSubTaskName()}"></td>
-            <td th:text="${subTask.getFilter()}"></td>
-            <td th:text="${subTask.getSubTaskDescription()}"></td>
-            <td th:text="${subTask.getStartDate()}"></td>
-            <td th:text="${subTask.getEndDate()}"></td>
-            <td th:text="${subTask.getTime()}"></td>
+            <td class="description" th:text="${subTask.getSubTaskDescription()}"></td>
+            <td class="dates" th:text="${subTask.getStartDate()}"></td>
+            <td class="dates" th:text="${subTask.getEndDate()}"></td>
+            <td class="time" th:text="${subTask.getTime()}"></td>
+            <td class="belongTo" th:text="${subTask.getFilter()}"></td>
             <!--<td><a th:href="@{../subTasks/edit-subTask/{subTaskID}(subTaskID=${subTask.subTaskID})}">Edit</a></td>
             <td><form th:action="@{../subTasks/deleteSubTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="post">
                 <button type="submit">Delete</button>
