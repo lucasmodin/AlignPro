@@ -32,7 +32,7 @@ class SubProjectControllerTest {
         mockMvc.perform(get("/subProjects/createSubProject/{projectID}", projectID).sessionAttr("pmUserID", pmUserID))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("obj"))
-                .andExpect(view().name("create-SubProject"));
+                .andExpect(view().name("createHTML/create-SubProject"));
     }
 
     @Test
@@ -62,7 +62,7 @@ class SubProjectControllerTest {
         mockMvc.perform(get("/subProjects/edit-subproject/{subProjectID}", subProjectID).sessionAttr("pmUserID", pmUserID))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("subProject", dummySubProject))
-                .andExpect(view().name("edit-SubProject"));
+                .andExpect(view().name("editHTML/edit-SubProject"));
     }
 
     @Test

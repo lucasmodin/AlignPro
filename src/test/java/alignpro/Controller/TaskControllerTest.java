@@ -32,7 +32,7 @@ class TaskControllerTest {
         mockMvc.perform(get("/tasks/createTask/{subProjectID}", subProjectID).sessionAttr("pmUserID", pmUserID))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("obj"))
-                .andExpect(view().name("create-Task"));
+                .andExpect(view().name("createHTML/create-Task"));
     }
 
     @Test
@@ -61,7 +61,7 @@ class TaskControllerTest {
         mockMvc.perform(get("/tasks/edit-task/{taskID}", taskID).sessionAttr("pmUserID", pmUserID))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("task", dummmyTask))
-                .andExpect(view().name("edit-Task"));
+                .andExpect(view().name("editHTML/edit-Task"));
     }
 
     @Test

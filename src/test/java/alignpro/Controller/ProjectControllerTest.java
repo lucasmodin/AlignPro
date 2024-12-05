@@ -33,7 +33,7 @@ class ProjectControllerTest {
         mockMvc.perform(get("/projects/CreateProject").sessionAttr("pmUserID", pmUserID))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("obj"))
-                .andExpect(view().name("create-Project"));
+                .andExpect(view().name("createHTML/create-Project"));
     }
 
     @Test
@@ -57,7 +57,7 @@ class ProjectControllerTest {
         mockMvc.perform(get("/projects/edit-project/{projectId}", projectId).sessionAttr("pmUserID", pmUserID))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("project", dummyProject))
-                .andExpect(view().name("edit-project"));
+                .andExpect(view().name("editHTML/edit-project"));
     }
 
     //TODO

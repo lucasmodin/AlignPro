@@ -1,6 +1,7 @@
 package alignpro.Controller;
 
 import alignpro.Controller.ProjectOverview.SubTaskController;
+import alignpro.Model.Employee;
 import alignpro.Model.Projects.SubTask;
 import alignpro.Service.SubTaskService;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @WebMvcTest(SubTaskController.class)
 
 class SubTaskControllerTest {
@@ -27,15 +31,22 @@ class SubTaskControllerTest {
     @MockBean
     private SubTaskService subTaskService;
 
+
+    //note - after we added an employeeID list and employee name to parameters, we need to convert then to arrays (can be empty), as the mockMvc .param doesnt accept lists
     @Test
     void editSubTask() throws Exception{
+        List<String> employeeIDs = List.of("1", "2", "3");
+        List<String> employeeNames = List.of("a", "b", "c");
         int subTaskID = 1;
         SubTask dummyProject = new SubTask(1, "SubTask 2", "task task doooo", "2025-11-25", "2025-11-25", 5, "java");
         when(subTaskService.getSubTask(1)).thenReturn(dummyProject);
-        mockMvc.perform(get("/subTasks/edit-subTask/{subTaskID}", subTaskID).sessionAttr("pmUserID", pmUserID))
+        mockMvc.perform(get("/subTasks/edit-subTask/{subTaskID}", subTaskID)
+                        .sessionAttr("pmUserID", pmUserID)
+                        .param("employeeID", employeeIDs.toArray(new String[0]))
+                        .param("employeeName", employeeNames.toArray(new String[0])))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("obj", dummyProject))
-                .andExpect(view().name("edit-SubTask"));
+                .andExpect(view().name("editHTML/edit-SubTask"));
     }
 
     @Test
@@ -47,6 +58,10 @@ class SubTaskControllerTest {
         String endDate = "2025-11-25";
         int time = 5;
         String skillRequirement = "java";
+        Employee employee = new Employee(1,"john");
+        List<Employee> employeeList = new ArrayList<>();
+        employeeList.add(employee);
+
 
         mockMvc.perform(post("/subTasks/updateSubTask").sessionAttr("pmUserID", pmUserID)
                         .param("subTaskID", String.valueOf(subTaskID))
@@ -55,7 +70,8 @@ class SubTaskControllerTest {
                         .param("startDate", startDate)
                         .param("endDate", endDate)
                         .param("time", String.valueOf(time))
-                        .param("skillRequirement", skillRequirement))
+                        .param("skillRequirement", skillRequirement)
+                        .param("employeeList", String.valueOf(employeeList) ))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/pm-dashboard/" + pmUserID))
                 .andExpect(view().name("redirect:/pm-dashboard/" + pmUserID));
@@ -63,11 +79,16 @@ class SubTaskControllerTest {
 
     @Test
     void createSubTask() throws Exception{
+        List<String> employeeIDs = List.of("1", "2", "3");
+        List<String> employeeNames = List.of("a", "b", "c");
         int taskID = 1;
-        mockMvc.perform(get("/subTasks/createSubTask/{taskID}", taskID).sessionAttr("pmUserID", pmUserID))
+        mockMvc.perform(get("/subTasks/createSubTask/{taskID}", taskID)
+                        .param("employeeID", employeeIDs.toArray(new String[0]))
+                        .param("employeeName", employeeNames.toArray(new String[0]))
+                        .sessionAttr("pmUserID", pmUserID))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("obj"))
-                .andExpect(view().name("create-SubTask"));
+                .andExpect(view().name("createHTML/create-SubTask"));
     }
 
     @Test
