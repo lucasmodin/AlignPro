@@ -19,7 +19,7 @@
             <h1>Edit Sub-Task</h1>
             <hr>
             <div class="input-box">
-                <input type="text" id="subTask" name="subTaskName" placeholder="Edit Sub-Task Name" th:field="*{subTaskName}" required>
+                <input type="text" id="subTaskName" name="subTaskName" placeholder="Edit Sub-Task Name" th:field="*{subTaskName}" required>
                 <i class='bx bx-clipboard'></i>
             </div>
 
@@ -27,7 +27,7 @@
                 <input type="date" id="startDate" name="startDate" placeholder="Edit Start Date" th:field="*{startDate}" required>
             </div>
             <div class="input-box" id="box2">
-                <input type="date" id="EndDate" name="EndDate" placeholder="Edit EndDate" th:field="*{endDate}" required>
+                <input type="date" id="endDate" name="endDate" placeholder="Edit EndDate" th:field="*{endDate}" required>
             </div>
 
             <div class="input-box">
@@ -43,6 +43,10 @@
             <div class="input-box">
                 <textarea id="subTaskDescription" name="subTaskDescription" placeholder="Edit Sub-Task Description" th:field="*{subTaskDescription}" required></textarea>
                 <i class='bx bx-text' ></i>
+            </div>
+            <div th:each="employee : ${employeeList}">
+                <input type="checkbox" name="employeeList" th:value="${employee.employeeID}" />
+                <label th:text="${employee.employeeName}"></label>
             </div>
 
             <button type="submit" class="btn">Submit</button>

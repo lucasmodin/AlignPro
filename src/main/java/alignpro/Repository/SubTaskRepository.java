@@ -38,14 +38,14 @@ public class SubTaskRepository implements ISubTaskRepository {
     //************************* Save Method *******************************//
 
     @Override
-    public void saveSubTask(String subTaskName, String startDate, String endDate,
+    public int saveSubTask(String subTaskName, String startDate, String endDate,
                             int time, String subTaskDescription, String skillRequirement, int taskID) {
-
+        int subTaskID = 0;
         String sqlString =
                 "INSERT INTO SubTask (SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement, TaskID) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
         try {
-            PreparedStatement stmt = conn.prepareStatement(sqlString);
+            PreparedStatement stmt = conn.prepareStatement(sqlString, PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setString(1, subTaskName);
             stmt.setString(2, startDate);
             stmt.setString(3, endDate);
@@ -53,13 +53,18 @@ public class SubTaskRepository implements ISubTaskRepository {
             stmt.setString(5, subTaskDescription);
             stmt.setString(6, skillRequirement);
             stmt.setInt(7, taskID);
-
             stmt.executeUpdate();
+
+            ResultSet generatedKey = stmt.getGeneratedKeys();
+            if (generatedKey.next()) {
+                subTaskID = generatedKey.getInt(1);
+            }
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        return subTaskID;
     }
 
     //************************* Get by ID Method *******************************//
@@ -136,7 +141,7 @@ public class SubTaskRepository implements ISubTaskRepository {
     @Override
     public void assignEmployeeToTask(int subtaskID, int employeeID) {
         String sqlString = """
-                INSERT INTO Subtask_Employee (SubtaskID, EmployeeID) VALUES (?, ?);
+                INSERT INTO Subtask_Employee (SubtaskID, EmployeeID) VALUES (?, ?)
                 """;
         try {
             PreparedStatement stmt = conn.prepareStatement(sqlString);

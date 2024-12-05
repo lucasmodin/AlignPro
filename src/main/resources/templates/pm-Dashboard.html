@@ -134,7 +134,14 @@
         <td th:text="${task.getStartDate()}"></td>
         <td th:text="${task.getEndDate()}"></td>
         <td th:text="${task.getEstimatedTime()}"></td>
-        <td><a th:href="@{../subTasks/createSubTask/{taskID}(taskID=${task.getTaskID()}, employeeList=${employeeList})}">Add SubTask</a></td>
+        <td><form th:action="@{../subTasks/createSubTask/{taskID}(taskID=${task.getTaskID()})}" method="get">
+            <span th:each="employee : ${employeeList}">
+                <input type="hidden" name="employeeID" th:value="${employee.employeeID}"/>
+                <input type="hidden" name="employeeName" th:value="${employee.employeeName}">
+            </span>
+            <button type="submit">Add subtask</button>
+            </form>
+        </td>
         <td><a th:href="@{../tasks/edit-task/{taskID}(taskID=${task.taskID})}">Edit</a></td>
         <td><form th:action="@{../tasks/deleteTask/{taskID}(taskID=${task.taskID})}" method="post">
             <button type="submit">Delete</button>
@@ -172,7 +179,13 @@
         <td th:text="${subTask.getStartDate()}"></td>
         <td th:text="${subTask.getEndDate()}"></td>
         <td th:text="${subTask.getTime()}"></td>
-        <td><a th:href="@{../subTasks/edit-subTask/{subTaskID}(subTaskID=${subTask.subTaskID})}">Edit</a></td>
+        <td><form th:action="@{../subTasks/edit-subTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="get">
+            <span th:each="employee : ${employeeList}">
+                <input type="hidden" name="employeeID" th:value="${employee.employeeID}"/>
+                <input type="hidden" name="employeeName" th:value="${employee.employeeName}">
+            </span>
+            <button type="submit">Edit subtask</button>
+        </form>
         <td><form th:action="@{../subTasks/deleteSubTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="post">
             <button type="submit">Delete</button>
         </form></td>

@@ -3,10 +3,7 @@ package alignpro.Controller.ProjectOverview;
 
 import alignpro.Model.*;
 import alignpro.Model.DTOModel.DashBoard_DTO;
-import alignpro.Model.Projects.Project;
-import alignpro.Model.Projects.SubProject;
-import alignpro.Model.Projects.SubTask;
-import alignpro.Model.Projects.Task;
+
 import alignpro.Service.AlignProService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;

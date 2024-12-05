@@ -8,7 +8,7 @@ public interface ISubTaskRepository {
 
     SubTask getSubTask(int subTaskID);
 
-    void saveSubTask(String subTaskName, String startDate, String endDate,
+    int saveSubTask(String subTaskName, String startDate, String endDate,
                      int time, String subTaskDescription, String skillRequirement, int taskID);
 
     void deleteSubTask(int subTaskID);

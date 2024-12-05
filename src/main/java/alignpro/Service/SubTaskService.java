@@ -19,8 +19,8 @@ public class SubTaskService {
         subTaskRepository.editSubTask(subTask, subTaskID);
     }
 
-    public void saveSubTask(SubTask subTask) {
-        subTaskRepository.saveSubTask(subTask.getSubTaskName(), subTask.getStartDateString(), subTask.getEndDateString(),
+    public int saveSubTask(SubTask subTask) {
+        return subTaskRepository.saveSubTask(subTask.getSubTaskName(), subTask.getStartDateString(), subTask.getEndDateString(),
                 subTask.getTime(), subTask.getSubTaskDescription(), subTask.getSkillRequirement(), subTask.getTaskID());
     }
 
