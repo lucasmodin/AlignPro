@@ -3,7 +3,6 @@ package alignpro.Controller.ProjectOverview;
 
 import alignpro.Model.*;
 import alignpro.Model.DTOModel.DashBoard_DTO;
-
 import alignpro.Service.AlignProService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -30,14 +29,14 @@ public class AlignProController {
         List<String> listOfSkills = alignProService.getListOfSkills();
         model.addAttribute("employeeObj", employee);
         model.addAttribute("listOfSkills", listOfSkills);
-        return "create-Employee";
+        return "createHTML/create-Employee";
     }
 
     @PostMapping("/saveEmployee")
     public String saveEmployee(@ModelAttribute Employee newEmployee, HttpSession session){
         if (isUserLoggedIn(session)) return "redirect:/login";
         alignProService.saveEmployee(newEmployee);
-        return "redirect:/pm-dashboard";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
     @PostMapping("/deleteEmployee/{employeeID}")
@@ -46,7 +45,7 @@ public class AlignProController {
         Employee employee = alignProService.getEmployee(employeeID);
         if(employee != null && !isUserLoggedIn(session)) {
             alignProService.deleteEmployee(employeeID);
-            return "redirect:/pm-Dashboard";
+            return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
         } else {
             return "redirect:/";
         }
@@ -84,7 +83,7 @@ public class AlignProController {
         Employee objToUpdate = alignProService.getEmployee(ID);
         model.addAttribute("EmployeeObj", objToUpdate);
         model.addAttribute("Skills", alignProService.getListOfSkills());
-        return "/edit-employee";
+        return "editHTML/edit-employee";
     }
 
     @PostMapping("updateEmployee")
@@ -96,7 +95,7 @@ public class AlignProController {
         if (isUserLoggedIn(session)) return "redirect:/login";
         Employee objUpdate = new Employee(employeeName, skills);
         alignProService.editEmployee(objUpdate,employeeID);
-        return "redirect:/";
+        return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
     public boolean isUserLoggedIn(HttpSession session){

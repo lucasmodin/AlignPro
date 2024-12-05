@@ -25,7 +25,7 @@ public class ProjectController {
         Project obj = new Project();
         model.addAttribute("obj", obj);
         model.addAttribute("pmUserID", pmUserID);
-        return "create-Project";
+        return "createHTML/create-Project";
     }
 
     @PostMapping("/saveProject")
@@ -44,7 +44,7 @@ public class ProjectController {
         int pmUserID = (int) session.getAttribute("pmUserID");
         if (project != null) {
             model.addAttribute("project", project);
-            return "edit-project";
+            return "editHTML/edit-project";
         } else {
             return "redirect:/pm-dashboard/" + pmUserID;
         }
@@ -61,7 +61,7 @@ public class ProjectController {
         int pmUserID = (int) session.getAttribute("pmUserID");
         Project project = new Project(projectId, projectName, startDate, deadLine, projectDescription);
         projectService.editProject(project, project.getProjectID());
-        return "redirect:/pm-dashboard/" + pmUserID ;
+        return "redirect:/pm-dashboard/" + pmUserID;
     }
 
     @PostMapping("/delete-project/{projectID}")

@@ -34,7 +34,7 @@ public class SubTaskController {
 
         model.addAttribute("obj", obj);
         model.addAttribute("employeeList", employeeList);
-        return "create-SubTask";
+        return "createHTML/create-SubTask";
     }
 
     @PostMapping("/saveSubTask")
@@ -66,7 +66,7 @@ public class SubTaskController {
         if(obj != null){
             model.addAttribute("obj", obj);
             model.addAttribute("employeeList", employeeList);
-            return "edit-SubTask";
+            return "editHTML/edit-SubTask";
         } else {
             return "redirect:/pm-dashboard/" + pmUserID;
         }

@@ -3,6 +3,8 @@
 <head>
     <title>PM Dashboard</title>
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/styles/dashboardstyle.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <!--
     <style>
         table {
@@ -25,175 +27,188 @@
 -->
 </head>
 <body>
-
 <header th:replace="~{header-footer/layout-header-loggedin :: header}"></header>
+<main>
 
-<h1>PM Dashboard</h1>
+    <section class="filter">
+    <h1>PM Dashboard</h1>
+    <form method="get" th:action="@{/pm-dashboard/filter}">
+        <label for="filter">Choose a filter:</label>
+        <select id="filter" name="filterProjects" required>
+            <option value="">Select Filter</option>
+            <option th:each="filter : ${filterList}" th:value="${filter}" th:text="${filter}"></option>
+        </select>
+        <button type="submit">Apply Filter</button>
+    </form>
+    </section>
 
-<form method="get" th:action="@{/pm-dashboard/filter}">
-    <label for="filter">Choose a filter:</label>
-    <select id="filter" name="filterProjects" required>
-        <option value="">Select Filter</option>
-        <option th:each="filter : ${filterList}" th:value="${filter}" th:text="${filter}"></option>
-    </select>
-    <button type="submit">Apply Filter</button>
-</form>
+    <section class="pm-containers">
+    <h2>Projects</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>Deadline</th>
+            <th>Total Sum Time</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Sub-Project</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="project : ${data.getProjectList()}">
+            <td class="headings" th:text="${project.getProjectName()}"></td>
+            <td class="description" th:text="${project.projectDescription}"></td>
+            <td class="dates" th:text="${project.getStartDate()}"></td>
+            <td class="deadline" th:text="${project.getDeadLine()}"></td>
+            <td class="time" th:text="${project.getTotalTime()} + 'h'"></td>
+            <td class="edit"><a th:href="@{../projects/edit-project/{projectID}(projectID=${project.projectID})}"><i class='bx bx-message-square-edit'></i></a></td>
+            <td class="delete"><form th:action="@{../projects/delete-project/{projectID}(projectID=${project.projectID})}" method="post">
+                <button type="submit"><i class='bx bx-trash'></i></button>
+            </form></td>
+            <td class="add"><a th:href="@{../subProjects/createSubProject/{projectID}(projectID=${project.projectID})}"><i class='bx bx-plus-circle' ></i></a> </td>
+        </tr>
+        </tbody>
+    </table>
+    <!--<a th:href="@{../projects/CreateProject}">Add Project</a>-->
+    </section>
 
+    <!-- Table for SubProjects -->
+    <section class="pm-containers">
+    <h2>SubProjects</h2>
+    <div>
+        <button type="button" onclick="toggleVisibility('SubProjects')">
+            <i class='bx bx-down-arrow'></i>
+        </button>
+    </div>
+    <table id="SubProjects">
+        <thead>
+        <tr>
+            <th>SubProject Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Sum Time</th>
+            <th>Belongs to Project</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Task</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="subProject : ${data.getSubProjectList()}">
+            <td class="headings" th:text="${subProject.getSubProjectName()}"></td>
+            <td class="description" th:text="${subProject.getSubProjectDescription()}"></td>
+            <td class="dates" th:text="${subProject.getStartDate()}"></td>
+            <td class="deadline" th:text="${subProject.getEndDate()}"></td>
+            <td class="time" th:text="${subProject.getSumTime()} + 'h'"></td>
+            <td class="belongTo" th:text="${subProject.getFilter()}"></td>
+            <td class="edit"><a th:href="@{../subProjects/edit-subproject/{subProjectID}(subProjectID=${subProject.subProjectID})}"><i class='bx bx-message-square-edit'></i></a></td>
+            <td class="delete"><form th:action="@{../subProjects/deleteSubProject/{subProjectID}(subProjectID=${subProject.subProjectID})}" method="post">
+                <button type="submit"><i class='bx bx-trash'></i></button>
+            </form></td>
+            <td class="add"><a th:href="@{../tasks/createTask/{subProjectID}(subProjectID=${subProject.subProjectID})}"><i class='bx bx-plus-circle' ></i></a></td>
+        </tr>
+        </tbody>
+    </table>
+    </section>
 
-<h2>Projects</h2>
-<table>
-    <thead>
-    <tr>
-        <th>Project Name</th>
-        <th>Description</th>
-        <th>Start Date</th>
-        <th>Deadline</th>
-        <th>Total Sum Time</th>
-
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="project : ${data.getProjectList()}">
-        <td th:text="${project.getProjectName()}"></td>
-        <td th:text="${project.projectDescription}"></td>
-        <td th:text="${project.getStartDate()}"></td>
-        <td th:text="${project.getDeadLine()}"></td>
-        <td th:text="${project.getTotalTime()}"></td>
-        <td><a th:href="@{../subProjects/createSubProject/{projectID}(projectID=${project.projectID})}">Add Subproject</a> </td>
-        <td><a th:href="@{../projects/edit-project/{projectID}(projectID=${project.projectID})}">Edit</a></td>
-        <td><form th:action="@{../projects/delete-project/{projectID}(projectID=${project.projectID})}" method="post">
-            <button type="submit">Delete</button>
-        </form></td>
-    </tr>
-    <a th:href="@{../projects/CreateProject}">Add Project</a>
-    </tbody>
-</table>
-
-<!-- Table for SubProjects -->
-<h2>SubProjects</h2>
-<div>
-    <button type="button" onclick="toggleVisibility('SubProjects')">
-        Toggle SubTask Table
-    </button>
-</div>
-
-<table id="SubProjects">
-    <thead>
-    <tr>
-        <th>Belongs to Project</th>
-        <th>SubProject Name</th>
-        <th>Description</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Sum Time</th>
-
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="subProject : ${data.getSubProjectList()}">
-        <td th:text="${subProject.getFilter()}"></td>
-        <td th:text="${subProject.getSubProjectName()}"></td>
-        <td th:text="${subProject.getSubProjectDescription()}"></td>
-        <td th:text="${subProject.getStartDate()}"></td>
-        <td th:text="${subProject.getEndDate()}"></td>
-        <td th:text="${subProject.getSumTime()}"></td>
-        <td><a th:href="@{../tasks/createTask/{subProjectID}(subProjectID=${subProject.getSubProjectID()})}">Add Task</a> </td>
-        <td><a th:href="@{../subProjects/edit-subproject/{subProjectID}(subProjectID=${subProject.subProjectID})}">Edit</a></td>
-        <td><form th:action="@{../subProjects/deleteSubProject/{subProjectID}(subProjectID=${subProject.subProjectID})}" method="post">
-            <button type="submit">Delete</button>
-        </form></td>
-    </tr>
-    </tbody>
-</table>
-
-<!-- Table for Tasks -->
-<h2>Tasks</h2>
-<div>
-    <button type="button" onclick="toggleVisibility('TaskTable')">
-        Toggle SubTask Table
-    </button>
-</div>
-
-<table id="TaskTable">
-    <thead>
-    <tr>
-        <th>Belongs to Sub-Project</th>
-        <th>Task Name</th>
-        <th>Description</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Estimated Time</th>
-
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="task : ${data.getTaskList()}">
-        <td th:text="${task.getFilter()}"></td>
-        <td th:text="${task.getTaskName()}"></td>
-        <td th:text="${task.getTaskDescription()}"></td>
-        <td th:text="${task.getStartDate()}"></td>
-        <td th:text="${task.getEndDate()}"></td>
-        <td th:text="${task.getEstimatedTime()}"></td>
-        <td><form th:action="@{../subTasks/createSubTask/{taskID}(taskID=${task.getTaskID()})}" method="get">
+    <!-- Table for Tasks -->
+    <section class="pm-containers">
+    <h2>Tasks</h2>
+    <div>
+        <button type="button" onclick="toggleVisibility('TaskTable')">
+            <i class='bx bx-down-arrow'></i>
+        </button>
+    </div>
+    <table id="TaskTable">
+        <thead>
+        <tr>
+            <th>Task Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Estimated Time</th>
+            <th>Belongs to Sub-Project</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Sub-Task</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${data.getTaskList()}">
+            <td class="headings" th:text="${task.getTaskName()}"></td>
+            <td class="description" th:text="${task.getTaskDescription()}"></td>
+            <td class="dates" th:text="${task.getStartDate()}"></td>
+            <td class="deadline" th:text="${task.getEndDate()}"></td>
+            <td class="time" th:text="${task.getEstimatedTime()} + 'h'"></td>
+            <td class="belongTo" th:text="${task.getFilter()}"></td>
+            <td class="edit"><a th:href="@{../tasks/edit-task/{taskID}(taskID=${task.taskID})}"><i class='bx bx-message-square-edit'></i></a></td>
+            <td class="delete"><form th:action="@{../tasks/deleteTask/{taskID}(taskID=${task.taskID})}" method="post">
+                <button type="submit"><i class='bx bx-trash'></i></button>
+            </form></td>
+            <td class="add"><form th:action="@{../subTasks/createSubTask/{taskID}(taskID=${task.taskID})}" method="get">
             <span th:each="employee : ${employeeList}">
                 <input type="hidden" name="employeeID" th:value="${employee.employeeID}"/>
                 <input type="hidden" name="employeeName" th:value="${employee.employeeName}">
             </span>
-            <button type="submit">Add subtask</button>
+                <button type="submit"><i class='bx bx-plus-circle'></i></button>
             </form>
-        </td>
-        <td><a th:href="@{../tasks/edit-task/{taskID}(taskID=${task.taskID})}">Edit</a></td>
-        <td><form th:action="@{../tasks/deleteTask/{taskID}(taskID=${task.taskID})}" method="post">
-            <button type="submit">Delete</button>
-        </form></td>
-    </tr>
-    </tbody>
-</table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </section>
+    <!-- Table for SubTasks -->
 
-<!-- Table for SubTasks -->
-<h2>SubTasks</h2>
-
-<div>
-    <button type="button" onclick="toggleVisibility('subTaskTable')">
-        Toggle SubTask Table
-    </button>
-</div>
-
-<table id="subTaskTable">
-    <thead>
-    <tr>
-        <th>Belongs to Task</th>
-        <th>SubTask Name</th>
-        <th>Description</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Estimated Time</th>
-
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="subTask : ${data.getSubTaskList()}">
-        <td th:text="${subTask.getFilter()}"></td>
-        <td th:text="${subTask.getSubTaskName()}"></td>
-        <td th:text="${subTask.getSubTaskDescription()}"></td>
-        <td th:text="${subTask.getStartDate()}"></td>
-        <td th:text="${subTask.getEndDate()}"></td>
-        <td th:text="${subTask.getTime()}"></td>
-        <td><form th:action="@{../subTasks/edit-subTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="get">
+    <section class="pm-containers">
+    <h2>SubTasks</h2>
+    <div>
+        <button type="button" onclick="toggleVisibility('subTaskTable')">
+            <i class='bx bx-down-arrow'></i>
+        </button>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>SubTask Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Estimated Time</th>
+            <th>Belongs to Task</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="subTask : ${data.getSubTaskList()}">
+            <td class="headings" th:text="${subTask.getSubTaskName()}"></td>
+            <td class="description" th:text="${subTask.getSubTaskDescription()}"></td>
+            <td class="dates" th:text="${subTask.getStartDate()}"></td>
+            <td class="deadline" th:text="${subTask.getEndDate()}"></td>
+            <td class="time" th:text="${subTask.getTime()} + 'h'"></td>
+            <td class="belongTo" th:text="${subTask.getFilter()}"></td>
+            <td class="edit"><form th:action="@{../subTasks/edit-subTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="get">
             <span th:each="employee : ${employeeList}">
                 <input type="hidden" name="employeeID" th:value="${employee.employeeID}"/>
                 <input type="hidden" name="employeeName" th:value="${employee.employeeName}">
             </span>
-            <button type="submit">Edit subtask</button>
-        </form>
-        <td><form th:action="@{../subTasks/deleteSubTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="post">
-            <button type="submit">Delete</button>
-        </form></td>
-    </tr>
-    </tbody>
-</table>
+                <button type="submit"><i class='bx bx-message-square-edit'></i></button>
+            </form>
+            </td>
+            <td class="delete"><form th:action="@{../subTasks/deleteSubTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="post">
+                <button type="submit"><i class='bx bx-trash'></i></button>
+            </form></td>
+        </tr>
+        </tbody>
+    </table>
+    </section>
 
-
+</main>
+<footer th:replace="~{header-footer/layout-footer :: footer}"></footer>
 <script>
     function toggleVisibility(tableId) {
         const table = document.getElementById(tableId);
@@ -203,9 +218,7 @@
             table.style.display = "none";
         }
     }
+
 </script>
-
-<footer th:replace="~{header-footer/layout-footer :: footer}"></footer>
-
 </body>
 </html>
