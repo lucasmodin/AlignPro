@@ -4,6 +4,7 @@
     <title>PM Dashboard</title>
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/styles/dashboardstyle.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <!--
     <style>
         table {
@@ -58,8 +59,8 @@
             <td class="headings" th:text="${project.getProjectName()}"></td>
             <td class="description" th:text="${project.projectDescription}"></td>
             <td class="dates" th:text="${project.getStartDate()}"></td>
-            <td class="dates" th:text="${project.getDeadLine()}"></td>
-            <td class="time" th:text="${project.getTotalTime()}"></td>
+            <td class="deadline" th:text="${project.getDeadLine()}"></td>
+            <td class="time" th:text="${project.getTotalTime()} + 'h'"></td>
             <!--<td><a th:href="@{../projects/edit-project/{projectID}(projectID=${project.projectID})}">Edit</a></td>
             <td><form th:action="@{../projects/delete-project/{projectID}(projectID=${project.projectID})}" method="post">
                 <button type="submit">Delete</button>
@@ -76,7 +77,7 @@
     <h2>SubProjects</h2>
     <div>
         <button type="button" onclick="toggleVisibility('SubProjects')">
-            Toggle SubTask Table
+            <i class='bx bx-down-arrow'></i>
         </button>
     </div>
     <table id="SubProjects">
@@ -95,8 +96,8 @@
             <td class="headings" th:text="${subProject.getSubProjectName()}"></td>
             <td class="description" th:text="${subProject.getSubProjectDescription()}"></td>
             <td class="dates" th:text="${subProject.getStartDate()}"></td>
-            <td class="dates" th:text="${subProject.getEndDate()}"></td>
-            <td class="time" th:text="${subProject.getSumTime()}"></td>
+            <td class="deadline" th:text="${subProject.getEndDate()}"></td>
+            <td class="time" th:text="${subProject.getSumTime()} + 'h'"></td>
             <td class="belongTo" th:text="${subProject.getFilter()}"></td>
             <!--<td><a th:href="@{../subProjects/edit-subproject/{subProjectID}(subProjectID=${subProject.subProjectID})}">Edit</a></td>
             <td><form th:action="@{../subProjects/deleteSubProject/{subProjectID}(subProjectID=${subProject.subProjectID})}" method="post">
@@ -113,7 +114,7 @@
     <h2>Tasks</h2>
     <div>
         <button type="button" onclick="toggleVisibility('TaskTable')">
-            Toggle SubTask Table
+            <i class='bx bx-down-arrow'></i>
         </button>
     </div>
     <table id="TaskTable">
@@ -132,8 +133,8 @@
             <td class="headings" th:text="${task.getTaskName()}"></td>
             <td class="description" th:text="${task.getTaskDescription()}"></td>
             <td class="dates" th:text="${task.getStartDate()}"></td>
-            <td class="dates" th:text="${task.getEndDate()}"></td>
-            <td class="time" th:text="${task.getEstimatedTime()}"></td>
+            <td class="deadline" th:text="${task.getEndDate()}"></td>
+            <td class="time" th:text="${task.getEstimatedTime()} + 'h'"></td>
             <td class="belongTo" th:text="${task.getFilter()}"></td>
             <!--<td><a th:href="@{../tasks/edit-task/{taskID}(taskID=${task.taskID})}">Edit</a></td>
             <td><form th:action="@{../tasks/deleteTask/{taskID}(taskID=${task.taskID})}" method="post">
@@ -150,7 +151,7 @@
     <h2>SubTasks</h2>
     <div>
         <button type="button" onclick="toggleVisibility('subTaskTable')">
-            Toggle SubTask Table
+            <i class='bx bx-down-arrow'></i>
         </button>
     </div>
     <table>
@@ -169,8 +170,8 @@
             <td class="headings" th:text="${subTask.getSubTaskName()}"></td>
             <td class="description" th:text="${subTask.getSubTaskDescription()}"></td>
             <td class="dates" th:text="${subTask.getStartDate()}"></td>
-            <td class="dates" th:text="${subTask.getEndDate()}"></td>
-            <td class="time" th:text="${subTask.getTime()}"></td>
+            <td class="deadline" th:text="${subTask.getEndDate()}"></td>
+            <td class="time" th:text="${subTask.getTime()} + 'h'"></td>
             <td class="belongTo" th:text="${subTask.getFilter()}"></td>
             <!--<td><a th:href="@{../subTasks/edit-subTask/{subTaskID}(subTaskID=${subTask.subTaskID})}">Edit</a></td>
             <td><form th:action="@{../subTasks/deleteSubTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="post">
@@ -192,6 +193,7 @@
             table.style.display = "none";
         }
     }
+
 </script>
 </body>
 </html>

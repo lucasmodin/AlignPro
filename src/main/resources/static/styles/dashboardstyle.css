@@ -42,12 +42,17 @@ td.description{
     padding-left: 30px;
 }
 
-td.dates{
+td.dates, td.deadline{
     width: 110px;
+}
+
+td.deadline{
+    color: crimson;
 }
 
 td.time{
     width: 110px;
+    color: grey;
 }
 
 td.belongTo{
