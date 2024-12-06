@@ -23,6 +23,7 @@ public class SubProjectController {
         SubProject obj = new SubProject();
         obj.setFkProjectID(projectID);
         model.addAttribute("obj", obj);
+        model.addAttribute("pmUserID", session.getAttribute("pmUserID"));
         return "createHTML/create-SubProject";
     }
 
@@ -39,6 +40,7 @@ public class SubProjectController {
         if (isUserLoggedIn(session)) return "redirect:/login";
         int pmUserID = (int) session.getAttribute("pmUserID");
         SubProject subProject = subProjectService.getSubProject(subProjectID);
+        model.addAttribute("pmUserID", session.getAttribute("pmUserID"));
         if(subProject != null){
             model.addAttribute("subProject", subProject);
             return "editHTML/edit-SubProject";

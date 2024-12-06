@@ -11,8 +11,9 @@
 <header th:replace="~{header-footer/layout-header-loggedin :: header}"></header>
 <main>
     <div class="wrapper">
-        <a href="/pm-dashboard/1" id="back"><i class='bx bx-arrow-back'></i></a>
+        <a th:href="@{/pm-dashboard/{pmUserID}(pmUserID=${pmUserID})}" id="back"><i class='bx bx-arrow-back'></i></a>
         <form th:action="@{/subProjects/saveSubProject}" th:object="${obj}" method="post">
+            <input type="hidden" name="pmUserID" th:value="${pmUserID}">
             <input type="hidden" th:field="*{fkProjectID}">
             <h1>Create a Sub-Project</h1>
             <hr>
