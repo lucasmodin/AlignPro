@@ -12,8 +12,9 @@
 <header th:replace="~{header-footer/layout-header-loggedin :: header}"></header>
 <main>
     <div class="wrapper" id="wrapperSecondform">
-        <a href="/pm-dashboard/1" id="back"><i class='bx bx-arrow-back'></i></a>
+        <a th:href="@{/pm-dashboard/{pmUserID}(pmUserID=${pmUserID})}" id="back"><i class='bx bx-arrow-back'></i></a>
         <form th:action="@{/tasks/updateTask}" th:object="${task}" method="post">
+            <input type="hidden" name="pmUserID" th:value="${pmUserID}">
             <input type="hidden" name="taskID" th:value="${task.taskID}">
             <input type="hidden" name="subProjectID" th:value="${task.subProjectID}">
             <h1>Edit Task</h1>

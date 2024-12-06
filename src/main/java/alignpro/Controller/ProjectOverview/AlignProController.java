@@ -29,6 +29,7 @@ public class AlignProController {
         List<String> listOfSkills = alignProService.getListOfSkills();
         model.addAttribute("employeeObj", employee);
         model.addAttribute("listOfSkills", listOfSkills);
+        model.addAttribute("pmUserID", session.getAttribute("pmUserID"));
         return "createHTML/create-Employee";
     }
 
@@ -83,6 +84,7 @@ public class AlignProController {
         Employee objToUpdate = alignProService.getEmployee(ID);
         model.addAttribute("EmployeeObj", objToUpdate);
         model.addAttribute("Skills", alignProService.getListOfSkills());
+        model.addAttribute("pmUserID", session.getAttribute("pmUserID"));
         return "editHTML/edit-employee";
     }
 

@@ -44,6 +44,7 @@ public class ProjectController {
         int pmUserID = (int) session.getAttribute("pmUserID");
         if (project != null) {
             model.addAttribute("project", project);
+            model.addAttribute("pmUserID", pmUserID);
             return "editHTML/edit-project";
         } else {
             return "redirect:/pm-dashboard/" + pmUserID;
