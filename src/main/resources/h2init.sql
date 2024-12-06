@@ -115,9 +115,9 @@ INSERT INTO Project
 
 /* Create 2 PM Managers*/
 INSERT INTO PMUser
-(FullName, Mail, PMPassword) VALUES ('Lucas Modin', 'Lucas@Kea.dk','Lucas1234');
+(FullName, Mail, PMPassword) VALUES ('Lucas Modin', 'Lucas@Kea.dk','Lucas1234567891*');
 INSERT INTO PMUser
-(FullName, Mail, PMPassword) VALUES ('Rasmus CSS', 'Rasmus@Kea.dk','Rasmus1234');
+(FullName, Mail, PMPassword) VALUES ('Rasmus CSS', 'Rasmus@Kea.dk','Rasmus1234567891*');
 
 /* Links 2 PM Managers to 3 projects*/
 INSERT INTO PMUser_Project (PMUserID, ProjectID) VALUES (1,1), (1,3), (2,2);
