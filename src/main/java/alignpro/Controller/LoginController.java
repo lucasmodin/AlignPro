@@ -48,6 +48,5 @@ public class LoginController {
             model.addAttribute("error", "Invalid mail or password");
             return "login";
         }
-
     }
 }

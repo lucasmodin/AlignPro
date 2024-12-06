@@ -28,7 +28,8 @@
                 </div>
                 <div class="input-box">
                     <label for="password">Password</label>
-                    <input id="password" type="password" name="password" placeholder="Enter Password" required>
+                    <input id="password" type="password" name="password" placeholder="Enter Password"
+                           required minlength="16" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$">
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <button type="submit" class="btn">Login</button>

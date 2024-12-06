@@ -53,10 +53,6 @@ td.dates, td.deadline{
     width: 110px;
 }
 
-td.deadline{
-    color: crimson;
-}
-
 td.time{
     width: 110px;
     color: grey;
