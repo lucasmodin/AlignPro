@@ -11,8 +11,9 @@
 <header th:replace="~{header-footer/layout-header-loggedin :: header}"></header>
 <main>
     <div class="wrapper" id="wrapperSecondform">
-        <a href="/pm-dashboard/1" id="back"><i class='bx bx-arrow-back'></i></a>
+        <a th:href="@{/pm-dashboard/{pmUserID}(pmUserID=${pmUserID})}" id="back"><i class='bx bx-arrow-back'></i></a>
         <form th:action="@{/subTasks/saveSubTask}" th:object="${obj}" method="post">
+            <input type="hidden" name="pmUserID" th:value="${pmUserID}">
             <input type="hidden" th:field="*{taskID}">
             <h1>Create a Sub-Task</h1>
             <hr>

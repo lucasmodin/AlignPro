@@ -34,6 +34,7 @@ public class SubTaskController {
 
         model.addAttribute("obj", obj);
         model.addAttribute("employeeList", employeeList);
+        model.addAttribute("pmUserID", session.getAttribute("pmUserID"));
         return "createHTML/create-SubTask";
     }
 
@@ -63,6 +64,7 @@ public class SubTaskController {
         List<Employee> employeeList = buildEmployeeList(employeeIDs, employeeNames);
 
         SubTask obj = subTaskService.getSubTask(subTaskID);
+        model.addAttribute("pmUserID", session.getAttribute("pmUserID"));
         if(obj != null){
             model.addAttribute("obj", obj);
             model.addAttribute("employeeList", employeeList);

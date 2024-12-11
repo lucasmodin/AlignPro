@@ -23,6 +23,7 @@ public class TaskController {
         if (isUserLoggedIn(session)) return "redirect:/login";
         int pmUserID = (int) session.getAttribute("pmUserID");
         Task task = taskService.getTask(taskID);
+        model.addAttribute("pmUserID", session.getAttribute("pmUserID"));
         if(task != null){
             model.addAttribute("task", task);
             return "editHTML/edit-Task";
@@ -54,6 +55,7 @@ public class TaskController {
         Task obj = new Task();
         obj.setSubProjectID(subProjectID);
         model.addAttribute("obj", obj);
+        model.addAttribute("pmUserID", session.getAttribute("pmUserID"));
         return "createHTML/create-Task";
     }
 
