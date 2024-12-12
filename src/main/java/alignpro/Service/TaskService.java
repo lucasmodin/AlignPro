@@ -17,7 +17,7 @@ public class TaskService {
 
     public void saveTask(Task obj){
         taskRepository.saveTask(obj.getTaskName(), obj.getStartDateString(), obj.getEndDateString(),
-                obj.getEstimatedTime(), obj.getTaskDescription(), obj.getSkillRequirement(), obj.getSubProjectID());
+                 obj.getTaskDescription(), obj.getSkillRequirement(), obj.getSubProjectID());
     }
 
     public void editTask(Task task, int taskID){

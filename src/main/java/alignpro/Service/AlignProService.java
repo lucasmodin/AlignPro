@@ -49,14 +49,14 @@ public class AlignProService {
         List<ProjectDTO> projectDTOSList = new ArrayList<>();
         for (Project pjoObj : projects){
                 ProjectDTO projectDTO = new ProjectDTO();
-
+                int projectTotalTime = calculateTotalTimeForProject(pjoObj.getProjectID(), subProjects, task, subTask);
                 projectDTO.setFilter(stuffUnderPM.get(pjoObj.getProjectName()));
                 projectDTO.setProjectID(pjoObj.getProjectID());
                 projectDTO.setProjectName(pjoObj.getProjectName());
                 projectDTO.setProjectDescription(pjoObj.getProjectDescription());
                 projectDTO.setStartDate(pjoObj.getStartDate());
                 projectDTO.setDeadLine(pjoObj.getDeadLine());
-                projectDTO.setTotalTime(pjoObj.getTotalTime());
+                projectDTO.setTotalTime(projectTotalTime);
 
                 projectDTOSList.add(projectDTO);
 
@@ -67,7 +67,7 @@ public class AlignProService {
         for (SubProject subProjectObj : subProjects){
             if(stuffUnderPM.get(subProjectObj.getSubProjectName()) != null){
                 SubProjectDTO subProjectDTO = new SubProjectDTO();
-
+                int subProjectTotalTime = calculateTimeForTask(subProjectObj.getSubProjectID(), task, subTask);
                 subProjectDTO.setFilter(stuffUnderPM.get(subProjectObj.getSubProjectName()));
                 subProjectDTO.setSubProjectID(subProjectObj.getSubProjectID());
 
@@ -76,7 +76,7 @@ public class AlignProService {
                 subProjectDTO.setSubProjectDescription(subProjectObj.getSubProjectDescription());
                 subProjectDTO.setStartDate(subProjectObj.getStartDate());
                 subProjectDTO.setEndDate(subProjectObj.getEndDate());
-                subProjectDTO.setSumTime(subProjectObj.getSumTime());
+                subProjectDTO.setSumTime(subProjectTotalTime);
                 subProjectDTO.setFkProjectID(subProjectObj.getFkProjectID());
 
                 subProjectDTOSList.add(subProjectDTO);
@@ -88,7 +88,7 @@ public class AlignProService {
         for (Task taskObj : task){
             if(stuffUnderPM.get(taskObj.getTaskName()) != null){
                 TaskDTO taskDTO = new TaskDTO();
-
+                int taskTotalTime = calculateTimeForSubTask(taskObj.getTaskID(), subTask);
                 taskDTO.setFilter(stuffUnderPM.get(taskObj.getTaskName()));
                 taskDTO.setTaskID(taskObj.getTaskID());
 
@@ -97,7 +97,7 @@ public class AlignProService {
                 taskDTO.setTaskDescription(taskObj.getTaskDescription());
                 taskDTO.setStartDate(taskObj.getStartDate());
                 taskDTO.setEndDate(taskObj.getEndDate());
-                taskDTO.setEstimatedTime(taskObj.getEstimatedTime());
+                taskDTO.setEstimatedTime(taskTotalTime);
                 taskDTO.setSubProjectID(taskObj.getSubProjectID());
 
                 taskDTOSList.add(taskDTO);
@@ -250,6 +250,44 @@ public class AlignProService {
 
      */
 
+    //*** helper methods for calculating time in getDashboard method ***//
+    public int calculateTimeForSubTask(int taskID, List<SubTask> subTaskList) {
+        int totalTime = 0;
+        for (SubTask subTask : subTaskList) {
+            if (subTask.getTaskID() == taskID) {
+                totalTime += subTask.getTime();
+            }
+        }
+        return totalTime;
+    }
+
+    public int calculateTimeForTask(int subProjectId, List<Task> taskList, List<SubTask> subTaskList) {
+        int totalTime = 0;
+
+        for (Task task : taskList) {
+            if (task.getSubProjectID() == subProjectId) {
+                int subTaskTime = calculateTimeForSubTask(task.getTaskID(), subTaskList);
+                totalTime += subTaskTime;
+            }
+        }
+
+        return totalTime;
+    }
+
+    public int calculateTimeForSubProject(int projectID, List<SubProject> subProjectList, List<Task> taskList, List<SubTask> subTaskList) {
+        int totalTime = 0;
+        for (SubProject subProject : subProjectList) {
+            if (subProject.getFkProjectID() == projectID) {
+                int subProjectTime = calculateTimeForTask(subProject.getSubProjectID(), taskList, subTaskList);
+                totalTime += subProjectTime;
+            }
+        }
+        return totalTime;
+    }
+
+    public int calculateTotalTimeForProject(int projectID, List<SubProject> subProjectList, List<Task> taskList, List<SubTask> subTaskList) {
+        return calculateTimeForSubProject(projectID, subProjectList, taskList, subTaskList);
+    }
 
 
 

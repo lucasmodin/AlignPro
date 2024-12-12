@@ -12,7 +12,7 @@ public interface ITaskRepository {
 
     void deleteTask(int taskID);
 
-    void saveTask(String taskName, String startDate, String endDate, int estimatedTime,
+    void saveTask(String taskName, String startDate, String endDate,
                   String taskDescription, String skillRequirement, int subProjectID);
 
 }
