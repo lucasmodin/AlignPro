@@ -56,7 +56,7 @@ class SubProjectRepositoryTest {
 
     @Test
     void deleteSubProject(){
-        // Save a SubProject (ensure a Project exists with ID 1)
+
         SubProject objToSave = new SubProject("Test sub-project 1", "2024-11-25", "2024-11-26", "To test deleteSubProject Method");
         subProjectRepository.saveSubProject(
                 objToSave.getSubProjectName(),
