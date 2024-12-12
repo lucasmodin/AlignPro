@@ -69,3 +69,19 @@ td.belongTo{
 td.edit, td.delete, td.add{
     width: 55px;
 }
+
+.pm-containers .add-project {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+    border: 1px solid lightgray;
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+
+}
+.add-project-container {
+    margin-bottom: 10px;
+    text-align: left;
+}

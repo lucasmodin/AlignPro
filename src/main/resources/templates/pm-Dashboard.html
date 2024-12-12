@@ -44,6 +44,11 @@
 
     <section class="pm-containers">
     <h2>Projects</h2>
+        <div class="add-project-container">
+        <a th:href="@{/projects/CreateProject}" class="add-project">
+            <i class='bx bx-plus-circle'></i> Add Project
+        </a>
+        </div>
     <table>
         <thead>
         <tr>
@@ -72,7 +77,7 @@
         </tr>
         </tbody>
     </table>
-    <!--<a th:href="@{../projects/CreateProject}">Add Project</a>-->
+
     </section>
 
     <!-- Table for SubProjects -->
