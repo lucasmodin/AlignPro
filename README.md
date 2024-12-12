@@ -39,9 +39,9 @@ Step-by-step instructions to install and set up the project locally:
    - Re-run pom dependencies if failed
 3. Edit run-configuration
    - Set the environment variables
-   (PROD_DB_USER : alignproadmin)
-   (PROD_DB_URL : jdbc:mysql://alignproserver.mysql.database.azure.com:3306/alignprodb?useSSL=true)
-   (PROD_DB_PASSWORD : Detremusketerer2024)
+   (PROD_DB_USER)
+   (PROD_DB_URL)
+   (PROD_DB_PASSWORD)
 4. Connect to MySQL database via mysql workbench. Same properties as in point 3. For prod control
 5. Start the application:
    -  For localhost. Ignore point 3 and 4.
