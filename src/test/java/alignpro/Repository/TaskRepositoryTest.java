@@ -50,7 +50,7 @@ class TaskRepositoryTest {
 
     @Test
     void saveTask(){
-        Task objToSave = new Task("task 1", "2024-11-25", "2024-11-26", "to be destroyed", "java", 1);
+        Task objToSave = new Task("task 1", "2024-11-25", "2024-11-26", 5, "to be destroyed", "java", 1);
 
         taskRepository.saveTask(objToSave.getTaskName(), objToSave.getStartDateString(),
                 objToSave.getEndDateString(),

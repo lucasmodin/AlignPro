@@ -96,7 +96,7 @@ public class TaskRepository implements ITaskRepository {
     @Override
     public void editTask(Task task, int taskID){
         String sqlString = "UPDATE Task SET TaskName = ?, StartDate = ?, EndDate = ?," +
-                ", TaskDescription = ?, SkillRequirement = ? WHERE TaskID = ?";
+                " EstimatedTime = ?, TaskDescription = ?, SkillRequirement = ? WHERE TaskID = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sqlString);
