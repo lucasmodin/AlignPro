@@ -1,6 +1,6 @@
 # AlignPro
 A Project management tool
-Link to app: https://alignpro-hnbxhyewh0bygpa6.westeurope-01.azurewebsites.net/
+# Link to app: https://alignpro-hnbxhyewh0bygpa6.westeurope-01.azurewebsites.net/
 
 ## Table of Contents
 - [About the Project](#about-the-project)
