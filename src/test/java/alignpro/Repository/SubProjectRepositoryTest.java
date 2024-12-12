@@ -21,13 +21,16 @@ class SubProjectRepositoryTest {
 
     @Test
     void saveSubProject(){
-        SubProject objToSave = new SubProject("Test sub-project 1", "2024-11-25","2024-11-26","To test saveSubProject Method");
+        SubProject objToSave = new SubProject("Test sub-project 1", "2024-11-25", "2024-11-26", "To test saveSubProject Method");
+        subProjectRepository.saveSubProject(
+                objToSave.getSubProjectName(),
+                objToSave.getStartDateString(),
+                objToSave.getEndDateString(),
+                objToSave.getSubProjectDescription(),
+                1);
 
-        subProjectRepository.saveSubProject(objToSave.getSubProjectName(), objToSave.getStartDateString(),
-                objToSave.getEndDateString(), objToSave.getSubProjectDescription(), 1);
 
         SubProject objToGet = subProjectRepository.getSubProject(4);
-
         assertEquals(objToSave.getSubProjectName(), objToGet.getSubProjectName());
     }
 
@@ -35,26 +38,39 @@ class SubProjectRepositoryTest {
     @Test
     void getSubProject(){
 
-        SubProject objToSave = new SubProject("Test sub-project 1", "2024-11-25","2024-11-26","To test getSubProject Method");
-        subProjectRepository.saveSubProject(objToSave.getSubProjectName(), objToSave.getStartDateString(),
-                objToSave.getEndDateString(), objToSave.getSubProjectDescription(), 1);
+        SubProject objToSave = new SubProject("Test sub-project 1", "2024-11-25", "2024-11-26", "To test getSubProject Method");
+        subProjectRepository.saveSubProject(
+                objToSave.getSubProjectName(),
+                objToSave.getStartDateString(),
+                objToSave.getEndDateString(),
+                objToSave.getSubProjectDescription(),
+                1);
 
-        SubProject objToGet = subProjectRepository.getSubProject("To test getSubProject Method");
 
-        assertEquals("To test getSubProject Method", objToGet.getSubProjectName());
+        SubProject retrievedSubProject = subProjectRepository.getSubProject(4);
+
+
+        assertNotNull(retrievedSubProject);
+        assertEquals(objToSave.getSubProjectName(), retrievedSubProject.getSubProjectName());
     }
 
     @Test
     void deleteSubProject(){
+        // Save a SubProject (ensure a Project exists with ID 1)
         SubProject objToSave = new SubProject("Test sub-project 1", "2024-11-25", "2024-11-26", "To test deleteSubProject Method");
+        subProjectRepository.saveSubProject(
+                objToSave.getSubProjectName(),
+                objToSave.getStartDateString(),
+                objToSave.getEndDateString(),
+                objToSave.getSubProjectDescription(),
+                1);
 
-        subProjectRepository.saveSubProject(objToSave.getSubProjectName(), objToSave.getStartDateString(),
-                objToSave.getEndDateString(), objToSave.getSubProjectDescription(), 1);
 
         subProjectRepository.deleteSubProject(4);
-        SubProject objToGet = subProjectRepository.getSubProject(4);
 
-        assertNull(objToGet);
+
+        SubProject retrievedSubProject = subProjectRepository.getSubProject(4);
+        assertNull(retrievedSubProject);
     }
 
 }
