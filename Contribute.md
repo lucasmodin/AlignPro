@@ -57,12 +57,7 @@ We welcome suggestions! To propose a feature:
    - Click **New Pull Request** and follow the prompts.
 3. Link the issue your PR resolves (if applicable).
 
-### 4. Code Style and Guidelines
-- Follow the [style guide](https://example.com/style-guide) for this project.
-- Write clear and concise comments for complex logic.
-- Ensure all tests pass before submitting.
-
-### 5. Reviewing Pull Requests
+### 4. Reviewing Pull Requests
 If you'd like to help review others' contributions:
 - Focus on functionality, readability, and consistency.
 - Leave constructive feedback and suggestions.
@@ -71,4 +66,4 @@ If you'd like to help review others' contributions:
 By participating in this project, you agree to uphold our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Thank You
-Thank you for helping improve [Project Name]! If you have questions, feel free to reach out via [email](mailto:your-email@example.com) or open a discussion in the repository.
+Thank you for helping improve AlignPro! If you have questions, feel free to reach out via github.
