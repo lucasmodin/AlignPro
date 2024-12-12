@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 // NB Tests fail if the following line is not included as the h2 database is not reset between tests
-//@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:h2init.sql")
 class TaskRepositoryTest {
 
     @Autowired
@@ -25,6 +26,7 @@ class TaskRepositoryTest {
         assertEquals("RandomTask 42" ,task.getTaskName());
     }
 
+    @Transactional
     @Test
     void editTask(){
 
@@ -48,6 +50,7 @@ class TaskRepositoryTest {
         assertEquals(originalTask.getTaskID(), fetchedProject.getTaskID());
     }
 
+    @Transactional
     @Test
     void saveTask(){
         Task objToSave = new Task("task 1", "2024-11-25", "2024-11-26", 5, "to be destroyed", "java", 1);
@@ -61,6 +64,7 @@ class TaskRepositoryTest {
         assertEquals(objToSave.getTaskName(), objToGet.getTaskName());
     }
 
+    @Transactional
     @Test
     void deleteTask(){
         Task task = new Task("task 1", "2024-11-25", "2024-11-26", 5, "to be destroyed", "java", 1);

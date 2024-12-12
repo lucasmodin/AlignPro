@@ -8,17 +8,18 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-//@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:h2init.sql")
 class SubProjectRepositoryTest {
 
     @Autowired
     SubProjectRepository subProjectRepository;
 
+    @Transactional
     @Test
     void saveSubProject(){
         SubProject objToSave = new SubProject("Test sub-project 1", "2024-11-25", "2024-11-26", "To test saveSubProject Method");
@@ -34,7 +35,7 @@ class SubProjectRepositoryTest {
         assertEquals(objToSave.getSubProjectName(), objToGet.getSubProjectName());
     }
 
-
+    @Transactional
     @Test
     void getSubProject(){
 
@@ -54,6 +55,7 @@ class SubProjectRepositoryTest {
         assertEquals(objToSave.getSubProjectName(), retrievedSubProject.getSubProjectName());
     }
 
+    @Transactional
     @Test
     void deleteSubProject(){
 

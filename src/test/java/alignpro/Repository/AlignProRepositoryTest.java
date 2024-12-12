@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class AlignProRepositoryTest {
     AlignProRepository alignProRepository;
 
     //Test to save and get employee from db
+    @Transactional
     @Test
     void getEmployee(){
 
@@ -34,6 +36,7 @@ public class AlignProRepositoryTest {
 
     }
 
+    @Transactional
     @Test
     void getListOfEmployees(){
 
@@ -44,6 +47,7 @@ public class AlignProRepositoryTest {
     }
 
     //*** test to save Employee to DB ***//
+    @Transactional
     @Test
     void saveEmployee(){
 
@@ -61,6 +65,7 @@ public class AlignProRepositoryTest {
     }
 
     //*** test to see if you get skills correctly ***//
+    @Transactional
     @Test
     void getListOfSkills(){
 
@@ -69,7 +74,7 @@ public class AlignProRepositoryTest {
         assertTrue(list.contains("Developer"));
         assertTrue(list.contains("Cost Controller"));
     }
-
+    @Transactional
     @Test
     void getSkillsID(){
 
@@ -79,7 +84,7 @@ public class AlignProRepositoryTest {
         assertEquals(2,mapSkills.get("Cost Controller"));
         assertEquals(3,mapSkills.get("Project Manager"));
     }
-
+    @Transactional
     @Test
     void deleteEmployee() {
         Employee objTest = alignProRepository.getEmployee(1);
@@ -89,7 +94,7 @@ public class AlignProRepositoryTest {
         Employee test = alignProRepository.getEmployee(1);
 
         assertNull(test);}
-
+    @Transactional
     @Test
     void editEmployee(){
 

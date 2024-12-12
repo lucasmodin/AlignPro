@@ -6,18 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 // NB Tests fail if the following line is not included as the h2 database is not reset between tests
-//@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:h2init.sql")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class SubTaskRepositoryTest {
 
     @Autowired
     SubTaskRepository subTaskRepository;
 
+    @Transactional
     @Test
     void saveSubTask(){
 
@@ -33,12 +35,14 @@ class SubTaskRepositoryTest {
 
     }
 
+    @Transactional
     @Test
     void getSubTask() {
         SubTask objToGet = subTaskRepository.getSubTask(1);
         assertEquals(objToGet.getSubTaskName(),"Build a gun");
     }
 
+    @Transactional
     @Test
     void editSubTask() {
         //Arrange
@@ -69,6 +73,7 @@ class SubTaskRepositoryTest {
         assertEquals(originalSubTask.getSubTaskID(), fetchedProject.getSubTaskID());
     }
 
+    @Transactional
     @Test
     void testDeleteSubTask(){
         SubTask objTest = subTaskRepository.getSubTask(1);
