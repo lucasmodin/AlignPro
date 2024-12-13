@@ -182,6 +182,7 @@
             <th>Description</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>Assigned Employee</th>
             <th>Estimated Time</th>
             <th>Belongs to Task</th>
             <th>Edit</th>
@@ -194,6 +195,7 @@
             <td class="description" th:text="${subTask.getSubTaskDescription()}"></td>
             <td class="dates" th:text="${subTask.getStartDate()}"></td>
             <td class="deadline" th:text="${subTask.getEndDate()}"></td>
+            <td class="assigned-employee" th:text="${subTask.employee?.employeeName ?: 'Unassigned'}"></td>
             <td class="time" th:text="${subTask.getTime()} + 'h'"></td>
             <td class="belongTo" th:text="${subTask.getFilter()}"></td>
             <td class="edit"><form th:action="@{../subTasks/edit-subTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="get">

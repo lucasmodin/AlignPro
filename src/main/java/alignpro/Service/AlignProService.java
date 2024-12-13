@@ -119,6 +119,7 @@ public class AlignProService {
                 subTaskDTO.setEndDate(subTaskObj.getEndDate());
                 subTaskDTO.setTime(subTaskObj.getTime());
                 subTaskDTO.setTaskID(subTaskObj.getTaskID());
+                subTaskDTO.setEmployee(subTaskObj.getEmployee());
 
                 subTaskDTOSList.add(subTaskDTO);
             }
