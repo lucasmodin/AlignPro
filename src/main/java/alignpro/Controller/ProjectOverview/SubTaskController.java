@@ -28,7 +28,7 @@ public class SubTaskController {
                                 Model model,
                                 HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
-        List<Employee> employeeList = buildEmployeeList(employeeIDs, employeeNames);
+        List<Employee> employeeList = subTaskService.buildEmployeeList(employeeIDs, employeeNames);
         SubTask obj = new SubTask();
         obj.setTaskID(taskID);
 
@@ -61,7 +61,7 @@ public class SubTaskController {
                               HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
         int pmUserID = (int) session.getAttribute("pmUserID");
-        List<Employee> employeeList = buildEmployeeList(employeeIDs, employeeNames);
+        List<Employee> employeeList = subTaskService.buildEmployeeList(employeeIDs, employeeNames);
 
         SubTask obj = subTaskService.getSubTask(subTaskID);
         model.addAttribute("pmUserID", session.getAttribute("pmUserID"));
@@ -76,7 +76,7 @@ public class SubTaskController {
 
     @PostMapping("/updateSubTask")
     public String updateSubTask(@ModelAttribute SubTask newSubTask,
-                                @RequestParam("employeeList") List<Employee> employeeList,
+                                @RequestParam(value = "employeeID", required = false) Integer employeeID,
                                 HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
 
@@ -85,6 +85,11 @@ public class SubTaskController {
         SubTask subTask = new SubTask(newSubTask.getSubTaskID(), newSubTask.getSubTaskName(), newSubTask.getSubTaskDescription(),
                 newSubTask.getStartDateString(), newSubTask.getEndDateString(), newSubTask.getTime(), newSubTask.getSkillRequirement());
         subTaskService.editSubTask(subTask, subTask.getSubTaskID());
+
+        if (employeeID != null) {
+            subTaskService.assignEmployeeToTask(subTask.getSubTaskID(), employeeID);
+        }
+
         return "redirect:/pm-dashboard/" + pmUserID;
     }
 
@@ -100,18 +105,7 @@ public class SubTaskController {
         return session.getAttribute("pmUserID") == null;
     }
 
-    //helper method - used more than one time in this controller.
-    //the list is passed from pm-dashboard, but had trouble passing the whole list - had to loop through, and use hidden fields for ID and name, and build it again in here.
-    private List<Employee> buildEmployeeList(List<Integer> employeeIDs, List<String> employeeNames) {
-        List<Employee> employeeList = new ArrayList<>();
-        for (int i = 0; i < employeeIDs.size(); i++) {
-            Employee employee = new Employee();
-            employee.setEmployeeID(employeeIDs.get(i));
-            employee.setEmployeeName(employeeNames.get(i));
-            employeeList.add(employee);
-        }
-        return employeeList;
-    }
+
 
 
 

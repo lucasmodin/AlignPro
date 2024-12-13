@@ -140,10 +140,14 @@ public class SubTaskRepository implements ISubTaskRepository {
 
     @Override
     public void assignEmployeeToTask(int subtaskID, int employeeID) {
-        String sqlString = """
-                INSERT INTO Subtask_Employee (SubtaskID, EmployeeID) VALUES (?, ?)
-                """;
+
         try {
+            String deleteSql = "DELETE FROM SubTask_Employee WHERE SubTaskID = ?";
+            PreparedStatement deleteStmt = conn.prepareStatement(deleteSql);
+            deleteStmt.setInt(1, subtaskID);
+            deleteStmt.executeUpdate();
+
+            String sqlString = "INSERT INTO Subtask_Employee (SubtaskID, EmployeeID) VALUES (?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sqlString);
             stmt.setInt(1, subtaskID);
             stmt.setInt(2, employeeID);
