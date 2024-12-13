@@ -431,13 +431,19 @@ public class AlignProRepository implements IFAlignProRepository {
     public List<SubTask> getSubTaskForTask(){
         List<SubTask> subTasks = new ArrayList<>();
         String sqlString = """
-                SELECT SubTaskID, SubTaskName, StartDate, EndDate, EstimatedTime, SubTaskDescription, SkillRequirement, TaskID
-                FROM SubTask;
+                SELECT s.SubTaskID, s.SubTaskName, s.StartDate, s.EndDate, s.EstimatedTime,
+                                                s.SubTaskDescription, s.SkillRequirement, e.EmployeeName, s.TaskID
+                                         FROM SubTask s
+                                         LEFT JOIN SubTask_Employee se ON s.SubTaskID = se.SubTaskID
+                                         LEFT JOIN Employee e ON se.EmployeeID = e.EmployeeID
+                                         
                 """;
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sqlString);
+
             ResultSet rs = stmt.executeQuery();
+
 
             while (rs.next()) {
                 SubTask subTask = new SubTask();
@@ -449,7 +455,16 @@ public class AlignProRepository implements IFAlignProRepository {
                 subTask.setSubTaskDescription(rs.getString("SubTaskDescription"));
                 subTask.setSkillRequirement(rs.getString("SkillRequirement"));
                 subTask.setTaskID(rs.getInt("TaskID"));
+
+
+                String employeeName = rs.getString("EmployeeName");
+                if (employeeName != null) {
+                    Employee employee = new Employee();
+                    employee.setEmployeeName(employeeName);
+                    subTask.setEmployee(employee);
+                }
                 subTasks.add(subTask);
+
             }
         }catch(SQLException e){
             throw new RuntimeException(e);
