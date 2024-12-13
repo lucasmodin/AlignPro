@@ -41,13 +41,13 @@ public class LoginController {
                                   @RequestParam("password") String password,
                                   HttpSession session, Model model) {
         ProjectManager projectManager = loginService.getProjectManager(mail);
-        if (loginService.loginCheck(mail, password)) {
-            session.setAttribute("pmUserID", projectManager.getProjectManagerID());
-            return "redirect:/pm-dashboard/" + projectManager.getProjectManagerID();
-        } else {
-            model.addAttribute("error", "Invalid mail or password");
+        if (projectManager == null || !loginService.loginCheck(mail, password)) {
+            model.addAttribute("error", "Invalid email or password");
             return "login";
         }
 
+
+        session.setAttribute("pmUserID", projectManager.getProjectManagerID());
+        return "redirect:/pm-dashboard/" + projectManager.getProjectManagerID();
     }
 }

@@ -100,6 +100,11 @@ public class AlignProController {
         return "redirect:/pm-dashboard/" + session.getAttribute("pmUserID");
     }
 
+    @GetMapping("/sustainability")
+    public String showSustainabilityPage() {
+        return "sustainability";
+    }
+
     public boolean isUserLoggedIn(HttpSession session){
         return session.getAttribute("pmUserID") == null;
     }

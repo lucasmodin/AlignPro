@@ -1,0 +1,83 @@
+.sustainability {
+
+    background: linear-gradient(135deg, #e8f4fc, #ffffff);
+    padding: 60px 30px;
+    color: #333;
+    font-family: 'Calibri', sans-serif;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 40px auto;
+    max-width: 1200px;
+}
+
+.sustainability .container {
+    display: block;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.sustainability h2 {
+    font-size: 2.5rem;
+    color: #2c5a85;
+    border-bottom: 2px solid #2c5a85;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.sustainability h3 {
+    font-size: 1.8rem;
+    margin-top: 40px;
+    color: #2c5a85;
+    display: flex;
+    align-items: center;
+}
+
+.sustainability h3::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 100%;
+    background-color: #2c5a85;
+    margin-right: 10px;
+}
+
+.sustainability p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-align: justify;
+    color: #444;
+}
+
+.sustainability ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 20px;
+}
+
+.sustainability ul li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+.sustainability ul li::before {
+    content: '●';
+    color: #2c5a85;
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.sustainability strong {
+    color: #2c5a85;
+}
+
+.sustainability-footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 1.2rem;
+    color: #666;
+}

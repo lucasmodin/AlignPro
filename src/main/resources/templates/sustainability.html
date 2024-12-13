@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/styles/sustainabilitystyle.css">
+</head>
+<body>
+<header th:replace="~{header-footer/layout-header-loggedin :: header}"></header>
+<main>
+<section class="sustainability">
+    <div class="container">
+        <h2>Sustainability in Our Development Process</h2>
+        <p>
+            At the core of our system's design is a commitment to sustainability. Hosting and software development decisions are guided by green principles, aiming to minimize the environmental impact while ensuring scalability, efficiency, and maintainability.
+        </p>
+        <h3>Green Hosting Solutions</h3>
+        <p>
+            For hosting, we prioritize providers that support <strong>green cloud technologies</strong>, ensuring the infrastructure is energy-efficient and powered by renewable energy sources. Major cloud providers like <strong>AWS</strong>, <strong>Google Cloud</strong>, and <strong>Azure</strong> are leading the way in offering sustainable solutions, leveraging renewable energy and optimized data center operations to reduce carbon footprints.
+        </p>
+        <h3>Sustainable Software Development Principles</h3>
+        <ul>
+            <li>
+                <strong>Code Reusability:</strong> Reusing existing code wherever possible reduces not only development time but also the computational resources needed during the development phase, leading to a lighter carbon footprint.
+            </li>
+            <li>
+                <strong>Scalable and Maintainable Architecture:</strong> Careful architectural design ensures that the software is scalable and environmentally conscious while remaining easy to maintain. This approach optimizes performance, avoids unnecessary energy consumption, and maintains a clear and manageable codebase.
+            </li>
+        </ul>
+        <h3>Future Vision: Carbon Footprint Modeling</h3>
+        <p>
+            Looking ahead, we aspire to integrate a <strong>CO2 consumption model</strong> into our platform. This feature would track and display the carbon footprint of each project, providing actionable insights to further enhance sustainability efforts. This tool would help organizations visualize and minimize their environmental impact, promoting a greener future.
+        </p>
+        <p class="sustainability-footer">
+            By combining green hosting solutions, sustainable development principles, and innovative future features, we aim to deliver a system that balances <strong>high functionality</strong> with a <strong>reduced environmental footprint</strong>.
+        </p>
+    </div>
+</section>
+</main>
+<footer th:replace="~{header-footer/layout-footer :: footer}"></footer>
+</body>
+</html>
