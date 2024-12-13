@@ -435,8 +435,7 @@ public class AlignProRepository implements IFAlignProRepository {
                                                 s.SubTaskDescription, s.SkillRequirement, e.EmployeeName, s.TaskID
                                          FROM SubTask s
                                          LEFT JOIN SubTask_Employee se ON s.SubTaskID = se.SubTaskID
-                                         LEFT JOIN Employee e ON se.EmployeeID = e.EmployeeID
-                                         
+                                         LEFT JOIN Employee e ON se.EmployeeID = e.EmployeeID                              
                 """;
 
         try {
