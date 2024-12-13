@@ -20,6 +20,7 @@
             <div class="wrapper">
                 <h1>Login</h1>
                 <hr>
+                <p th:if="${error}" class="error-message" th:text="${error}" style="color: #ff4d4d"></p>
                 <form th:action="@{/loginValidation}" method="post">
                 <div class="input-box">
                     <label for="mail">Mail</label>

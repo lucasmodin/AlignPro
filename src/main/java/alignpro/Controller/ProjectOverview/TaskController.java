@@ -37,14 +37,13 @@ public class TaskController {
                              @RequestParam("taskName") String taskName,
                              @RequestParam("startDate") String startDate,
                              @RequestParam("endDate") String endDate,
-                             @RequestParam("estimatedTime") int estimatedTime,
                              @RequestParam("taskDescription") String taskDescription,
                              @RequestParam("skillRequirement") String skillRequirement,
                              HttpSession session) {
         if (isUserLoggedIn(session)) return "redirect:/login";
         int pmUserID = (int) session.getAttribute("pmUserID");
         Task task = new Task(taskID, taskName, startDate, endDate,
-                estimatedTime, taskDescription, skillRequirement);
+                taskDescription, skillRequirement);
         taskService.editTask(task, task.getTaskID());
         return "redirect:/pm-dashboard/" + pmUserID;
     }

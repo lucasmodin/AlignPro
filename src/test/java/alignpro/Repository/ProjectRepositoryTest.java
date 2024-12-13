@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+
 class ProjectRepositoryTest {
 
     @Autowired
@@ -19,6 +20,7 @@ class ProjectRepositoryTest {
 
 
      //this test, test both save and get Project. Perhaps project should be get differently.
+     @Transactional
     @Test
     void saveProject(){
         int pmUserID = 1;
@@ -31,7 +33,7 @@ class ProjectRepositoryTest {
         assertEquals(objToSave.getProjectDescription(),objToGet.getProjectDescription());
     }
 
-
+    @Transactional
     @Test
     void getProject(){
 
@@ -39,7 +41,7 @@ class ProjectRepositoryTest {
 
         assertEquals("Project Kea", obj.getProjectName());
     }
-
+    @Transactional
     @Test
     void editProject(){
 
@@ -62,7 +64,7 @@ class ProjectRepositoryTest {
 
         assertEquals(originalProject.getProjectID(), fetchedProject.getProjectID());
     }
-
+    @Transactional
     @Test
     void deleteProject(){
 

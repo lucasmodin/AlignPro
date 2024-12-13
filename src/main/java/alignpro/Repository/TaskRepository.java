@@ -4,7 +4,6 @@ import alignpro.Model.DBConnection;
 import alignpro.Model.Projects.Task;
 import alignpro.Repository.Interfaces.ITaskRepository;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
@@ -39,7 +38,7 @@ public class TaskRepository implements ITaskRepository {
     //************************* Save Method *******************************//
 
     @Override
-    public void saveTask(String taskName, String startDate, String endDate, int estimatedTime,
+    public void saveTask(String taskName, String startDate, String endDate,
                          String taskDescription, String skillRequirement, int subProjectID){
         String sqlString = "INSERT INTO Task (TaskName, StartDate, EndDate, EstimatedTime, TaskDescription, SkillRequirement, SubProjectID) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -48,7 +47,7 @@ public class TaskRepository implements ITaskRepository {
             stmt.setString(1, taskName);
             stmt.setString(2, startDate);
             stmt.setString(3, endDate);
-            stmt.setInt(4, estimatedTime);
+            stmt.setInt(4, 0);
             stmt.setString(5, taskDescription);
             stmt.setString(6, skillRequirement);
             stmt.setInt(7, subProjectID);
@@ -103,7 +102,7 @@ public class TaskRepository implements ITaskRepository {
             stmt.setString(1, task.getTaskName());
             stmt.setString(2, task.getStartDateString());
             stmt.setString(3, task.getEndDateString());
-            stmt.setInt(4, task.getEstimatedTime());
+            stmt.setInt(4, 0);
             stmt.setString(5, task.getTaskDescription());
             stmt.setString(6, task.getSkillRequirement());
             stmt.setInt(7, taskID);

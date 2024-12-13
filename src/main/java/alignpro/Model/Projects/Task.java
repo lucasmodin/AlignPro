@@ -50,6 +50,16 @@ public class Task {
         this.skillRequirement = skillRequirement;
     }
 
+    public Task(int taskID, String taskName, String startDate, String endDate, String taskDescription, String skillRequirement) {
+        this.taskID = taskID;
+        this.taskName = taskName;
+        this.startDate = LocalDate.parse(startDate);
+        this.endDate = LocalDate.parse(endDate);
+        this.taskDescription = taskDescription;
+        this.skillRequirement = skillRequirement;
+
+    }
+
 
     //************************* Setter and getters *******************************//
     public int getTaskID() {

@@ -45,11 +45,14 @@
                 <textarea id="subTaskDescription" name="subTaskDescription" placeholder="Edit Sub-Task Description" th:field="*{subTaskDescription}" required></textarea>
                 <i class='bx bx-text' ></i>
             </div>
-            <div th:each="employee : ${employeeList}">
-                <input type="checkbox" name="employeeList" th:value="${employee.employeeID}" />
-                <label th:text="${employee.employeeName}"></label>
-            </div>
-
+            <label for="employeeID">Assign employee (optional):</label>
+            <select id="employeeID" name="employeeID">
+                <option value="">No employee</option>
+                <option th:each="employee : ${employeeList}"
+                        th:value="${employee.employeeID}"
+                        th:text="${employee.employeeName}"
+                        th:selected="${employee.employeeID == obj.employee?.employeeID}"></option>
+            </select>
             <button type="submit" class="btn">Submit</button>
         </form>
     </div>
