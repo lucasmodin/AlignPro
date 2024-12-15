@@ -40,7 +40,7 @@ public class LoginRepository implements ILoginRepository {
     public ProjectManager getProjectManager(String mail) {
         ProjectManager pm = null;
         String sqlString = """
-                SELECT PMUserID, FullName, Mail, PMPassword FROM PMUser WHERE Mail = ?
+                SELECT PMUserID, FullName, Mail, PMPassword FROM PMUser WHERE LOWER(Mail) = LOWER(?)
                 """;
 
         try {

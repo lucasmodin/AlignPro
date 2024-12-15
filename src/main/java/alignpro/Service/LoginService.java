@@ -23,6 +23,6 @@ public class LoginService {
 
     public boolean loginCheck(String mail, String password) {
         ProjectManager projectManager = getProjectManager(mail);
-        return projectManager.getMail().equals(mail) && projectManager.getPassword().equals(password);
+        return projectManager.getMail().equalsIgnoreCase(mail) && projectManager.getPassword().equals(password);
     }
 }
