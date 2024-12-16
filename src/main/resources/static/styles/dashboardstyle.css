@@ -8,6 +8,27 @@ body{
     cursor: pointer;
 }
 
+a.add-project:hover {
+    transition: 0.5s;
+    transform: scale(1.1);
+    background: lightgray;
+}
+
+
+.edit i:hover{
+    transition: 0.5s;
+    transform: scale(1.2);
+}
+
+.delete i:hover{
+    transition: 0.5s;
+    transform: scale(1.2);
+}
+
+.add i:hover{
+    transition: 0.5s;
+    transform: scale(1.2);
+}
 
 main{
     margin-top: 76px;
@@ -94,14 +115,17 @@ td.edit, td.delete, td.add{
 }
 
 .modal h2, .modal span{
-    font-size: 40px;
-    color: cornflowerblue;
     display: block;
+}
+.modal span{
+    font-size: 40px;
+    color:darkred;
 }
 
 .modal h2{
     font-size: 45px;
     margin-bottom: 10px;
+    color: cornflowerblue;
 }
 
 .modal form, .modal button{
