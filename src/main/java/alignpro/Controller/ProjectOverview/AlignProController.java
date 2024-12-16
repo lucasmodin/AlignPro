@@ -22,6 +22,14 @@ public class AlignProController {
         this.alignProService = service;
     }
 
+    @ModelAttribute
+    public void addAttributes(HttpSession session, Model model){
+        Integer pm = (Integer) session.getAttribute("pmUserID");
+        boolean isLoggedIn = (pm != null);
+        model.addAttribute("isLoggedIn", isLoggedIn);
+        model.addAttribute("pmUserID", pm);
+    }
+
     @GetMapping("/CreateEmployee")
     public String createEmployee(Model model, HttpSession session){
         if (isUserLoggedIn(session)) return "redirect:/login";
@@ -60,6 +68,7 @@ public class AlignProController {
         DashBoard_DTO dashboard = alignProService.dataDashBoard(pmUserID);
         List<String> filterList = dashboard.filterList();
         List<Employee> employeeList = alignProService.getListOfEmployees();
+        model.addAttribute("pmUserID", session.getAttribute("pmUserID"));
         model.addAttribute("data", dashboard);
         model.addAttribute("filterList", filterList);
         model.addAttribute("employeeList", employeeList);
@@ -101,16 +110,14 @@ public class AlignProController {
     }
 
     @GetMapping("/sustainability")
-    public String showSustainabilityPage(HttpSession session, Model model) {
-        Integer pm = (Integer) session.getAttribute("pmUserID");
-        boolean isLoggedIn = (pm != null);
-        model.addAttribute("isLoggedIn", isLoggedIn);
+    public String showSustainabilityPage() {
         return "sustainability";
     }
 
     public boolean isUserLoggedIn(HttpSession session){
         return session.getAttribute("pmUserID") == null;
     }
+
 
 
 }

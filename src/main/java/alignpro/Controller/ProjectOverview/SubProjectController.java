@@ -17,6 +17,14 @@ public class SubProjectController {
         this.subProjectService = subProjectService;
     }
 
+    @ModelAttribute
+    public void addAttributes(HttpSession session, Model model){
+        Integer pm = (Integer) session.getAttribute("pmUserID");
+        boolean isLoggedIn = (pm != null);
+        model.addAttribute("isLoggedIn", isLoggedIn);
+        model.addAttribute("pmUserID", pm);
+    }
+
     @GetMapping("/createSubProject/{projectID}")
     public String createSubProject(@PathVariable("projectID") int projectID, Model model, HttpSession session){
         if (isUserLoggedIn(session)) return "redirect:/login";

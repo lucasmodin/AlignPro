@@ -17,6 +17,13 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    @ModelAttribute
+    public void addAttributes(HttpSession session, Model model){
+        Integer pm = (Integer) session.getAttribute("pmUserID");
+        boolean isLoggedIn = (pm != null);
+        model.addAttribute("isLoggedIn", isLoggedIn);
+        model.addAttribute("pmUserID", pm);
+    }
 
     @GetMapping("/edit-task/{taskID}")
     public String editTask(@PathVariable("taskID") int taskID, Model model, HttpSession session) {
