@@ -54,6 +54,7 @@
             <button class="open-button"><i class='bx bx-trash'></i></button>
                 <dialog class="modal">
                     <h2>You sure you want to delete:</h2>
+                    <hr>
                     <span th:text="${project.getProjectName() + '?'}"></span>
                     <form th:action="@{../projects/delete-project/{projectID}(projectID=${project.projectID})}" method="post">
                         <button type="submit">Delete</button>
@@ -103,6 +104,7 @@
                 <button class="open-button"><i class='bx bx-trash'></i></button>
                 <dialog class="modal">
                     <h2>You sure you want to delete:</h2>
+                    <hr>
                     <span th:text="${subProject.getSubProjectName() + '?'}"></span>
                     <form th:action="@{../subProjects/deleteSubProject/{subProjectID}(subProjectID=${subProject.subProjectID})}" method="post">
                         <button type="submit">Delete</button>
@@ -151,6 +153,7 @@
                 <button class="open-button"><i class='bx bx-trash'></i></button>
                 <dialog class="modal">
                     <h2>You sure you want to delete: </h2>
+                    <hr>
                     <span th:text="${task.getTaskDescription() + '?'}"></span>
                     <form th:action="@{../tasks/deleteTask/{taskID}(taskID=${task.taskID})}" method="post">
                         <button type="submit">Delete</button>
@@ -214,6 +217,7 @@
                 <button class="open-button"><i class='bx bx-trash'></i></button>
                 <dialog class="modal">
                     <h2>You sure you want to delete: </h2>
+                    <hr>
                     <span th:text="${subTask.getSubTaskName() + '?'}"></span>
                     <form th:action="@{../subTasks/deleteSubTask/{subTaskID}(subTaskID=${subTask.subTaskID})}" method="post">
                         <button type="submit">Delete</button>

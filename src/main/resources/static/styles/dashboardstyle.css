@@ -18,16 +18,19 @@ a.add-project:hover {
 .edit i:hover{
     transition: 0.5s;
     transform: scale(1.2);
+    font-weight: bold;
 }
 
 .delete i:hover{
     transition: 0.5s;
     transform: scale(1.2);
+    font-weight: bold;
 }
 
 .add i:hover{
     transition: 0.5s;
     transform: scale(1.2);
+    font-weight: bold;
 }
 
 main{
