@@ -118,6 +118,13 @@ td.edit, td.delete, td.add{
     margin-right: 80px;
 }
 
+.modal form button:hover{
+    transition: 0.5s;
+    transform: scale(1.1);
+    background: black;
+    color: crimson;
+}
+
 .modal button{
     border-radius: 70px;
     padding: 13px 30px;
@@ -126,6 +133,12 @@ td.edit, td.delete, td.add{
     color: white;
 }
 
+.modal button:hover{
+    transition: 0.5s;
+    transform: scale(1.1);
+    background: yellow;
+    color: black;
+}
 
 .modal::backdrop{
     background: gray;
