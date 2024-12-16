@@ -21,9 +21,13 @@ public class LoginController {
     }
 
     @GetMapping("/index")
-    public String index() {
+    public String index(HttpSession session, Model model) {
+        Integer pm = (Integer) session.getAttribute("pmUserID");
+        boolean isLoggedIn = (pm != null);
+        model.addAttribute("isLoggedIn", isLoggedIn);
         return "index";
     }
+
 
     @GetMapping("/login")
     public String login() {

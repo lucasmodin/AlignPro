@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="/styles/sustainabilitystyle.css">
 </head>
 <body>
-<header th:replace="~{header-footer/layout-header-notloggedin :: header}"></header>
+<div th:if="${isLoggedIn ?: false}">
+<header th:replace="~{header-footer/layout-header-loggedin :: header}"></header>
+</div>
+<div th:if="${!(isLoggedIn ?: false)}">
+    <header th:replace="~{header-footer/layout-header-notloggedin :: header}"></header>
+</div>
 <main>
 <section class="sustainability">
     <div class="container">

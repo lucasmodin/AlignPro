@@ -101,7 +101,10 @@ public class AlignProController {
     }
 
     @GetMapping("/sustainability")
-    public String showSustainabilityPage() {
+    public String showSustainabilityPage(HttpSession session, Model model) {
+        Integer pm = (Integer) session.getAttribute("pmUserID");
+        boolean isLoggedIn = (pm != null);
+        model.addAttribute("isLoggedIn", isLoggedIn);
         return "sustainability";
     }
 
