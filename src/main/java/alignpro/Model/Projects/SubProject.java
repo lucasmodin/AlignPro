@@ -1,11 +1,15 @@
 package alignpro.Model.Projects;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class SubProject {
     private int subProjectID;
     private String subProjectName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private int sumTime;
     private String subProjectDescription;
