@@ -1,11 +1,15 @@
 package alignpro.Model.Projects;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class Task {
     private int taskID;
     private String taskName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private int estimatedTime;
     private String taskDescription;

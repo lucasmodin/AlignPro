@@ -16,7 +16,13 @@ public class ProjectController {
     public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
     }
-
+    @ModelAttribute
+    public void addAttributes(HttpSession session, Model model){
+        Integer pm = (Integer) session.getAttribute("pmUserID");
+        boolean isLoggedIn = (pm != null);
+        model.addAttribute("isLoggedIn", isLoggedIn);
+        model.addAttribute("pmUserID", pm);
+    }
 
     @GetMapping("/CreateProject")
     public String createProject(Model model, HttpSession session) {

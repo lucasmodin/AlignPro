@@ -1,6 +1,7 @@
 package alignpro.Model.Projects;
 
 import alignpro.Model.Employee;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -8,7 +9,9 @@ public class SubTask {
     private int subTaskID;
     private String subTaskName;
     private String subTaskDescription;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private int time;
     private int taskID;

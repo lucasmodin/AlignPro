@@ -16,6 +16,7 @@
         </section>
         <ul class="right-links">
             <a th:href="@{/index}">Home</a>
+            <a th:if="${isLoggedIn}" th:href="@{/pm-dashboard/{pmUserID}(pmUserID=${pmUserID})}">Dashboard</a>
             <a th:href="@{/sustainability}">Sustainability</a>
             <a class="create-user-link" th:href="@{/CreateEmployee}">Create Employee</a>
             <a class="login-link" th:href="@{/logout}">Logout</a>

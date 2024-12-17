@@ -171,3 +171,39 @@ td.edit, td.delete, td.add{
     background: gray;
     opacity: 0.7;
 }
+
+.filter label {
+    margin-right: 30px;
+    font-size: 20px;
+}
+
+.filter select {
+    all: unset;
+    width: 140px;
+    height: 40px;
+    border: 1px solid lightgray;
+    text-align: center;
+    margin-right: 20px;
+    background: white;
+    font-size: 20px;
+    user-select: none;
+}
+
+.filter select:hover{
+    transition: 0.5s;
+    transform: scale(1.1);
+    background: lightgray;
+    user-select: none;
+}
+
+.filter button{
+    all: unset;
+    cursor: pointer;
+    border-bottom: 1px solid dodgerblue;
+}
+
+.filter button:hover{
+    transition: 0.5s;
+    color: grey;
+    border-bottom: 2px solid blue;
+}
