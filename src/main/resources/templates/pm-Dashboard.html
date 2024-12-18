@@ -19,7 +19,11 @@
             <option th:each="filter : ${filterList}" th:value="${filter}" th:text="${filter}"></option>
         </select>
         <button type="submit">Apply Filter</button>
+        <p>|</p>
     </form>
+        <form class="reset" th:action="@{/pm-dashboard/{pmUserID}(pmUserID=${pmUserID})}">
+            <button type="submit">Reset</button>
+        </form>
     </section>
 
     <section class="pm-containers">
