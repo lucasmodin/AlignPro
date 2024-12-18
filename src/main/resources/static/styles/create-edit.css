@@ -111,3 +111,9 @@ main {
     font-size: 35px;
     text-decoration: none;
 }
+
+#back:hover{
+    color: #444444;
+    transition: 0.8s;
+    transform: scale(1.2);
+}

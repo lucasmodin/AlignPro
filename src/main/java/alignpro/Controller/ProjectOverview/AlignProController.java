@@ -81,6 +81,10 @@ public class AlignProController {
     @GetMapping("/pm-dashboard/filter")
     public String getfilterDashBoard(@RequestParam("filterProjects") String filterProjects, Model model, HttpSession session){
         if (isUserLoggedIn(session)) return "redirect:/login";
+        DashBoard_DTO dashboard = alignProService.dataDashBoard((int)session.getAttribute("pmUserID"));
+        model.addAttribute("pmUserID", (int)session.getAttribute("pmUserID"));
+        List<String> filterList = dashboard.filterList();
+        model.addAttribute("filterList", filterList);
         DashBoard_DTO unFilteredDashBoard = alignProService.dataDashBoard(1);
         unFilteredDashBoard.filter(filterProjects);
         model.addAttribute("data", unFilteredDashBoard);
